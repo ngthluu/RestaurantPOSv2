@@ -83,3 +83,10 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+defined('PROJECT_NAME') OR define('PROJECT_NAME', 'Restaurant POS v2');
+defined('PROJECT_SHORTCUT') OR define('PROJECT_SHORTCUT', 'POS v2');
+defined('PROJECT_COPYRIGHT_FROM') OR define('PROJECT_COPYRIGHT_FROM', '2020');
+defined('PROJECT_COPYRIGHT_TO') OR define('PROJECT_COPYRIGHT_TO', '2021');
+defined('PROJECT_COPYRIGHT_BY') OR define('PROJECT_COPYRIGHT_BY', 'ngthluu');
+defined('PROJECT_VERSION') OR define('PROJECT_VERSION', '1.0.0');

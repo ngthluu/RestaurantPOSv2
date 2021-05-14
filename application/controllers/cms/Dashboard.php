@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends SITE_Controllers {
+class Dashboard extends CMS_Controllers {
 
 	public function index()
 	{
-		redirect(site_url("cms/auth/signin"));
+		$this->load->view("cms/layout/main");
 	}
 
 	public function not_found() {
