@@ -25,8 +25,23 @@
   <link rel="stylesheet" href="<?= base_url("assets/adminlte/plugins/daterangepicker/daterangepicker.css"); ?>">
   <!-- summernote -->
   <link rel="stylesheet" href="<?= base_url("assets/adminlte/plugins/summernote/summernote-bs4.min.css"); ?>">
+
+<style>
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: #F1F1F1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: #C0C0C0;
+}
+</style>
+
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -90,7 +105,7 @@
           <!-- Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+            <a href="<?= site_url("cms/auth/signout") ?>" class="btn btn-default btn-flat float-right">Sign out</a>
           </li>
         </ul>
       </li>
@@ -101,7 +116,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="<?= site_url("cms/dashboard") ?>" class="brand-link">
       <img src="<?= base_url("assets/adminlte/dist/img/AdminLTELogo.png"); ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light"><?= PROJECT_NAME ?></span>
     </a>

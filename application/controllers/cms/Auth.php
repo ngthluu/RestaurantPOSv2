@@ -15,4 +15,8 @@ class Auth extends CMS_Controllers {
         $data["main_view"] = "cms/auth/forgot-password";
 		$this->load->view("cms/layout/main_auth", $data);
     }
+
+    public function signout() {
+        redirect(site_url("cms/auth/signin"));
+    }
 }
