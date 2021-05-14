@@ -45,7 +45,7 @@
       </div>
 
       <p class="mb-1">
-        <a href="#">I forgot my password</a>
+        <a href="<?= site_url("cms/auth/forgot-password") ?>">I forgot my password</a>
       </p>
     </div>
     <!-- /.card-body -->
