@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 function autoload_libraries($classname) {
     if (strpos($classname, 'CI_') !== 0) {
-        $file = APPPATH . 'libraries/' . $classname . 'php';
+        $file = APPPATH . 'libraries/' . $classname . '.php';
         if (file_exists($file) && is_file($file)) {
             @include_once $file;
         }
