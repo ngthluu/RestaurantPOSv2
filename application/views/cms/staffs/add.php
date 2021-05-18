@@ -1,9 +1,9 @@
 <!-- Main content -->
 <?php 
 if (isset($staff)) {
-    echo form_open("cms/staffs/save/".$staff->id."?type=".$type, array("id" => "form-info"));
+    echo form_open_multipart("cms/staffs/save/".$staff->id."?type=".$type, array("id" => "form-info"));
 } else {
-    echo form_open("cms/staffs/save?type=".$type, array("id" => "form-info"));
+    echo form_open_multipart("cms/staffs/save?type=".$type, array("id" => "form-info"));
 }
 ?>
 <section class="content">
