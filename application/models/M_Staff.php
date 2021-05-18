@@ -188,6 +188,10 @@ class M_Staff extends CI_Model {
         $this->init_connection(true);
         $staff = $this->get($id);
         if ($staff->status == self::STATUS_LOCKED) {
+            // Update branch manager
+            if ($staff->role == "manager") {
+                $this->db->update($this->db->dbprefix("branches"), array("manager" => $staff->id), array("id" => $staff->branch));
+            } 
             $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
         } else {
             $this->db->update($this->table, array("status" => self::STATUS_LOCKED), array("id" => $id));
