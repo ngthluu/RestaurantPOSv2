@@ -46,7 +46,7 @@ if (isset($branch)) {
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <input type="submit" value="Save Branch" class="btn btn-primary">
+                    <input type="submit" value="Save" class="btn btn-primary">
                     <a href="<?= site_url("cms/branch") ?>" class="btn btn-secondary">Cancel</a>
                 </div>
             </div>

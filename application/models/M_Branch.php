@@ -3,6 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Branch extends CI_Model {
 
+    public const STATUS_PAUSED = 0;
+    public const STATUS_ACTIVE = 1;
+
     private function init_connection() {
         $this->table = $this->db->dbprefix("branches");
     }
@@ -12,9 +15,9 @@ class M_Branch extends CI_Model {
         $this->db->initialize();
     }
 
-    public function gets_all() {
+    public function gets_all($where=null) {
         $this->init_connection();
-        $result = $this->db->get_where($this->table);
+        $result = $this->db->get_where($this->table, $where);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
@@ -50,7 +53,7 @@ class M_Branch extends CI_Model {
             "address"       => $address,
             "manager"       => isset($manager) && $manager ? $manager : 1,
             "tables_num"    => $numberOfTables,
-            "status"        => 0
+            "status"        => self::STATUS_PAUSED
         );
         $this->db->insert($this->table, $new_data);
         
@@ -74,7 +77,7 @@ class M_Branch extends CI_Model {
             "address"       => $address,
             "manager"       => isset($manager) && $manager ? $manager : 1,
             "tables_num"    => $numberOfTables,
-            "status"        => 0
+            "status"        => self::STATUS_PAUSED
         );
         $this->db->update($this->table, $new_data, array("id" => $id));
         $this->reset_connection();
@@ -85,10 +88,10 @@ class M_Branch extends CI_Model {
         $this->init_connection();
 
         $branch = $this->get($id);
-        if ($branch->status == 0) {
-            $this->db->update($this->table, array("status" => 1), array("id" => $id));
+        if ($branch->status == self::STATUS_PAUSED) {
+            $this->db->update($this->table, array("status" => self::STATUS_ACTIVE), array("id" => $id));
         } else {
-            $this->db->update($this->table, array("status" => 0), array("id" => $id));
+            $this->db->update($this->table, array("status" => self::STATUS_PAUSED), array("id" => $id));
         }
 
         $this->reset_connection();

@@ -3,9 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Manager extends CI_Model {
 
+    private const ROLE = "manager";
+
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
-        $this->where = array("role" => "manager");
+        $this->where = array("role" => self::ROLE);
         $this->db->where($this->where);
     }
 
@@ -56,7 +58,7 @@ class M_Manager extends CI_Model {
         $_SESSION["cms_uname"] = $user->name;
         $_SESSION["cms_uemail"] = $user->email;
         $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
-        $_SESSION["cms_urole"] = "manager";
+        $_SESSION["cms_urole"] = self::ROLE;
         $_SESSION["cms_ubranch"] = $user->branch;
 
         $this->reset_connection();

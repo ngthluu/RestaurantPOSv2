@@ -3,9 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Admin extends CI_Model {
 
+    private const ROLE = "admin";
+
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
-        $this->where = array("role" => "admin");
+        $this->where = array("role" => self::ROLE);
         $this->db->where($this->where);
     }
 
@@ -25,7 +27,7 @@ class M_Admin extends CI_Model {
                 "password"  => hashing_password("123456"),
                 "email"     => "admin@pos.v2",
                 "name"      => "Super admin",
-                "role"      => "admin"
+                "role"      => self::ROLE
             );
             $this->db->insert($this->table, $new_data);
             $this->reset_connection();
@@ -53,7 +55,7 @@ class M_Admin extends CI_Model {
         $_SESSION["cms_uname"] = $user->name;
         $_SESSION["cms_uemail"] = $user->email;
         $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
-        $_SESSION["cms_urole"] = "admin";
+        $_SESSION["cms_urole"] = self::ROLE;
         $_SESSION["cms_ubranch"] = $user->branch;
 
         $this->reset_connection();
