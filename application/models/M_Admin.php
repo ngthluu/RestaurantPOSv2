@@ -25,7 +25,7 @@ class M_Admin extends CI_Model {
             $new_data = array(
                 "phone"     => "1234567890",
                 "password"  => hashing_password("123456"),
-                "email"     => "admin@pos.v2",
+                "email"     => "admin@".EMAIL_PATH,
                 "name"      => "Super admin",
                 "role"      => self::ROLE
             );

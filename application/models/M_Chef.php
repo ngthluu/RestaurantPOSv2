@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_Chef extends CI_Model {
 
     private const ROLE = "chef";
+    public const STATUS_LOCKED = 0;
+    public const STATUS_PUBLISHED = 0;
 
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
@@ -65,6 +67,15 @@ class M_Chef extends CI_Model {
         return true;
     }
 
+    private function get_count() {
+        $this->init_connection();
+        $result = $this->db->get_where($this->table);
+        $this->db->flush_cache();
+        $result = $result->num_rows();
+        $this->reset_connection();
+        return $result;
+    }
+
     public function is_existed($phone, $idc) {
         $this->init_connection();
         $this->db->reset_query();
@@ -76,6 +87,70 @@ class M_Chef extends CI_Model {
             $this->reset_connection();
             return false;
         }
+        $this->reset_connection();
+        return true;
+    }
+
+    public function add() {
+
+        $this->init_connection();
+
+        $email = self::ROLE.date("dmyy").sprintf('%03d', $this->get_count() + 1)."@".EMAIL_PATH;
+        $name = $this->input->post("name");
+		$phone = $this->input->post("phone");
+		$idc = $this->input->post("idc");
+		$gender = $this->input->post("gender");
+		$birthday = $this->input->post("birthday");
+		$branch = $this->input->post("branch");
+
+        $new_data = array(
+            "phone"         => $phone,
+            "password"      => hashing_password("123456"),
+            "email"         => $email,
+            "name"          => $name,
+            "idc"           => $idc,
+            "gender"        => $gender,
+            "birthday"      => $birthday,
+            "branch"        => $branch,
+            "role"          => self::ROLE,
+            "status"        => self::STATUS_LOCKED,
+            "create_by"    => $_SESSION["cms_uid"]
+        );
+        $this->db->insert($this->table, $new_data);
+        
+        $id = $this->db->insert_id();
+
+        // Upload avatar
+        $avatar = uploadImage("./resources/users".$id."/", "avatar-file");
+        if ($avatar && $avatar != "") {
+            $this->db->update($this->table, array("avatar" => $avatar), array("id" => $id));
+        }
+
+        $this->reset_connection();
+        return $id;
+    }
+
+    public function update($id) {
+
+        $this->init_connection();
+
+        $name = $this->input->post("name");
+		$phone = $this->input->post("phone");
+		$idc = $this->input->post("idc");
+		$gender = $this->input->post("gender");
+		$birthday = $this->input->post("birthday");
+		$branch = $this->input->post("branch");
+
+        $new_data = array(
+            "phone"         => $phone,
+            "name"          => $name,
+            "idc"           => $idc,
+            "gender"        => $gender,
+            "birthday"      => $birthday,
+            "branch"        => $branch,
+        );
+
+        $this->db->update($this->table, $new_data, array("id" => $id));
         $this->reset_connection();
         return true;
     }

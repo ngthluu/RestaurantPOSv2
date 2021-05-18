@@ -8,28 +8,28 @@ class Staffs extends CMS_Controllers {
 		// Load models
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$this->load->model("M_Chef", "M_Staff");
+			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
 			$this->load->model("M_Waiter", "M_Staff");
+			$type = "waiter";
 		} else {
 			$this->load->model("M_Manager", "M_Staff");
+			$type = "manager";
 		}
 
-		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$data["type"] = "chef";
+		if ($type == "chef") {
 			$data["header_title"] = "Chefs management";
 			$data["breadcrumb_list"] = array(
 				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
 				array("uri" => "#", "title" => "Chefs"),
 			);
-		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$data["type"] = "waiter";
+		} else if ($type == "waiter") {
 			$data["header_title"] = "Waiters management";
 			$data["breadcrumb_list"] = array(
 				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
 				array("uri" => "#", "title" => "Waiters"),
 			);
 		} else {
-			$data["type"] = "manager";
 			$data["header_title"] = "Managers management";
 			$data["breadcrumb_list"] = array(
 				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
@@ -37,7 +37,12 @@ class Staffs extends CMS_Controllers {
 			);
 		}
 
+		$data["type"] = $type;
 		$data["main_view"] = "cms/staffs/home";
+
+		$data["staffs_list"] = $this->M_Staff->gets_all();
+		$this->load->model("M_Branch");
+
 		$this->load->view("cms/layout/main", $data);
 	}
 
@@ -46,34 +51,34 @@ class Staffs extends CMS_Controllers {
 		// Load models
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$this->load->model("M_Chef", "M_Staff");
+			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
 			$this->load->model("M_Waiter", "M_Staff");
+			$type = "waiter";
 		} else {
 			$this->load->model("M_Manager", "M_Staff");
+			$type = "manager";
 		}
 
-		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$data["type"] = "chef";
+		if ($type == "chef") {
 			$data["header_title"] = "Chefs management";
 			$data["breadcrumb_list"] = array(
 				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=chef"), "title" => "Chefs"),
+				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Chefs"),
 				array("uri" => "#", "title" => "Add Chef"),
 			);
-		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$data["type"] = "waiter";
+		} else if ($type == "waiter") {
 			$data["header_title"] = "Waiters management";
 			$data["breadcrumb_list"] = array(
 				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=waiter"), "title" => "Waiters"),
+				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Waiters"),
 				array("uri" => "#", "title" => "Add Waiter"),
 			);
 		} else {
-			$data["type"] = "manager";
 			$data["header_title"] = "Managers management";
 			$data["breadcrumb_list"] = array(
 				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=manager"), "title" => "Managers"),
+				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Managers"),
 				array("uri" => "#", "title" => "Add Manager"),
 			);
 		}
@@ -81,8 +86,40 @@ class Staffs extends CMS_Controllers {
 		$this->load->model("M_Branch");
 		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
 		
+		$data["type"] = $type;
         $data["main_view"] = "cms/staffs/add";
 		$this->load->view("cms/layout/main", $data);
+	}
+
+	public function save($id=null) {
+
+		// Load models
+		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
+			$this->load->model("M_Chef", "M_Staff");
+			$type = "chef";
+		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
+			$this->load->model("M_Waiter", "M_Staff");
+			$type = "waiter";
+		} else {
+			$this->load->model("M_Manager", "M_Staff");
+			$type = "manager";
+		}
+
+		$is_correct_form = $this->check_form();
+		if ($is_correct_form) {
+			if ($id) {
+				$this->M_Staff->update($id);
+				raise_message_ok("Updated successfully");
+				redirect(site_url("cms/staffs/edit/".$id."?type=".$type));
+			} else {
+				$this->M_Staff->add();
+				raise_message_ok("Added successfully");
+				redirect(site_url("cms/staffs/add?type=".$type));
+			}
+		} else {
+			raise_message_err("Your form is not valid");
+			redirect(site_url("cms/staffs/add?type=".$type));
+		}
 	}
 	
 	public function check_form() {

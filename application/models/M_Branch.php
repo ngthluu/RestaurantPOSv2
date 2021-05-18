@@ -76,8 +76,7 @@ class M_Branch extends CI_Model {
             "name"          => $name,
             "address"       => $address,
             "manager"       => isset($manager) && $manager ? $manager : 1,
-            "tables_num"    => $numberOfTables,
-            "status"        => self::STATUS_PAUSED
+            "tables_num"    => $numberOfTables
         );
         $this->db->update($this->table, $new_data, array("id" => $id));
         $this->reset_connection();
