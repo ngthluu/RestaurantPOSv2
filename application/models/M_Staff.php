@@ -5,7 +5,7 @@ class M_Staff extends CI_Model {
 
     private $role = "staff";
     public const STATUS_LOCKED = 0;
-    public const STATUS_PUBLISHED = 0;
+    public const STATUS_PUBLISHED = 1;
 
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
@@ -51,7 +51,8 @@ class M_Staff extends CI_Model {
         $this->init_connection();
         $is_existed = $this->db->get_where($this->table, array(
             "email" => $email,
-            "password" => hashing_password($password)
+            "password" => hashing_password($password),
+            "status" => self::STATUS_PUBLISHED
         ));
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {
@@ -118,7 +119,7 @@ class M_Staff extends CI_Model {
 
         $this->init_connection();
 
-        $email = $this->role.date("dmyy").sprintf('%03d', $this->get_count() + 1)."@".EMAIL_PATH;
+        $email = $this->role.date("dmy").sprintf('%03d', $this->get_count() + 1)."@".EMAIL_PATH;
         $name = $this->input->post("name");
 		$phone = $this->input->post("phone");
 		$idc = $this->input->post("idc");

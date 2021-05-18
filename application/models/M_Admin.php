@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_Admin extends CI_Model {
 
     private const ROLE = "admin";
+    public const STATUS_PUBLISHED = 1;
 
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
@@ -27,7 +28,8 @@ class M_Admin extends CI_Model {
                 "password"  => hashing_password("123456"),
                 "email"     => "admin@".EMAIL_PATH,
                 "name"      => "Super admin",
-                "role"      => self::ROLE
+                "role"      => self::ROLE,
+                "status"    => self::STATUS_PUBLISHED
             );
             $this->db->insert($this->table, $new_data);
             $this->reset_connection();
@@ -41,7 +43,8 @@ class M_Admin extends CI_Model {
         $this->init_connection();
         $is_existed = $this->db->get_where($this->table, array(
             "email" => $email,
-            "password" => hashing_password($password)
+            "password" => hashing_password($password),
+            "status" => self::STATUS_PUBLISHED
         ));
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {

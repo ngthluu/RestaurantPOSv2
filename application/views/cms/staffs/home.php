@@ -62,9 +62,9 @@ if ($type == "chef") {
                      </td>
                     <td class="project-state">
                     <?php 
-                    if ($staff->status == 0) {
+                    if ($staff->status == M_Staff::STATUS_LOCKED) {
                         echo '<span class="badge badge-warning">Locked</span>';
-                    } else if ($staff->status == 1) {
+                    } else if ($staff->status == M_Staff::STATUS_PUBLISHED) {
                         echo '<span class="badge badge-success">Active</span>';
                     }
                     ?>
@@ -73,7 +73,7 @@ if ($type == "chef") {
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/staffs/edit/".$staff->id."?type=".$type) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
-                        <?php if ($staff->status == 0) { ?>
+                        <?php if ($staff->status == M_Staff::STATUS_LOCKED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -83,7 +83,7 @@ if ($type == "chef") {
                         >
                             <i class="fas fa-unlock"> </i> Active
                         </a>
-                        <?php } else if ($staff->status == 1) { ?>
+                        <?php } else if ($staff->status == M_Staff::STATUS_PUBLISHED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
