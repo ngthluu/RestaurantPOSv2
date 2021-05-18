@@ -5,6 +5,12 @@
     <div class="card">
     <div class="card-header">
 
+        <div class="card-title">
+            <a class="btn btn-primary btn-sm" href="#">
+                <i class="fas fa-print"></i> Print all
+            </a>
+        </div>
+
         <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i class="fas fa-minus"></i>

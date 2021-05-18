@@ -45,13 +45,6 @@
           <!-- /.col -->
         </div>
       </form>
-
-      <div class="social-auth-links text-center mt-2 mb-3">
-      </div>
-
-      <p class="mb-1">
-        <a href="<?= site_url("cms/auth/forgot-password") ?>">I forgot my password</a>
-      </p>
     </div>
     <!-- /.card-body -->
   </div>

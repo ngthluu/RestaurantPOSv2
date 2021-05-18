@@ -17,12 +17,6 @@ class Auth extends CMS_Controllers {
 		$this->load->view("cms/layout/main_auth", $data);
 	}
 
-    public function forgot_password() {
-        $data["header_title"] = "Forgot password";
-        $data["main_view"] = "cms/auth/forgot-password";
-		$this->load->view("cms/layout/main_auth", $data);
-    }
-
     public function signout() {
         unset($_SESSION["cms_uid"]);
         unset($_SESSION["cms_uname"]);
