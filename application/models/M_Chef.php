@@ -76,11 +76,20 @@ class M_Chef extends CI_Model {
         return $result;
     }
 
-    public function is_existed($phone, $idc) {
+    public function is_existed($email, $phone, $idc) {
         $this->init_connection();
         $this->db->reset_query();
-        $this->db->where("phone", $phone);
-        $this->db->or_where("idc", $idc);
+        if ($email == "") {
+            $this->db->where("phone", $phone);
+            $this->db->or_where("idc", $idc);
+        } else {
+            $this->db->where("email != ", $email)
+                ->group_start()
+                ->where("phone", $phone)
+                ->or_where("idc", $idc)
+                ->group_end();
+        }
+        
         $is_existed = $this->db->get_where($this->table);
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {

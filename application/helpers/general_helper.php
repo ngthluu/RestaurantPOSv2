@@ -49,3 +49,11 @@ function uploadImage($path, $filename) {
         return $uploaded_file['file_name'];
     }
 }
+
+function gender_array() {
+    return array(
+        "0" => "Other",
+        "1" => "Male",
+        "2" => "Female"
+    );
+}

@@ -91,6 +91,58 @@ class Staffs extends CMS_Controllers {
 		$this->load->view("cms/layout/main", $data);
 	}
 
+	public function edit($id=null) {
+
+		// Load models
+		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
+			$this->load->model("M_Chef", "M_Staff");
+			$type = "chef";
+		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
+			$this->load->model("M_Waiter", "M_Staff");
+			$type = "waiter";
+		} else {
+			$this->load->model("M_Manager", "M_Staff");
+			$type = "manager";
+		}
+
+		if (!$id) {
+			redirect(site_url("cms/staffs?type=".$type));
+			return;
+		}
+
+		if ($type == "chef") {
+			$data["header_title"] = "Chefs management";
+			$data["breadcrumb_list"] = array(
+				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
+				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Chefs"),
+				array("uri" => "#", "title" => "Add Chef"),
+			);
+		} else if ($type == "waiter") {
+			$data["header_title"] = "Waiters management";
+			$data["breadcrumb_list"] = array(
+				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
+				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Waiters"),
+				array("uri" => "#", "title" => "Add Waiter"),
+			);
+		} else {
+			$data["header_title"] = "Managers management";
+			$data["breadcrumb_list"] = array(
+				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
+				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Managers"),
+				array("uri" => "#", "title" => "Add Manager"),
+			);
+		}
+
+		$this->load->model("M_Branch");
+		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
+
+		$data["staff"] = $this->M_Staff->get($id);
+		
+		$data["type"] = $type;
+        $data["main_view"] = "cms/staffs/add";
+		$this->load->view("cms/layout/main", $data);
+	}
+
 	public function save($id=null) {
 
 		// Load models
@@ -133,6 +185,7 @@ class Staffs extends CMS_Controllers {
 			$this->load->model("M_Manager", "M_Staff");
 		}
 
+		$email = $this->input->post("email");
 		$name = $this->input->post("name");
 		$phone = $this->input->post("phone");
 		$idc = $this->input->post("idc");
@@ -176,7 +229,7 @@ class Staffs extends CMS_Controllers {
 			return false;
 		}
 
-		$existed_account = $this->M_Staff->is_existed($phone, $idc);
+		$existed_account = $this->M_Staff->is_existed($email, $phone, $idc);
 		if ($existed_account) {
 			raise_message_err("This account existed in the system");
 			echo $this->load->view("cms/layout/message_box", null, true);

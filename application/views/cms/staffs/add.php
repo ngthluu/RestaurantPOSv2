@@ -27,7 +27,7 @@ if (isset($staff)) {
                     )) ?>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
-                        <input readonly type="text" id="inputEmail" class="form-control" name="email" value="<?= isset($staff) ? $staff->name : "" ?>">
+                        <input readonly type="text" id="inputEmail" class="form-control" name="email" value="<?= isset($staff) ? $staff->email : "" ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputName">Name (*)</label>
@@ -35,11 +35,11 @@ if (isset($staff)) {
                     </div>
                     <div class="form-group">
                         <label for="inputPhone">Phone (*)</label>
-                        <input type="text" id="inputPhone" class="form-control" name="phone" value="<?= isset($staff) ? $staff->name : "" ?>">
+                        <input type="text" id="inputPhone" class="form-control" name="phone" value="<?= isset($staff) ? $staff->phone : "" ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputIdc">Identity Card (*)</label>
-                        <input type="number" id="inputIdc" class="form-control" name="idc" value="<?= isset($staff) ? $staff->tables_num : "" ?>">
+                        <input type="number" id="inputIdc" class="form-control" name="idc" value="<?= isset($staff) ? $staff->idc : "" ?>">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -47,16 +47,16 @@ if (isset($staff)) {
                                 <label for="inputGender">Gender (*)</label>
                                 <select id="inputGender" class="form-control custom-select" name="gender">
                                     <option selected disabled>Select a gender</option>
-                                    <option value="1" <?= isset($staff) && $staff->gender == 1 ? "selected" : "" ?>>Male</option>
-                                    <option value="2" <?= isset($staff) && $staff->gender == 2 ? "selected" : "" ?>>Female</option>
-                                    <option value="0" <?= isset($staff) && $staff->gender == 0 ? "selected" : "" ?>>Other</option>
+                                    <?php foreach (gender_array() as $num => $title) { ?>
+                                    <option value="<?= $num ?>" <?= isset($staff) && $staff->gender == $num ? "selected" : "" ?>><?= $title ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="inputBirthday">Birthday (*)</label>
-                                <input type="date" id="inputBirthday" class="form-control" name="birthday" value="<?= isset($staff) ? $staff->tables_num : "" ?>">
+                                <input type="date" id="inputBirthday" class="form-control" name="birthday" value="<?= isset($staff) ? $staff->birthday : "" ?>">
                             </div>
                         </div>
                     </div>

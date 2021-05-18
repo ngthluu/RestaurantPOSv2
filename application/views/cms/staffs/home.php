@@ -53,8 +53,13 @@ if ($type == "chef") {
                     <td> <?= $staff->email ?> </td>
                     <td> <?= $staff->name ?></td>
                     <td> <?= $staff->phone ?></td>
-                    <td> <?= $staff->gender ?> </td>
-                    <td> <?= $staff->branch ?> </td>
+                    <td> <?= gender_array()[$staff->gender] ?> </td>
+                    <td> 
+                    <?php 
+                    $branch = $this->M_Branch->get($staff->branch);
+                    echo $branch ? $branch->name : "";
+                    ?>
+                     </td>
                     <td class="project-state">
                     <?php 
                     if ($staff->status == 0) {
