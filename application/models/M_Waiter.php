@@ -76,6 +76,15 @@ class M_Waiter extends CI_Model {
         return $result;
     }
 
+    private function uploadImage($id) {
+        $this->init_connection();
+        $avatar = uploadImage("./resources/users/".$id."/", "avatar-file");
+        if ($avatar && $avatar != "") {
+            $this->db->update($this->table, array("avatar" => $avatar), array("id" => $id));
+        }
+        $this->reset_connection();
+    } 
+
     public function is_existed($email, $phone, $idc) {
         $this->init_connection();
         $this->db->reset_query();
@@ -129,11 +138,7 @@ class M_Waiter extends CI_Model {
         
         $id = $this->db->insert_id();
 
-        // Upload avatar
-        $avatar = uploadImage("./resources/users".$id."/", "avatar-file");
-        if ($avatar && $avatar != "") {
-            $this->db->update($this->table, array("avatar" => $avatar), array("id" => $id));
-        }
+        $this->uploadImage($id);
 
         $this->reset_connection();
         return $id;
@@ -160,6 +165,9 @@ class M_Waiter extends CI_Model {
         );
 
         $this->db->update($this->table, $new_data, array("id" => $id));
+
+        $this->uploadImage($id);
+
         $this->reset_connection();
         return true;
     }

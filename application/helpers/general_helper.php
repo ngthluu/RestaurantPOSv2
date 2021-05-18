@@ -42,7 +42,7 @@ function uploadImage($path, $filename) {
     $CI->upload->initialize($config);
 
     if (!$CI->upload->do_upload($filename)) {
-        return false;
+        return "";
     }
     else {
         $uploaded_file = $CI->upload->data();
