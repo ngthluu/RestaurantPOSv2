@@ -19,6 +19,40 @@ class M_Branch extends CI_Model {
         return $result->result();
     }
 
+    public function add() {
+        $name = $this->input->post("name");
+		$address = $this->input->post("address");
+		$numberOfTables = $this->input->post("tablesNum");
+		$manager = $this->input->post("manager");
+
+        $new_data = array(
+            "name"      => $name,
+            "address"   => $address,
+            "manager"   => isset($manager) && $manager ? $manager : 1
+        );
+        $this->db->insert($this->table, $new_data);
+        
+        $id = $this->db->insert_id();
+
+        $this->reset_connection();
+        return $id;
+    }
+
+    public function update($id) {
+        $name = $this->input->post("name");
+		$address = $this->input->post("address");
+		$numberOfTables = $this->input->post("tablesNum");
+		$manager = $this->input->post("manager");
+
+        $new_data = array(
+            "name"      => $name,
+            "address"   => $address,
+            "manager"   => isset($manager) && $manager ? $manager : 1
+        );
+        $this->db->update($this->table, $new_data, array("id" => $id));
+        $this->reset_connection();
+        return true;
+    }
 
     private function reset_connection() {
         $this->db->close();
