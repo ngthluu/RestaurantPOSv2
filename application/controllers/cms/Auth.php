@@ -5,7 +5,7 @@ class Auth extends CMS_Controllers {
 
     public function __construct() {
         parent::__construct();
-        if (cms_is_logged_in()) {
+        if (cms_is_logged_in() && uri_string() !== "cms/auth/signout") {
             redirect(site_url("cms/dashboard"));
         }
     }
