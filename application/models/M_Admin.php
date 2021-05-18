@@ -3,13 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Admin extends CI_Model {
 
-	public function __construct() {
-        parent::__construct();
+    private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
-        $this->db->where("role", "admin");
+        $this->where = array("role" => "admin");
+        $this->db->where($this->where);
+    }
+
+    private function reset_connection() {
+        $this->db->close();
+        $this->db->initialize();
     }
 
     public function create_account() {
+        $this->init_connection();
         $is_existed = $this->db->get_where($this->table);
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {
@@ -30,6 +36,7 @@ class M_Admin extends CI_Model {
     }
 
     public function signin($email, $password) {
+        $this->init_connection();
         $is_existed = $this->db->get_where($this->table, array(
             "email" => $email,
             "password" => hashing_password($password)
@@ -51,10 +58,5 @@ class M_Admin extends CI_Model {
 
         $this->reset_connection();
         return true;
-    }
-
-    private function reset_connection() {
-        $this->db->close();
-        $this->db->initialize();
     }
 }

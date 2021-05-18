@@ -42,17 +42,34 @@
                     <td> <?= $branch->name ?></td>
                     <td> <?= $branch->address ?></td>
                     <td> <?= $branch->tables_num ?> </td>
-                    <td> <?= $branch->manager ?></td>
+                    <td>
+                    <?php 
+                    $manager = $this->M_Manager->get($branch->manager);
+                    echo $manager ? $manager->email : "";
+                    ?>
+                    </td>
                     <td class="project-state">
-                        <span class="badge badge-success">Success</span>
+                    <?php 
+                    if ($branch->status == 0) {
+                        echo '<span class="badge badge-warning">Paused</span>';
+                    } else if ($branch->status == 1) {
+                        echo '<span class="badge badge-success">Active</span>';
+                    }
+                    ?>
                     </td>
                     <td class="project-actions text-right">
                         <a class="btn btn-info btn-sm" href="#">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
+                        <?php if ($branch->status == 0) { ?>
+                        <a class="btn btn-primary btn-sm" href="#">
+                            <i class="fas fa-unlock"> </i> Active
+                        </a>
+                        <?php } else if ($branch->status == 1) { ?>
                         <a class="btn btn-primary btn-sm" href="#">
                             <i class="fas fa-lock"> </i> Pause
                         </a>
+                        <?php } ?>
                         <a class="btn btn-primary btn-sm" href="#">
                             <i class="fas fa-qrcode"> </i> QR Code
                         </a>

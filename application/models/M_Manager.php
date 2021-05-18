@@ -3,13 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Manager extends CI_Model {
 
-	public function __construct() {
-        parent::__construct();
+    private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
-        $this->db->where("role", "manager");
+        $this->where = array("role" => "manager");
+        $this->db->where($this->where);
+    }
+
+    private function reset_connection() {
+        $this->db->close();
+        $this->db->initialize();
     }
 
     public function gets_all() {
+        $this->init_connection();
         $result = $this->db->get_where($this->table);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
@@ -20,8 +26,15 @@ class M_Manager extends CI_Model {
         return $result->result();
     }
 
-    private function reset_connection() {
-        $this->db->close();
-        $this->db->initialize();
+    public function get($id) {
+        $this->init_connection();
+        $result = $this->db->get_where($this->table, array("id" => $id));
+        $this->db->flush_cache();
+        if ($result->num_rows() == 0) {
+            $this->reset_connection();
+            return null;
+        }
+        $this->reset_connection();
+        return $result->row();
     }
 }

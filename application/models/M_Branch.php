@@ -3,12 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Branch extends CI_Model {
 
-	public function __construct() {
-        parent::__construct();
+    private function init_connection() {
         $this->table = $this->db->dbprefix("branches");
     }
 
+    private function reset_connection() {
+        $this->db->close();
+        $this->db->initialize();
+    }
+
     public function gets_all() {
+        $this->init_connection();
         $result = $this->db->get_where($this->table);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
@@ -20,6 +25,9 @@ class M_Branch extends CI_Model {
     }
 
     public function add() {
+
+        $this->init_connection();
+
         $name = $this->input->post("name");
 		$address = $this->input->post("address");
 		$numberOfTables = $this->input->post("tablesNum");
@@ -41,6 +49,9 @@ class M_Branch extends CI_Model {
     }
 
     public function update($id) {
+
+        $this->init_connection();
+
         $name = $this->input->post("name");
 		$address = $this->input->post("address");
 		$numberOfTables = $this->input->post("tablesNum");
@@ -56,10 +67,5 @@ class M_Branch extends CI_Model {
         $this->db->update($this->table, $new_data, array("id" => $id));
         $this->reset_connection();
         return true;
-    }
-
-    private function reset_connection() {
-        $this->db->close();
-        $this->db->initialize();
     }
 }

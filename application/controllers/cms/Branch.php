@@ -19,6 +19,7 @@ class Branch extends CMS_Controllers {
         $data["main_view"] = "cms/branch/home";
 
 		$data["branch_list"] = $this->M_Branch->gets_all();
+		$this->load->model("M_Manager");
 
 		$this->load->view("cms/layout/main", $data);
 	}
