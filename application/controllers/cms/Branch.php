@@ -49,7 +49,7 @@ class Branch extends CMS_Controllers {
         $data["main_view"] = "cms/branch/add";
 
 		$this->load->model("M_Staff");
-		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all();
+		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all(array("status" => M_Staff::STATUS_PUBLISHED));
 
 		$this->load->view("cms/layout/main", $data);
 	}
@@ -69,7 +69,7 @@ class Branch extends CMS_Controllers {
         $data["main_view"] = "cms/branch/add";
 
 		$this->load->model("M_Staff");
-		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all();
+		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all(array("status" => M_Staff::STATUS_PUBLISHED));
 
 		$data["branch"] = $this->M_Branch->get($id);
 

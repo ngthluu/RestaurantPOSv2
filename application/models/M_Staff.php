@@ -26,9 +26,9 @@ class M_Staff extends CI_Model {
         return $this;
     }
 
-    public function gets_all() {
+    public function gets_all($where=null) {
         $this->init_connection();
-        $result = $this->db->get_where($this->table);
+        $result = $this->db->get_where($this->table, $where);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
@@ -38,9 +38,13 @@ class M_Staff extends CI_Model {
         return $result->result();
     }
 
-    public function get($id) {
+    public function get($id, $where=null) {
         $this->init_connection(true);
-        $result = $this->db->get_where($this->table, array("id" => $id));
+        $w = array("id" => $id);
+        if ($where) {
+            $w = array_merge($w, $where);
+        }
+        $result = $this->db->get_where($this->table, $w);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
