@@ -5,6 +5,8 @@ class Branch extends CMS_Controllers {
 
 	public function __construct() {
 		parent::__construct();
+
+		$this->load->model("M_Branch");
 	}
 
 	public function index()
@@ -15,6 +17,9 @@ class Branch extends CMS_Controllers {
 			array("uri" => "#", "title" => "Branch"),
 		);
         $data["main_view"] = "cms/branch/home";
+
+		$data["branch_list"] = $this->M_Branch->gets_all();
+
 		$this->load->view("cms/layout/main", $data);
 	}
 
@@ -26,6 +31,10 @@ class Branch extends CMS_Controllers {
 			array("uri" => "#", "title" => "Add Branch"),
 		);
         $data["main_view"] = "cms/branch/add";
+
+		$this->load->model("M_Manager");
+		$data["managers_list"] = $this->M_Manager->gets_all();
+
 		$this->load->view("cms/layout/main", $data);
 	}
 }

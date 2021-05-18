@@ -52,25 +52,25 @@
         </p>
     </a>
 </li>
-<li class="nav-item <?= $this->uri->segment(2) == "users" ? "menu-open" : "" ?>">
+<li class="nav-item <?= $this->uri->segment(2) == "customers" ? "menu-open" : "" ?>">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-users"></i>
         <p>
-            Users
+            Customers
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="<?= site_url("cms/users"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/customers"); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Users list</p>
+                <p>Customers list</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/users?locked=true"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/customers?locked=true"); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Users list (locked)</p>
+                <p>Customers list (locked)</p>
             </a>
         </li>
     </ul>

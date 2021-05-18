@@ -33,12 +33,16 @@
                 </tr>
             </thead>
             <tbody>
+            <?php 
+            if (empty($branch_list)) echo '<tr><td colspan="7">Branches list is empty</td></tr>'; 
+            else foreach ($branch_list as $branch) { 
+            ?>
                 <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
+                    <td> # </td>
+                    <td> <?= $branch->name ?></td>
+                    <td> <?= $branch->address ?></td>
+                    <td> 0 </td>
+                    <td> <?= $branch->manager ?></td>
                     <td class="project-state">
                         <span class="badge badge-success">Success</span>
                     </td>
@@ -57,6 +61,7 @@
                         </a>
                     </td>
                 </tr>
+            <?php } ?>
             </tbody>
         </table>
     </div>

@@ -28,9 +28,9 @@
                         <label for="inputStatus">Manager (*)</label>
                         <select id="inputStatus" class="form-control custom-select">
                             <option selected disabled>Select one</option>
-                            <option>On Hold</option>
-                            <option>Canceled</option>
-                            <option>Success</option>
+                            <?php foreach ($managers_list as $manager) { ?>
+                                <option value="<?= $manager->id?>"><?= $manager->email.' - '.$manager->name ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
