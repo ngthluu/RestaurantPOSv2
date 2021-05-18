@@ -24,29 +24,29 @@ if (isset($branch)) {
                     </div>
                     <div class="form-group">
                         <label for="inputName">Name (*)</label>
-                        <input type="text" id="inputName" class="form-control" name="name">
+                        <input type="text" id="inputName" class="form-control" name="name" value="<?= isset($branch) ? $branch->name : "" ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputAddress">Address (*)</label>
-                        <textarea id="inputAddress" class="form-control" rows="4" name="address"></textarea>
+                        <textarea id="inputAddress" class="form-control" rows="4" name="address"><?= isset($branch) ? $branch->address : "" ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="inputNumberOfTables">Number of tables (*)</label>
-                        <input type="number" id="inputNumberOfTables" class="form-control" name="tablesNum">
+                        <input type="number" id="inputNumberOfTables" class="form-control" name="tablesNum" value="<?= isset($branch) ? $branch->tables_num : "" ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputManagers">Manager</label>
                         <select id="inputManagers" class="form-control custom-select" name="manager">
                             <option selected disabled>Select a manager</option>
                             <?php foreach ($managers_list as $manager) { ?>
-                                <option value="<?= $manager->id?>"><?= $manager->email.' - '.$manager->name ?></option>
+                                <option value="<?= $manager->id?>" <?= isset($branch) && $branch->manager == $manager->id ? "selected" : "" ?>><?= $manager->email.' - '.$manager->name ?></option>
                             <?php } ?>
                         </select>
                     </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <input type="submit" value="Add Branch" class="btn btn-primary">
+                    <input type="submit" value="Save Branch" class="btn btn-primary">
                     <a href="<?= site_url("cms/branch") ?>" class="btn btn-secondary">Cancel</a>
                 </div>
             </div>

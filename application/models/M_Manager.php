@@ -37,4 +37,29 @@ class M_Manager extends CI_Model {
         $this->reset_connection();
         return $result->row();
     }
+
+    public function signin($email, $password) {
+        $this->init_connection();
+        $is_existed = $this->db->get_where($this->table, array(
+            "email" => $email,
+            "password" => hashing_password($password)
+        ));
+        $this->db->flush_cache();
+        if ($is_existed->num_rows() == 0) {
+            $this->reset_connection();
+            return false;
+        }
+
+        // Logged in, set session
+        $user = $is_existed->row();
+        $_SESSION["cms_uid"] = $user->id;
+        $_SESSION["cms_uname"] = $user->name;
+        $_SESSION["cms_uemail"] = $user->email;
+        $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
+        $_SESSION["cms_urole"] = "manager";
+        $_SESSION["cms_ubranch"] = $user->branch;
+
+        $this->reset_connection();
+        return true;
+    }
 }

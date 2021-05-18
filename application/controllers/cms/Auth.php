@@ -47,8 +47,13 @@ class Auth extends CMS_Controllers {
     public function post_signin() {
         $email = $this->input->post("email");
         $password = $this->input->post("password");
+        
         $this->load->model("M_Admin");
+        $this->load->model("M_Manager");
+        
         if ($this->M_Admin->signin($email, $password)) {
+            redirect(site_url("cms/dashboard"));
+        } else if ($this->M_Manager->signin($email, $password)) {
             redirect(site_url("cms/dashboard"));
         } else {
             $_SESSION["cms_message_err"] = "Your email/password is not correct";

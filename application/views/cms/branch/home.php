@@ -45,7 +45,7 @@
                     <td>
                     <?php 
                     $manager = $this->M_Manager->get($branch->manager);
-                    echo $manager ? $manager->email : "";
+                    echo $manager ? $manager->email." - ".$manager->name : "";
                     ?>
                     </td>
                     <td class="project-state">
@@ -58,22 +58,40 @@
                     ?>
                     </td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-info btn-sm" href="#">
+                        <a class="btn btn-info btn-sm" href="<?= site_url("cms/branch/edit/".$branch->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
                         <?php if ($branch->status == 0) { ?>
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm btn-modal" href="#" 
+                            data-toggle="modal" 
+                            data-target="#modal-alert"
+                            data-title="Active branch"
+                            data-message="Are you sure to active this branch ?"
+                            data-submit="<?= site_url("cms/branch/change_status/".$branch->id) ?>"
+                        >
                             <i class="fas fa-unlock"> </i> Active
                         </a>
                         <?php } else if ($branch->status == 1) { ?>
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm btn-modal" href="#"
+                            data-toggle="modal" 
+                            data-target="#modal-alert"
+                            data-title="Pause branch"
+                            data-message="Are you sure to pause this branch ?"
+                            data-submit="<?= site_url("cms/branch/change_status/".$branch->id) ?>"
+                        >
                             <i class="fas fa-lock"> </i> Pause
                         </a>
                         <?php } ?>
                         <a class="btn btn-primary btn-sm" href="#">
                             <i class="fas fa-qrcode"> </i> QR Code
                         </a>
-                        <a class="btn btn-danger btn-sm" href="#">
+                        <a class="btn btn-danger btn-sm btn-modal" href="#"
+                            data-toggle="modal" 
+                            data-target="#modal-alert"
+                            data-title="Delete branch"
+                            data-message="Are you sure to delete this branch ?"
+                            data-submit="<?= site_url("cms/branch/delete/".$branch->id) ?>"
+                        >
                             <i class="fas fa-trash"> </i> Delete
                         </a>
                     </td>
@@ -88,3 +106,47 @@
 
 </section>
 <!-- /.content -->
+
+<div class="modal fade" id="modal-alert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-alert-title"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p id="modal-alert-message"></p>
+        </div>
+        <div class="modal-footer justify-content-end">
+            <a href="#" class="btn btn-primary" id="modal-alert-submit">OK</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<?php $this->load->view("cms/layout/alert_box") ?>
+
+<script>
+document.addEventListener("DOMContentLoaded", function (event) {
+
+$(".btn-modal").click(function(e) {
+    e.preventDefault();
+    let title = $(this).attr("data-title");
+    let message = $(this).attr("data-message");
+    let submit = $(this).attr("data-submit");
+    $("#modal-alert-title").html(title);
+    $("#modal-alert-message").html(message);
+    $("#modal-alert-submit").attr("href", submit);
+
+});
+
+
+});
+
+</script>

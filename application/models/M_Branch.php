@@ -24,6 +24,18 @@ class M_Branch extends CI_Model {
         return $result->result();
     }
 
+    public function get($id) {
+        $this->init_connection();
+        $result = $this->db->get_where($this->table, array("id" => $id));
+        $this->db->flush_cache();
+        if ($result->num_rows() == 0) {
+            $this->reset_connection();
+            return null;
+        }
+        $this->reset_connection();
+        return $result->row();
+    }
+
     public function add() {
 
         $this->init_connection();

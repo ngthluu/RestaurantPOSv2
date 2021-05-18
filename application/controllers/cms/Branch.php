@@ -39,17 +39,35 @@ class Branch extends CMS_Controllers {
 		$this->load->view("cms/layout/main", $data);
 	}
 
+	public function edit($id) {
+		$data["header_title"] = "Branch";
+		$data["breadcrumb_list"] = array(
+			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
+			array("uri" => site_url("cms/branch"), "title" => "Branch"),
+			array("uri" => "#", "title" => "Edit Branch"),
+		);
+        $data["main_view"] = "cms/branch/add";
+
+		$this->load->model("M_Manager");
+		$data["managers_list"] = $this->M_Manager->gets_all();
+
+		$data["branch"] = $this->M_Branch->get($id);
+
+		$this->load->view("cms/layout/main", $data);
+	}
+
 	public function save($id=null) {
 		$is_correct_form = $this->check_form();
 		if ($is_correct_form) {
 			if ($id) {
 				$this->M_Branch->update($id);
 				$_SESSION["cms_message_ok"] = "Updated successfully";
+				redirect(site_url("cms/branch/edit/".$id));
 			} else {
 				$this->M_Branch->add();
 				$_SESSION["cms_message_ok"] = "Added successfully";
+				redirect(site_url("cms/branch/add"));
 			}
-			redirect(site_url("cms/branch/add"));
 		} else {
 			$_SESSION["cms_message_err"] = "Your form is not valid";
 			redirect(site_url("cms/branch/add"));
@@ -83,5 +101,9 @@ class Branch extends CMS_Controllers {
 		
 		echo "ok";
 		return true;
+	}
+
+	public function change_status($id) {
+
 	}
 }
