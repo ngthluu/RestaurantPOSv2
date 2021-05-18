@@ -90,7 +90,7 @@ if ($type == "chef") {
                         </a>
                         <?php } ?>
                         <a class="btn btn-primary btn-sm" href="<?= site_url("cms/staffs/reset-password/".$staff->id) ?>">
-                            <i class="fas fa-password"> </i> Reset password
+                            <i class="fas fa-key"> </i> Reset password
                         </a>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"
                             data-toggle="modal" 

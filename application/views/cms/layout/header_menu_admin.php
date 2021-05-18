@@ -16,19 +16,19 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="<?= site_url("cms/staffs?type=manager"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/staffs?type=manager"); ?>" class="nav-link <?= isset($type) && $type == "manager" ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Managers</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/staffs?type=chef"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/staffs?type=chef"); ?>" class="nav-link <?= isset($type) && $type == "chef" ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Chefs</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/staffs?type=waiter"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/staffs?type=waiter"); ?>" class="nav-link <?= isset($type) && $type == "waiter" ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Waiters</p>
             </a>

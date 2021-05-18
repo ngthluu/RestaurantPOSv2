@@ -44,10 +44,16 @@ class Auth extends CMS_Controllers {
         
         $this->load->model("M_Admin");
         $this->load->model("M_Manager");
+        $this->load->model("M_Chef");
+        $this->load->model("M_Waiter");
         
         if ($this->M_Admin->signin($email, $password)) {
             redirect(site_url("cms/dashboard"));
         } else if ($this->M_Manager->signin($email, $password)) {
+            redirect(site_url("cms/dashboard"));
+        } else if ($this->M_Chef->signin($email, $password)) {
+            redirect(site_url("cms/dashboard"));
+        } else if ($this->M_Waiter->signin($email, $password)) {
             redirect(site_url("cms/dashboard"));
         } else {
             raise_message_err("Your email/password is not correct");
