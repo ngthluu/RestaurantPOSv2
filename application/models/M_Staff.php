@@ -7,10 +7,13 @@ class M_Staff extends CI_Model {
     public const STATUS_LOCKED = 0;
     public const STATUS_PUBLISHED = 1;
 
-    private function init_connection() {
+    private function init_connection($reset_where = false) {
         $this->table = $this->db->dbprefix("staffs");
         $this->where = array("role" => $this->role);
         $this->db->where($this->where);
+        if ($reset_where) {
+            $this->db->reset_query();
+        }
     }
 
     private function reset_connection() {
@@ -36,7 +39,7 @@ class M_Staff extends CI_Model {
     }
 
     public function get($id) {
-        $this->init_connection();
+        $this->init_connection(true);
         $result = $this->db->get_where($this->table, array("id" => $id));
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
@@ -48,7 +51,7 @@ class M_Staff extends CI_Model {
     }
 
     public function signin($email, $password) {
-        $this->init_connection();
+        $this->init_connection(true);
         $is_existed = $this->db->get_where($this->table, array(
             "email" => $email,
             "password" => hashing_password($password),
@@ -66,7 +69,7 @@ class M_Staff extends CI_Model {
         $_SESSION["cms_uname"] = $user->name;
         $_SESSION["cms_uemail"] = $user->email;
         $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
-        $_SESSION["cms_urole"] = $this->role;
+        $_SESSION["cms_urole"] = $user->role;
         $_SESSION["cms_ubranch"] = $user->branch;
 
         $this->reset_connection();
@@ -74,7 +77,7 @@ class M_Staff extends CI_Model {
     }
 
     private function get_count() {
-        $this->init_connection();
+        $this->init_connection(true);
         $result = $this->db->get_where($this->table);
         $this->db->flush_cache();
         $result = $result->num_rows();
@@ -92,8 +95,7 @@ class M_Staff extends CI_Model {
     } 
 
     public function is_existed($email, $phone, $idc) {
-        $this->init_connection();
-        $this->db->reset_query();
+        $this->init_connection(true);
         if ($email == "") {
             $this->db->where("phone", $phone);
             $this->db->or_where("idc", $idc);
@@ -152,7 +154,7 @@ class M_Staff extends CI_Model {
 
     public function update($id) {
 
-        $this->init_connection();
+        $this->init_connection(true);
 
         $name = $this->input->post("name");
 		$phone = $this->input->post("phone");
@@ -174,6 +176,33 @@ class M_Staff extends CI_Model {
 
         $this->uploadImage($id);
 
+        $this->reset_connection();
+        return true;
+    }
+
+    public function change_status($id) {
+        $this->init_connection(true);
+        $staff = $this->get($id);
+        if ($staff->status == self::STATUS_LOCKED) {
+            $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
+        } else {
+            $this->db->update($this->table, array("status" => self::STATUS_LOCKED), array("id" => $id));
+        }
+
+        $this->reset_connection();
+        return true;
+    }
+
+    public function reset_password($id) {
+        $this->init_connection(true);
+        $this->db->update($this->table, array("password" => hashing_password("123456")), array("id" => $id));
+        $this->reset_connection();
+        return true;
+    }
+
+    public function delete($id) {
+        $this->init_connection(true);
+        $this->db->delete($this->table, array("id" => $id));
         $this->reset_connection();
         return true;
     }

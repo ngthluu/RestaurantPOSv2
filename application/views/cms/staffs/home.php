@@ -79,7 +79,7 @@ if ($type == "chef") {
                             data-target="#modal-alert"
                             data-title="Active account"
                             data-message="Are you sure you want to active this account ?"
-                            data-submit="<?= site_url("cms/staffs/change-status/".$staff->id) ?>"
+                            data-submit="<?= site_url("cms/staffs/change-status/".$staff->id."?type=".$type) ?>"
                         >
                             <i class="fas fa-unlock"> </i> Active
                         </a>
@@ -89,7 +89,7 @@ if ($type == "chef") {
                             data-target="#modal-alert"
                             data-title="Lock account"
                             data-message="Are you sure you want to lock this account ?"
-                            data-submit="<?= site_url("cms/staffs/change-status/".$staff->id) ?>"
+                            data-submit="<?= site_url("cms/staffs/change-status/".$staff->id."?type=".$type) ?>"
                         >
                             <i class="fas fa-lock"> </i> Lock
                         </a>
@@ -99,7 +99,7 @@ if ($type == "chef") {
                             data-target="#modal-alert"
                             data-title="Reset password"
                             data-message="Are you sure you want to reset this account password to 123456 ?"
-                            data-submit="<?= site_url("cms/staffs/reset-password/".$staff->id) ?>"
+                            data-submit="<?= site_url("cms/staffs/reset-password/".$staff->id."?type=".$type) ?>"
                         >
                             <i class="fas fa-key"> </i> Reset password
                         </a>
@@ -108,7 +108,7 @@ if ($type == "chef") {
                             data-target="#modal-alert"
                             data-title="Delete staff"
                             data-message="Are you sure you want to delete this staff ?"
-                            data-submit="<?= site_url("cms/staffs/delete/".$staff->id) ?>"
+                            data-submit="<?= site_url("cms/staffs/delete/".$staff->id."?type=".$type) ?>"
                         >
                             <i class="fas fa-trash"> </i> Delete
                         </a>

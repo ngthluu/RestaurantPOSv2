@@ -3,10 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Staffs extends CMS_Controllers {
 
+	public function __construct() {
+		parent::__construct();
+
+		$this->load->model("M_Staff");
+	}
+
 	public function index() {
 
-		// Load models
-		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
@@ -46,8 +50,6 @@ class Staffs extends CMS_Controllers {
 
 	public function add() {
 
-		// Load models
-		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
@@ -89,8 +91,6 @@ class Staffs extends CMS_Controllers {
 
 	public function edit($id=null) {
 
-		// Load models
-		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
@@ -130,7 +130,7 @@ class Staffs extends CMS_Controllers {
 		$this->load->model("M_Branch");
 		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
 
-		$data["staff"] = $this->M_Staff->set_role($type)->get($id);
+		$data["staff"] = $this->M_Staff->get($id);
 		
 		$data["type"] = $type;
         $data["main_view"] = "cms/staffs/add";
@@ -139,8 +139,6 @@ class Staffs extends CMS_Controllers {
 
 	public function save($id=null) {
 
-		// Load models
-		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
@@ -152,7 +150,7 @@ class Staffs extends CMS_Controllers {
 		$is_correct_form = $this->check_form();
 		if ($is_correct_form) {
 			if ($id) {
-				$this->M_Staff->set_role($type)->update($id);
+				$this->M_Staff->update($id);
 				raise_message_ok("Updated successfully");
 				redirect(site_url("cms/staffs/edit/".$id."?type=".$type));
 			} else {
@@ -167,9 +165,6 @@ class Staffs extends CMS_Controllers {
 	}
 	
 	public function check_form() {
-
-		// Load models
-		$this->load->model("M_Staff");
 
 		$email = $this->input->post("email");
 		$name = $this->input->post("name");
@@ -225,4 +220,29 @@ class Staffs extends CMS_Controllers {
 		echo "ok";
 		return true;
 	}
+
+	public function change_status($id=null) {
+		if ($id) {
+			$this->M_Staff->change_status($id);
+			alert_message_box("Updated successfully");
+		}
+		redirect(site_url("cms/staffs?type=".$_GET["type"]));
+	}
+
+	public function reset_password($id=null) {
+		if ($id) {
+			$this->M_Staff->reset_password($id);
+			alert_message_box("Reset successfully");
+		}
+		redirect(site_url("cms/staffs?type=".$_GET["type"]));
+	}
+
+	public function delete($id=null) {
+		if ($id) {
+			$this->M_Staff->delete($id);
+			alert_message_box("Deleted successfully");
+		}
+		redirect(site_url("cms/staffs?type=".$_GET["type"]));
+	}
+	
 }
