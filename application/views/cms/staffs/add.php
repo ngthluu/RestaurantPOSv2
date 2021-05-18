@@ -1,9 +1,9 @@
 <!-- Main content -->
 <?php 
 if (isset($staff)) {
-    echo form_open("cms/staffs/save/".$staff->id, array("id" => "form-info"));
+    echo form_open("cms/staffs/save/".$staff->id."?type=".$type, array("id" => "form-info"));
 } else {
-    echo form_open("cms/staffs/save", array("id" => "form-info"));
+    echo form_open("cms/staffs/save?type=".$type, array("id" => "form-info"));
 }
 ?>
 <section class="content">
@@ -27,7 +27,7 @@ if (isset($staff)) {
                     )) ?>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
-                        <input type="text" id="inputEmail" class="form-control" name="email" value="<?= isset($staff) ? $staff->name : "" ?>">
+                        <input readonly type="text" id="inputEmail" class="form-control" name="email" value="<?= isset($staff) ? $staff->name : "" ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputName">Name (*)</label>
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 $("#form-info").submit(function(e) {
     e.preventDefault();
-    $.post("<?= site_url("cms/staffs/check-form") ?>", $(this).serialize(), function(response) {
+    $.post("<?= site_url("cms/staffs/check-form?type=".$type) ?>", $(this).serialize(), function(response) {
         if (response == "ok") {
             $("#form-info").off("submit").submit();
         } else {

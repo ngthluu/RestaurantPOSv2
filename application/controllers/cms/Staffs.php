@@ -4,6 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Staffs extends CMS_Controllers {
 
 	public function index() {
+
+		// Load models
+		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
+			$this->load->model("M_Chef", "M_Staff");
+		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
+			$this->load->model("M_Waiter", "M_Staff");
+		} else {
+			$this->load->model("M_Manager", "M_Staff");
+		}
+
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$data["type"] = "chef";
 			$data["header_title"] = "Chefs management";
@@ -32,6 +42,16 @@ class Staffs extends CMS_Controllers {
 	}
 
 	public function add() {
+
+		// Load models
+		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
+			$this->load->model("M_Chef", "M_Staff");
+		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
+			$this->load->model("M_Waiter", "M_Staff");
+		} else {
+			$this->load->model("M_Manager", "M_Staff");
+		}
+
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
 			$data["type"] = "chef";
 			$data["header_title"] = "Chefs management";
@@ -65,4 +85,68 @@ class Staffs extends CMS_Controllers {
 		$this->load->view("cms/layout/main", $data);
 	}
 	
+	public function check_form() {
+
+		// Load models
+		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
+			$this->load->model("M_Chef", "M_Staff");
+		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
+			$this->load->model("M_Waiter", "M_Staff");
+		} else {
+			$this->load->model("M_Manager", "M_Staff");
+		}
+
+		$name = $this->input->post("name");
+		$phone = $this->input->post("phone");
+		$idc = $this->input->post("idc");
+		$gender = $this->input->post("gender");
+		$birthday = $this->input->post("birthday");
+		$branch = $this->input->post("branch");
+
+		if (strlen(trim($name)) == 0) {
+			raise_message_err("Please type the name");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+
+		if (!preg_match('/^[0-9]{10}$/', $phone)) {
+            raise_message_err("Please type the correct phone number");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+        }
+
+		if (strlen(trim($idc)) == 0) {
+			raise_message_err("Please type the identity card");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+
+		if (!isset($gender)) {
+			raise_message_err("Please choose gender");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+
+		if (strlen(trim($birthday)) == 0) {
+			raise_message_err("Please type the birthday");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+
+		if (!isset($branch)) {
+			raise_message_err("Please choose a branch");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+
+		$existed_account = $this->M_Staff->is_existed($phone, $idc);
+		if ($existed_account) {
+			raise_message_err("This account existed in the system");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+		
+		echo "ok";
+		return true;
+	}
 }

@@ -50,9 +50,9 @@
                     </td>
                     <td class="project-state">
                     <?php 
-                    if ($branch->status == 0) {
+                    if ($branch->status == M_Branch::STATUS_PAUSED) {
                         echo '<span class="badge badge-warning">Paused</span>';
-                    } else if ($branch->status == 1) {
+                    } else if ($branch->status == M_Branch::STATUS_ACTIVE) {
                         echo '<span class="badge badge-success">Active</span>';
                     }
                     ?>
@@ -61,7 +61,7 @@
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/branch/edit/".$branch->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
-                        <?php if ($branch->status == 0) { ?>
+                        <?php if ($branch->status == M_Branch::STATUS_PAUSED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -71,7 +71,7 @@
                         >
                             <i class="fas fa-unlock"> </i> Active
                         </a>
-                        <?php } else if ($branch->status == 1) { ?>
+                        <?php } else if ($branch->status == M_Branch::STATUS_ACTIVE) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"

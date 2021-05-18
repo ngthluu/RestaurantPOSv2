@@ -22,6 +22,7 @@ create table `Staffs` (
     `password` varchar(64) not null,
     `email` varchar(256) not null unique,
     `name` varchar(256) default null,
+    `idc` varchar(20) not null unique,
     `avatar` text default null,
     `gender` int(1) default 0,
     `birthday` date default null,

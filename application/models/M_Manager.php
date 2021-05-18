@@ -64,4 +64,19 @@ class M_Manager extends CI_Model {
         $this->reset_connection();
         return true;
     }
+
+    public function is_existed($phone, $idc) {
+        $this->init_connection();
+        $this->db->reset_query();
+        $this->db->where("phone", $phone);
+        $this->db->or_where("idc", $idc);
+        $is_existed = $this->db->get_where($this->table);
+        $this->db->flush_cache();
+        if ($is_existed->num_rows() == 0) {
+            $this->reset_connection();
+            return false;
+        }
+        $this->reset_connection();
+        return true;
+    }
 }
