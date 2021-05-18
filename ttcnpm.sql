@@ -37,7 +37,8 @@ create table `Branches` (
     `name` varchar(256) not null,
     `address` text not null,
     `tables_num` int not null,
-    `manager` int not null  
+    `manager` int not null,
+    `status` int default 0
 );
 
 create table `Menu` (

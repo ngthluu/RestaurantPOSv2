@@ -26,9 +26,11 @@ class M_Branch extends CI_Model {
 		$manager = $this->input->post("manager");
 
         $new_data = array(
-            "name"      => $name,
-            "address"   => $address,
-            "manager"   => isset($manager) && $manager ? $manager : 1
+            "name"          => $name,
+            "address"       => $address,
+            "manager"       => isset($manager) && $manager ? $manager : 1,
+            "tables_num"    => $numberOfTables,
+            "status"        => 0
         );
         $this->db->insert($this->table, $new_data);
         
@@ -45,9 +47,11 @@ class M_Branch extends CI_Model {
 		$manager = $this->input->post("manager");
 
         $new_data = array(
-            "name"      => $name,
-            "address"   => $address,
-            "manager"   => isset($manager) && $manager ? $manager : 1
+            "name"          => $name,
+            "address"       => $address,
+            "manager"       => isset($manager) && $manager ? $manager : 1,
+            "tables_num"    => $numberOfTables,
+            "status"        => 0
         );
         $this->db->update($this->table, $new_data, array("id" => $id));
         $this->reset_connection();

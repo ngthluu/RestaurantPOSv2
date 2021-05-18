@@ -26,7 +26,7 @@
                     <th> # </th>
                     <th> Name </th>
                     <th> Address </th>
-                    <th> Table number </th>
+                    <th> Number of tables </th>
                     <th> Manager </th>
                     <th class="text-center"> Status </th>
                     <th></th>
@@ -41,7 +41,7 @@
                     <td> # </td>
                     <td> <?= $branch->name ?></td>
                     <td> <?= $branch->address ?></td>
-                    <td> 0 </td>
+                    <td> <?= $branch->tables_num ?> </td>
                     <td> <?= $branch->manager ?></td>
                     <td class="project-state">
                         <span class="badge badge-success">Success</span>
