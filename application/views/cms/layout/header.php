@@ -168,4 +168,23 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h1 class="m-0"><?= isset($header_title) ? $header_title : "" ?></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+            <?php 
+            if (isset($breadcrumb_list)) { 
+                foreach ($breadcrumb_list as $breadcrumb) { ?>
+                <li class="breadcrumb-item"><a href="<?= $breadcrumb["uri"] ?>"><?= $breadcrumb["title"] ?></a></li>
+            <?php }} ?>
+            </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
