@@ -29,7 +29,8 @@ create table `Staffs` (
     `branch` int,
     `role` varchar(10) not null,
     `create_time` datetime default current_timestamp(),
-    `create_by` int
+    `create_by` int,
+    `status` int default 0
 );
 
 create table `Branches` (
