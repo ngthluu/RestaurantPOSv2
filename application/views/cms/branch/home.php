@@ -66,7 +66,7 @@
                             data-toggle="modal" 
                             data-target="#modal-alert"
                             data-title="Active branch"
-                            data-message="Are you sure to active this branch ?"
+                            data-message="Are you sure you want to active this branch ?"
                             data-submit="<?= site_url("cms/branch/change_status/".$branch->id) ?>"
                         >
                             <i class="fas fa-unlock"> </i> Active
@@ -76,7 +76,7 @@
                             data-toggle="modal" 
                             data-target="#modal-alert"
                             data-title="Pause branch"
-                            data-message="Are you sure to pause this branch ?"
+                            data-message="Are you sure you want to pause this branch ?"
                             data-submit="<?= site_url("cms/branch/change_status/".$branch->id) ?>"
                         >
                             <i class="fas fa-lock"> </i> Pause
@@ -89,7 +89,7 @@
                             data-toggle="modal" 
                             data-target="#modal-alert"
                             data-title="Delete branch"
-                            data-message="Are you sure to delete this branch ?"
+                            data-message="Are you sure you want to delete this branch ?"
                             data-submit="<?= site_url("cms/branch/delete/".$branch->id) ?>"
                         >
                             <i class="fas fa-trash"> </i> Delete
