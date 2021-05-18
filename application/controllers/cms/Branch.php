@@ -11,7 +11,7 @@ class Branch extends CMS_Controllers {
 
 	public function index()
 	{
-		$data["header_title"] = "Branch";
+		$data["header_title"] = "Branch management";
 		$data["breadcrumb_list"] = array(
 			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
 			array("uri" => "#", "title" => "Branch"),
@@ -24,8 +24,23 @@ class Branch extends CMS_Controllers {
 		$this->load->view("cms/layout/main", $data);
 	}
 
+	public function qrcode($id)
+	{
+		$data["header_title"] = "Branch management";
+		$data["breadcrumb_list"] = array(
+			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
+			array("uri" => site_url("cms/branch"), "title" => "Branch"),
+			array("uri" => "#", "title" => "QR Code"),
+		);
+        $data["main_view"] = "cms/branch/qrcode";
+		
+		$data["branch"] = $this->M_Branch->get($id);
+
+		$this->load->view("cms/layout/main", $data);
+	}
+
 	public function add() {
-		$data["header_title"] = "Branch";
+		$data["header_title"] = "Branch management";
 		$data["breadcrumb_list"] = array(
 			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
 			array("uri" => site_url("cms/branch"), "title" => "Branch"),
@@ -45,7 +60,7 @@ class Branch extends CMS_Controllers {
 			return;
 		}
 
-		$data["header_title"] = "Branch";
+		$data["header_title"] = "Branch management";
 		$data["breadcrumb_list"] = array(
 			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
 			array("uri" => site_url("cms/branch"), "title" => "Branch"),

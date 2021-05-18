@@ -82,7 +82,7 @@
                             <i class="fas fa-lock"> </i> Pause
                         </a>
                         <?php } ?>
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm" href="<?= site_url("cms/branch/qrcode/".$branch->id) ?>">
                             <i class="fas fa-qrcode"> </i> QR Code
                         </a>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"
