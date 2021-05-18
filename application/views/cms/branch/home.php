@@ -44,7 +44,7 @@
                     <td> <?= $branch->tables_num ?> </td>
                     <td>
                     <?php 
-                    $manager = $this->M_Manager->get($branch->manager);
+                    $manager = $this->M_Staff->set_role("manager")->get($branch->manager);
                     echo $manager ? $manager->email." - ".$manager->name : "";
                     ?>
                     </td>

@@ -19,7 +19,7 @@ class Branch extends CMS_Controllers {
         $data["main_view"] = "cms/branch/home";
 
 		$data["branch_list"] = $this->M_Branch->gets_all();
-		$this->load->model("M_Manager");
+		$this->load->model("M_Staff");
 
 		$this->load->view("cms/layout/main", $data);
 	}
@@ -48,8 +48,8 @@ class Branch extends CMS_Controllers {
 		);
         $data["main_view"] = "cms/branch/add";
 
-		$this->load->model("M_Manager");
-		$data["managers_list"] = $this->M_Manager->gets_all();
+		$this->load->model("M_Staff");
+		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all();
 
 		$this->load->view("cms/layout/main", $data);
 	}
@@ -68,8 +68,8 @@ class Branch extends CMS_Controllers {
 		);
         $data["main_view"] = "cms/branch/add";
 
-		$this->load->model("M_Manager");
-		$data["managers_list"] = $this->M_Manager->gets_all();
+		$this->load->model("M_Staff");
+		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all();
 
 		$data["branch"] = $this->M_Branch->get($id);
 

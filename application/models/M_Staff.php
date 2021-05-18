@@ -1,21 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_Manager extends CI_Model {
+class M_Staff extends CI_Model {
 
-    private const ROLE = "manager";
+    private $role = "staff";
     public const STATUS_LOCKED = 0;
     public const STATUS_PUBLISHED = 0;
 
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
-        $this->where = array("role" => self::ROLE);
+        $this->where = array("role" => $this->role);
         $this->db->where($this->where);
     }
 
     private function reset_connection() {
         $this->db->close();
         $this->db->initialize();
+    }
+
+    public function set_role($role) {
+        $this->role = $role;
+        return $this;
     }
 
     public function gets_all() {
@@ -60,7 +65,7 @@ class M_Manager extends CI_Model {
         $_SESSION["cms_uname"] = $user->name;
         $_SESSION["cms_uemail"] = $user->email;
         $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
-        $_SESSION["cms_urole"] = self::ROLE;
+        $_SESSION["cms_urole"] = $this->role;
         $_SESSION["cms_ubranch"] = $user->branch;
 
         $this->reset_connection();
@@ -113,7 +118,7 @@ class M_Manager extends CI_Model {
 
         $this->init_connection();
 
-        $email = self::ROLE.date("dmyy").sprintf('%03d', $this->get_count() + 1)."@".EMAIL_PATH;
+        $email = $this->role.date("dmyy").sprintf('%03d', $this->get_count() + 1)."@".EMAIL_PATH;
         $name = $this->input->post("name");
 		$phone = $this->input->post("phone");
 		$idc = $this->input->post("idc");
@@ -130,7 +135,7 @@ class M_Manager extends CI_Model {
             "gender"        => $gender,
             "birthday"      => $birthday,
             "branch"        => $branch,
-            "role"          => self::ROLE,
+            "role"          => $this->role,
             "status"        => self::STATUS_LOCKED,
             "create_by"    => $_SESSION["cms_uid"]
         );

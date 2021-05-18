@@ -77,9 +77,9 @@ if ($type == "chef") {
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
-                            data-title="Active staff"
-                            data-message="Are you sure you want to active this staff ?"
-                            data-submit="<?= site_url("cms/staffs/change_status/".$staff->id) ?>"
+                            data-title="Active account"
+                            data-message="Are you sure you want to active this account ?"
+                            data-submit="<?= site_url("cms/staffs/change-status/".$staff->id) ?>"
                         >
                             <i class="fas fa-unlock"> </i> Active
                         </a>
@@ -87,14 +87,20 @@ if ($type == "chef") {
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
-                            data-title="Lock staff"
-                            data-message="Are you sure you want to lock this staff ?"
-                            data-submit="<?= site_url("cms/staffs/change_status/".$staff->id) ?>"
+                            data-title="Lock account"
+                            data-message="Are you sure you want to lock this account ?"
+                            data-submit="<?= site_url("cms/staffs/change-status/".$staff->id) ?>"
                         >
                             <i class="fas fa-lock"> </i> Lock
                         </a>
                         <?php } ?>
-                        <a class="btn btn-primary btn-sm" href="<?= site_url("cms/staffs/reset-password/".$staff->id) ?>">
+                        <a class="btn btn-primary btn-sm btn-modal" href="#"
+                            data-toggle="modal"
+                            data-target="#modal-alert"
+                            data-title="Reset password"
+                            data-message="Are you sure you want to reset this account password to 123456 ?"
+                            data-submit="<?= site_url("cms/staffs/reset-password/".$staff->id) ?>"
+                        >
                             <i class="fas fa-key"> </i> Reset password
                         </a>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"

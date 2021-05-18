@@ -6,14 +6,12 @@ class Staffs extends CMS_Controllers {
 	public function index() {
 
 		// Load models
+		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$this->load->model("M_Chef", "M_Staff");
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$this->load->model("M_Waiter", "M_Staff");
 			$type = "waiter";
 		} else {
-			$this->load->model("M_Manager", "M_Staff");
 			$type = "manager";
 		}
 
@@ -40,7 +38,7 @@ class Staffs extends CMS_Controllers {
 		$data["type"] = $type;
 		$data["main_view"] = "cms/staffs/home";
 
-		$data["staffs_list"] = $this->M_Staff->gets_all();
+		$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all();
 		$this->load->model("M_Branch");
 
 		$this->load->view("cms/layout/main", $data);
@@ -49,14 +47,12 @@ class Staffs extends CMS_Controllers {
 	public function add() {
 
 		// Load models
+		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$this->load->model("M_Chef", "M_Staff");
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$this->load->model("M_Waiter", "M_Staff");
 			$type = "waiter";
 		} else {
-			$this->load->model("M_Manager", "M_Staff");
 			$type = "manager";
 		}
 
@@ -94,14 +90,12 @@ class Staffs extends CMS_Controllers {
 	public function edit($id=null) {
 
 		// Load models
+		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$this->load->model("M_Chef", "M_Staff");
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$this->load->model("M_Waiter", "M_Staff");
 			$type = "waiter";
 		} else {
-			$this->load->model("M_Manager", "M_Staff");
 			$type = "manager";
 		}
 
@@ -136,7 +130,7 @@ class Staffs extends CMS_Controllers {
 		$this->load->model("M_Branch");
 		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
 
-		$data["staff"] = $this->M_Staff->get($id);
+		$data["staff"] = $this->M_Staff->set_role($type)->get($id);
 		
 		$data["type"] = $type;
         $data["main_view"] = "cms/staffs/add";
@@ -146,25 +140,23 @@ class Staffs extends CMS_Controllers {
 	public function save($id=null) {
 
 		// Load models
+		$this->load->model("M_Staff");
 		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$this->load->model("M_Chef", "M_Staff");
 			$type = "chef";
 		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$this->load->model("M_Waiter", "M_Staff");
 			$type = "waiter";
 		} else {
-			$this->load->model("M_Manager", "M_Staff");
 			$type = "manager";
 		}
 
 		$is_correct_form = $this->check_form();
 		if ($is_correct_form) {
 			if ($id) {
-				$this->M_Staff->update($id);
+				$this->M_Staff->set_role($type)->update($id);
 				raise_message_ok("Updated successfully");
 				redirect(site_url("cms/staffs/edit/".$id."?type=".$type));
 			} else {
-				$this->M_Staff->add();
+				$this->M_Staff->set_role($type)->add();
 				raise_message_ok("Added successfully");
 				redirect(site_url("cms/staffs/add?type=".$type));
 			}
@@ -177,13 +169,7 @@ class Staffs extends CMS_Controllers {
 	public function check_form() {
 
 		// Load models
-		if (isset($_GET["type"]) && $_GET["type"] == "chef") {
-			$this->load->model("M_Chef", "M_Staff");
-		} else if (isset($_GET["type"]) && $_GET["type"] == "waiter") {
-			$this->load->model("M_Waiter", "M_Staff");
-		} else {
-			$this->load->model("M_Manager", "M_Staff");
-		}
+		$this->load->model("M_Staff");
 
 		$email = $this->input->post("email");
 		$name = $this->input->post("name");
