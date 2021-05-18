@@ -36,13 +36,8 @@ create table `Branches` (
     `id` int primary key not null auto_increment,
     `name` varchar(256) not null,
     `address` text not null,
+    `tables_num` int not null,
     `manager` int not null  
-);
-
-create table `Tables` (
-    `id` int primary key not null auto_increment,
-    `branch` int not null,
-    `name` varchar(256) not null
 );
 
 create table `Menu` (
@@ -91,13 +86,11 @@ create table `OrderDetails` (
 alter table `Staffs` add foreign key (`branch`) references `Branches`(`id`);
 alter table `Staffs` add foreign key (`create_by`) references `Staffs`(`id`);
 alter table `Branches` add foreign key (`manager`) references `Staffs`(`id`);
-alter table `Tables` add foreign key (`branch`) references `Branches`(`id`);
 alter table `Menu` add foreign key (`branch`) references `Branches`(`id`);
 alter table `MenuImages` add foreign key (`menu`) references `Menu`(`id`) on delete cascade;
 alter table `MenuRatings` add foreign key (`customer`) references `Customers`(`id`) on delete cascade;
 alter table `MenuRatings` add foreign key (`menu`) references `Menu`(`id`) on delete cascade;
 alter table `Orders` add foreign key (`customer`) references `Customers`(`id`);
 alter table `Orders` add foreign key (`branch`) references `Branches`(`id`);
-alter table `Orders` add foreign key (`table`) references `Tables`(`id`);
 alter table `OrderDetails` add foreign key (`order`) references `Orders`(`id`) on delete cascade;
 alter table `OrderDetails` add foreign key (`menu`) references `Menu`(`id`);
