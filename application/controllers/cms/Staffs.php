@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CMS_Controllers {
+class Staffs extends CMS_Controllers {
 
 	public function index()
 	{
-		$data["header_title"] = "Dashboard";
+		$data["header_title"] = "Staffs";
 		$data["breadcrumb_list"] = array(
 			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => "#", "title" => "Dashboard"),
+			array("uri" => "#", "title" => "Staffs"),
 		);
-        $data["main_view"] = "cms/dashboard/home";
+        $data["main_view"] = "cms/staffs/home";
 		$this->load->view("cms/layout/main", $data);
 	}
 

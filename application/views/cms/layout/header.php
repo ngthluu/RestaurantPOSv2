@@ -44,11 +44,6 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="<?= base_url("resources/logo.jpg"); ?>" alt="AdminLTELogo" height="60" width="60">
-  </div>
-
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -141,8 +136,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="<?= site_url("cms/dashboard") ?>" class="nav-link active">
+          <li class="nav-item <?= $this->uri->segment(2) == "dashboard" ? "menu-open" : "" ?>">
+            <a href="<?= site_url("cms/dashboard") ?>" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard

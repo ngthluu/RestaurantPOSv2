@@ -1,4 +1,4 @@
-<li class="nav-item">
+<li class="nav-item <?= $this->uri->segment(2) == "branch" ? "menu-open" : "" ?>">
     <a href="<?= site_url("cms/branch"); ?>" class="nav-link">
         <i class="nav-icon fas fa-map-marker-alt"></i>
         <p>
@@ -6,7 +6,7 @@
         </p>
     </a>
 </li>
-<li class="nav-item">
+<li class="nav-item <?= $this->uri->segment(2) == "staffs" ? "menu-open" : "" ?>">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-user"></i>
         <p>
@@ -35,7 +35,7 @@
         </li>
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item <?= $this->uri->segment(2) == "menu" ? "menu-open" : "" ?>">
     <a href="<?= site_url("cms/menu"); ?>" class="nav-link">
         <i class="nav-icon fas fa-utensils"></i>
         <p>
@@ -43,7 +43,7 @@
         </p>
     </a>
 </li>
-<li class="nav-item">
+<li class="nav-item <?= $this->uri->segment(2) == "orders" ? "menu-open" : "" ?>">
     <a href="<?= site_url("cms/orders"); ?>" class="nav-link">
         <i class="nav-icon fas fa-file-alt"></i>
         <p>
@@ -51,7 +51,7 @@
         </p>
     </a>
 </li>
-<li class="nav-item">
+<li class="nav-item <?= $this->uri->segment(2) == "users" ? "menu-open" : "" ?>">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-users"></i>
         <p>
