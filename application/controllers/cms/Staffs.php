@@ -172,7 +172,6 @@ class Staffs extends CMS_Controllers {
 		$idc = $this->input->post("idc");
 		$gender = $this->input->post("gender");
 		$birthday = $this->input->post("birthday");
-		$branch = $this->input->post("branch");
 
 		if (strlen(trim($name)) == 0) {
 			raise_message_err("Please type the name");
@@ -200,12 +199,6 @@ class Staffs extends CMS_Controllers {
 
 		if (strlen(trim($birthday)) == 0) {
 			raise_message_err("Please type the birthday");
-			echo $this->load->view("cms/layout/message_box", null, true);
-			return false;
-		}
-
-		if (!isset($branch)) {
-			raise_message_err("Please choose a branch");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}

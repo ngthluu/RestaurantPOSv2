@@ -61,7 +61,7 @@ if (isset($staff)) {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputBranch">Branch (*)</label>
+                        <label for="inputBranch">Branch</label>
                         <select id="inputBranch" class="form-control custom-select" name="branch">
                             <option selected disabled>Select a branch</option>
                             <?php foreach ($branch_list as $branch) { ?>
