@@ -90,3 +90,5 @@ defined('PROJECT_COPYRIGHT_FROM') OR define('PROJECT_COPYRIGHT_FROM', '2020');
 defined('PROJECT_COPYRIGHT_TO') OR define('PROJECT_COPYRIGHT_TO', '2021');
 defined('PROJECT_COPYRIGHT_BY') OR define('PROJECT_COPYRIGHT_BY', 'ngthluu');
 defined('PROJECT_VERSION') OR define('PROJECT_VERSION', '1.0.0');
+
+defined('HASHING_KEY') OR define('HASHING_KEY', 'asfj&#@!kSDJS%23s');

@@ -1,3 +1,7 @@
+drop database `ttcnpm`; 
+create database `ttcnpm`;
+use `ttcnpm`;
+
 create table `Customers` (
     `id` int primary key not null auto_increment,
     `phone` varchar(10) not null unique,
@@ -7,7 +11,7 @@ create table `Customers` (
     `avatar` text default null,
     `gender` int(1) default 0,
     `birthday` date default null,
-    `address` text null default null,
+    `address` text,
     `status` int(1) default 0,
     `create_time` datetime default current_timestamp()
 );
@@ -21,11 +25,11 @@ create table `Staffs` (
     `avatar` text default null,
     `gender` int(1) default 0,
     `birthday` date default null,
-    `address` text null default null,
-    `branch` int not null,
+    `address` text,
+    `branch` int,
     `role` varchar(10) not null,
     `create_time` datetime default current_timestamp(),
-    `create_by` int default 1
+    `create_by` int
 );
 
 create table `Branches` (
@@ -45,7 +49,7 @@ create table `Menu` (
     `id` int primary key not null auto_increment,
     `name` varchar(256) not null,
     `branch` int not null,
-    `description` text null default null,
+    `description` text,
     `price` int not null,
     `status` int default 1
 );
@@ -62,7 +66,7 @@ create table `MenuRatings` (
     `menu` int not null,
     `customer` int not null,
     `rating` int(1) default 5,
-    `comment` text null default null,
+    `comment` text,
     `comment_time` datetime default current_timestamp()
 );
 
