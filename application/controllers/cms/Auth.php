@@ -37,9 +37,9 @@ class Auth extends CMS_Controllers {
         $this->load->model("M_Admin");
         $result = $this->M_Admin->create_account();
         if ($result) {
-            $_SESSION["cms_message_ok"] = "Admin account is created successfully";
+            raise_message_ok("Admin account is created successfully");
         } else {
-            $_SESSION["cms_message_err"] = "Admin account was created";
+            raise_message_err("Admin account was created");
         }
         redirect(site_url("cms/auth/signin"));
     }
@@ -56,7 +56,7 @@ class Auth extends CMS_Controllers {
         } else if ($this->M_Manager->signin($email, $password)) {
             redirect(site_url("cms/dashboard"));
         } else {
-            $_SESSION["cms_message_err"] = "Your email/password is not correct";
+            raise_message_err("Your email/password is not correct");
             redirect(site_url("cms/auth/signin"));
         }
     }

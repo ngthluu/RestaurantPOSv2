@@ -80,4 +80,25 @@ class M_Branch extends CI_Model {
         $this->reset_connection();
         return true;
     }
+
+    public function change_status($id) {
+        $this->init_connection();
+
+        $branch = $this->get($id);
+        if ($branch->status == 0) {
+            $this->db->update($this->table, array("status" => 1), array("id" => $id));
+        } else {
+            $this->db->update($this->table, array("status" => 0), array("id" => $id));
+        }
+
+        $this->reset_connection();
+        return true;
+    }
+
+    public function delete($id) {
+        $this->init_connection();
+        $this->db->delete($this->table, array("id" => $id));
+        $this->reset_connection();
+        return true;
+    }
 }

@@ -39,7 +39,12 @@ class Branch extends CMS_Controllers {
 		$this->load->view("cms/layout/main", $data);
 	}
 
-	public function edit($id) {
+	public function edit($id=null) {
+		if (!$id) {
+			redirect(site_url("cms/branch"));
+			return;
+		}
+
 		$data["header_title"] = "Branch";
 		$data["breadcrumb_list"] = array(
 			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
@@ -61,15 +66,15 @@ class Branch extends CMS_Controllers {
 		if ($is_correct_form) {
 			if ($id) {
 				$this->M_Branch->update($id);
-				$_SESSION["cms_message_ok"] = "Updated successfully";
+				raise_message_ok("Updated successfully");
 				redirect(site_url("cms/branch/edit/".$id));
 			} else {
 				$this->M_Branch->add();
-				$_SESSION["cms_message_ok"] = "Added successfully";
+				raise_message_ok("Added successfully");
 				redirect(site_url("cms/branch/add"));
 			}
 		} else {
-			$_SESSION["cms_message_err"] = "Your form is not valid";
+			raise_message_err("Your form is not valid");
 			redirect(site_url("cms/branch/add"));
 		}
 	}
@@ -82,19 +87,19 @@ class Branch extends CMS_Controllers {
 		$manager = $this->input->post("manager");
 
 		if (strlen(trim($name)) == 0) {
-			$_SESSION["cms_message_err"] = "Please type the branch name";
+			raise_message_err("Please type the branch name");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}
 
 		if (strlen(trim($address)) == 0) {
-			$_SESSION["cms_message_err"] = "Please type the branch address";
+			raise_message_err("Please type the branch address");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}
 
 		if (!(filter_var($numberOfTables, FILTER_VALIDATE_INT) && $numberOfTables > 0)) {
-			$_SESSION["cms_message_err"] = "Please type a correct number of tables";
+			raise_message_err("Please type a correct number of tables");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}
@@ -103,7 +108,19 @@ class Branch extends CMS_Controllers {
 		return true;
 	}
 
-	public function change_status($id) {
+	public function change_status($id=null) {
+		if ($id) {
+			$this->M_Branch->change_status($id);
+			alert_message_box("Updated successfully");
+		}
+		redirect(site_url("cms/branch"));
+	}
 
+	public function delete($id=null) {
+		if ($id) {
+			$this->M_Branch->delete($id);
+			alert_message_box("Deleted successfully");
+		}
+		redirect(site_url("cms/branch"));
 	}
 }
