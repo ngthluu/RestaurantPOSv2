@@ -66,6 +66,7 @@ $("#form-info").submit(function(e) {
         if (response == "ok") {
             $("#form-info").off("submit").submit();
         } else {
+            $("html, body").animate({ scrollTop: 0 }, "fast");
             $("#msg").html(response);
         }
     });
