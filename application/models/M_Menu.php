@@ -47,15 +47,6 @@ class M_Menu extends CI_Model {
         return $result->row();
     }
 
-    private function get_count() {
-        $this->init_connection();
-        $result = $this->db->get_where($this->table);
-        $this->db->flush_cache();
-        $result = $result->num_rows();
-        $this->reset_connection();
-        return $result;
-    }
-
     private function uploadImage($id) {
         $this->init_connection();
         $image = uploadImage("./resources/menu/".$id."/", "image-file");
