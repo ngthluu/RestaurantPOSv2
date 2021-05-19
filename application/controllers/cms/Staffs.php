@@ -237,5 +237,13 @@ class Staffs extends CMS_Controllers {
 		}
 		redirect(site_url("cms/staffs?type=".$_GET["type"]));
 	}
+
+	public function pay_salary($id=null) {
+		if ($id) {
+			$this->M_Staff->pay_salary($id);
+			alert_message_box("Paid successfully");
+		}
+		redirect(site_url("cms/statistics/salary"));
+	}
 	
 }

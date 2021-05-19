@@ -28,6 +28,10 @@ class Statistics extends CMS_Controllers {
 			array("uri" => "#", "title" => "Salary"),
 		);
 
+        $this->load->model("M_Staff");
+        $this->load->model("M_Branch");
+        $data["staffs_list"] = $this->M_Staff->gets_all();
+
 		$data["main_view"] = "cms/statistics/salary";
 
 		$this->load->view("cms/layout/main", $data);

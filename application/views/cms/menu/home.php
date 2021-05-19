@@ -49,7 +49,7 @@
                         if ($branch) echo '<a href="'.site_url("cms/branch/edit/".$branch->id).'">'.$branch->name.'</a>';
                     ?>    
                     </td>
-                    <td> 
+                    <td class="project-state"> 
                     <?php 
                     if ($menu->status == M_Menu::STATUS_NOT_PUBLISHED) {
                         echo '<span class="badge badge-warning">Not Published</span>';

@@ -28,7 +28,12 @@ class M_Staff extends CI_Model {
     }
 
     public function gets_all($where=null) {
-        $this->init_connection();
+        if ($this->role == "staff") {
+            $this->init_connection(true);
+            $this->db->where("role != ", "admin");
+        } else {
+            $this->init_connection();
+        }
         $result = $this->db->get_where($this->table, $where);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
@@ -214,5 +219,40 @@ class M_Staff extends CI_Model {
         $this->db->delete($this->table, array("id" => $id));
         $this->reset_connection();
         return true;
+    }
+
+    public function pay_salary($id) {
+        $this->init_connection(true);
+
+        $staff = $this->get($id);
+        $payment_info = array(
+            "staff_id"      => $staff->id,
+            "payment_value" => $staff->salary,
+            "payment_by"    => $_SESSION["cms_uid"]
+        );
+        $table = $this->db->dbprefix("staffssalaryhistory");
+        $this->db->insert($table, $payment_info);
+        
+        $this->reset_connection();
+        return true;
+    }
+
+    public function get_this_month_payment($staff_id) {
+        $this->init_connection(true);
+
+        $w = array(
+            "staff_id" => $staff_id, 
+            "payment_date >= " => date('Y-m-01'), 
+            "payment_date <= " => date('Y-m-t')
+        );
+        $table = $this->db->dbprefix("staffssalaryhistory");
+        $result = $this->db->get_where($table, $w);
+        $this->db->flush_cache();
+        if ($result->num_rows() == 0) {
+            $this->reset_connection();
+            return null;
+        }
+        $this->reset_connection();
+        return $result->row();
     }
 }
