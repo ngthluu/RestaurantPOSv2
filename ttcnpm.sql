@@ -132,6 +132,7 @@ CREATE TABLE `orders` (
   `customer` int(11) DEFAULT NULL,
   `branch` int(11) DEFAULT NULL,
   `table` int(11) NOT NULL,
+  `note` text COLLATE utf8mb4_general_ci,
   `status` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -156,6 +157,7 @@ CREATE TABLE `staffs` (
   `role` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `create_by` int(11) DEFAULT NULL,
+  `salary` int (11) DEFAULT '0',
   `status` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -171,6 +173,14 @@ INSERT INTO `staffs` (`id`, `phone`, `password`, `email`, `name`, `idc`, `avatar
 (7, '0212121214', 'f657536db476b2dd5cb480c841890e1fad37edcdc3e69cdc12b96a4dec1eb91e', 'chef190521005@pos.v2', 'Đầu bếp Q10 - 2', '4', NULL, 0, '2021-05-18', NULL, 3, 'chef', '2021-05-19 09:54:02', 1, 1),
 (8, '0212121215', 'f657536db476b2dd5cb480c841890e1fad37edcdc3e69cdc12b96a4dec1eb91e', 'chef190521006@pos.v2', 'Đầu bếp Dĩ An - 1', '5', NULL, 0, '2021-05-11', NULL, 4, 'chef', '2021-05-19 09:54:29', 1, 1),
 (9, '0212121216', 'f657536db476b2dd5cb480c841890e1fad37edcdc3e69cdc12b96a4dec1eb91e', 'waiter190521007@pos.v2', 'Phục vụ cơ sở Q10 - 1', '123', NULL, 1, '2021-05-24', NULL, 3, 'waiter', '2021-05-19 09:59:11', 1, 1);
+
+CREATE TABLE `StaffsSalaryHistory` (
+  `id` int(11) primary key not null AUTO_INCREMENT,
+  `staff_id` int(11) not null,
+  `payment_value` int(11) not null,
+  `payment_date` datetime default CURRENT_TIMESTAMP,
+  `payment_by` int(11)
+);
 
 --
 -- Indexes for dumped tables
@@ -328,3 +338,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+alter table `StaffsSalaryHistory` add foreign key (`staff_id`) references `Staffs`(`id`) on delete cascade;
+alter table `StaffsSalaryHistory` add foreign key (`payment_by`) references `Staffs`(`id`) on delete set null;
