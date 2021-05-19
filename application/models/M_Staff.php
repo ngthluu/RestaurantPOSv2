@@ -194,6 +194,37 @@ class M_Staff extends CI_Model {
         return true;
     }
 
+    public function update_profile($id) {
+
+        $this->init_connection(true);
+
+        $name = $this->input->post("name");
+		$phone = $this->input->post("phone");
+		$idc = $this->input->post("idc");
+		$gender = $this->input->post("gender");
+		$birthday = $this->input->post("birthday");
+        $password = $this->input->post("password");
+
+        $new_data = [
+            "phone"         => $phone,
+            "name"          => $name,
+            "idc"           => $idc,
+            "gender"        => $gender,
+            "birthday"      => $birthday,
+        ];
+
+        if (strlen($password) > 0) {
+            $new_data = array_merge($new_data, ["password" => hashing_password($password)]);
+        }
+
+        $this->db->update($this->table, $new_data, ["id" => $id]);
+
+        $this->uploadImage($id);
+
+        $this->reset_connection();
+        return true;
+    }
+
     public function change_status($id) {
         $this->init_connection(true);
         $staff = $this->get($id);

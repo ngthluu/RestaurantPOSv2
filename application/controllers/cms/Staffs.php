@@ -257,7 +257,7 @@ class Staffs extends CMS_Controllers {
 
 		$existed_account = $this->M_Staff->is_existed($email, $phone, $idc);
 		if ($existed_account) {
-			raise_message_err("This account existed in the system");
+			raise_message_err("This phone and IDC has existed in the system");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}
