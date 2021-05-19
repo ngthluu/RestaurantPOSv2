@@ -20,6 +20,8 @@
     <link href="<?= base_url("assets/homepage/css/header.css") ?>" rel="stylesheet">
     <link href="<?= base_url("assets/homepage/css/footer.css") ?>" rel="stylesheet">
 
+    <link href="<?= base_url("assets/homepage/css/contact-us.css") ?>" rel="stylesheet">
+
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 </head>

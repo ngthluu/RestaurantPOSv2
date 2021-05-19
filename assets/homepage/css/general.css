@@ -44,6 +44,18 @@ h6 {
 body, html {
 	height: 100%;
 }
+
+.t-white {
+	color: white;
+}
+
+.t-red {
+	color: #CC3E58;
+}
+
+.t-yellow {
+	color: #FCF9B8;
+}
   
 #main {
 	/* The image used */
@@ -76,7 +88,7 @@ section {
 	letter-spacing: 1px;
 	font-weight: 700;
 	margin: 0;
-	color: #4154f1;
+	color: #e83152;
 	text-transform: uppercase;
 }
 
@@ -86,7 +98,7 @@ section {
 	font-size: 38px;
 	line-height: 42px;
 	font-weight: 700;
-	color: #012970;
+	color: #e83152;
 }
 
 @media (max-width: 768px) {

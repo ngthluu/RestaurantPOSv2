@@ -1,0 +1,46 @@
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+.contact .info-box {
+	color: #444444;
+	background: #fafbff;
+	padding: 30px;
+}
+
+.contact .info-box i {
+	font-size: 38px;
+	line-height: 0;
+	color: #e83152;
+}
+
+.contact .info-box h3 {
+	font-size: 20px;
+	color: #e83152;
+	font-weight: 700;
+	margin: 20px 0 10px 0;
+}
+
+.contact .info-box p {
+	padding: 0;
+	line-height: 24px;
+	font-size: 14px;
+	margin-bottom: 0;
+}
+
+@-webkit-keyframes animate-loading {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes animate-loading {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
