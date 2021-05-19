@@ -16,19 +16,19 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="<?= site_url("cms/staffs?type=manager"); ?>" class="nav-link <?= isset($type) && $type == "manager" ? "active" : "" ?>">
+            <a href="<?= site_url("cms/staffs?type=manager"); ?>" class="nav-link <?= $this->uri->segment(2) == "staffs" && (!isset($_GET["type"]) || $_GET["type"] == "manager") ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Managers</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/staffs?type=chef"); ?>" class="nav-link <?= isset($type) && $type == "chef" ? "active" : "" ?>">
+            <a href="<?= site_url("cms/staffs?type=chef"); ?>" class="nav-link <?= $this->uri->segment(2) == "staffs" && (isset($_GET["type"]) && $_GET["type"] == "chef") ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Chefs</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/staffs?type=waiter"); ?>" class="nav-link <?= isset($type) && $type == "waiter" ? "active" : "" ?>">
+            <a href="<?= site_url("cms/staffs?type=waiter"); ?>" class="nav-link <?= $this->uri->segment(2) == "staffs" && (isset($_GET["type"]) && $_GET["type"] == "waiter") ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Waiters</p>
             </a>
@@ -62,20 +62,20 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="<?= site_url("cms/customers"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/customers?locked=false"); ?>" class="nav-link <?= $this->uri->segment(2) == "customers" && (!isset($_GET["locked"]) || $_GET["locked"] == "false") ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Customers list</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/customers?locked=true"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/customers?locked=true"); ?>" class="nav-link <?= $this->uri->segment(2) == "customers" && (isset($_GET["locked"]) && $_GET["locked"] == "true") ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Customers list (locked)</p>
             </a>
         </li>
     </ul>
 </li>
-<li class="nav-item">
+<li class="nav-item <?= $this->uri->segment(2) == "statistics" ? "menu-open" : "" ?>">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-chart-pie"></i>
         <p>
@@ -85,13 +85,13 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="<?= site_url("cms/revenue"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/statistics/revenue"); ?>" class="nav-link <?= $this->uri->segment(2) == "statistics" && $this->uri->segment(3) == "revenue" ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Revenue</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="<?= site_url("cms/salary"); ?>" class="nav-link">
+            <a href="<?= site_url("cms/statistics/salary"); ?>" class="nav-link <?= $this->uri->segment(2) == "statistics" && $this->uri->segment(3) == "salary" ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Salary</p>
             </a>
