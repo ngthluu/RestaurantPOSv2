@@ -29,7 +29,7 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="privacyPolicy">
                     <label class="form-check-label t-white" for="privacyPolicy">
-                        I accept with the <a href="<?= site_url("privacy-policy") ?>">Privacy and Policy.</a>
+                        I accept the <a href="<?= site_url("privacy-policy") ?>">Privacy and Policy.</a>
                     </label>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <button class="btn btn-danger" href="#">Sign up</button>
             </div>
             <div class="mt-3">
-                <div class="t-white">Already have account ?</div>
+                <div class="t-white">Already have an account ?</div>
                 <a href="<?= site_url("signin") ?>" class="t-red">Sign in here</a>
             </div>
         </div>
