@@ -34,6 +34,7 @@ if ($type == "chef") {
             <thead>
                 <tr>
                     <th> # </th>
+                    <th> Avatar </th>
                     <th> Email </th>
                     <th> Name </th>
                     <th> Phone </th>
@@ -50,6 +51,7 @@ if ($type == "chef") {
             ?>
                 <tr>
                     <td> # </td>
+                    <td> <img width="50px" src="<?= $staff->avatar ? base_url("resources/users/".$staff->id."/".$staff->avatar) : base_url("resources/no-avatar.png"); ?>" alt=""> </td>
                     <td> <?= $staff->email ?> </td>
                     <td> <?= $staff->name ?></td>
                     <td> <?= $staff->phone ?></td>
