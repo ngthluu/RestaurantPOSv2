@@ -59,7 +59,7 @@ if ($type == "chef") {
                     <td> 
                     <?php 
                     $branch = $this->M_Branch->get($staff->branch);
-                    echo $branch ? $branch->name : "";
+                    if ($branch) echo '<a href="'.site_url("cms/branch/edit/".$branch->id).'">'.$branch->name.'</a>';
                     ?>
                      </td>
                     <td class="project-state">

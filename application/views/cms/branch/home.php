@@ -47,7 +47,8 @@
                     $manager = $this->M_Staff
                         ->set_role("manager")
                         ->get($branch->manager, array("status" => M_Staff::STATUS_PUBLISHED));
-                    echo $manager ? $manager->email." - ".$manager->name : "";
+                    
+                        if ($manager) echo '<a href="'.site_url("cms/staffs/edit/".$manager->id."?type=manager").'">'.$manager->email." - ".$manager->name.'</a>';
                     ?>
                     </td>
                     <td class="project-state">

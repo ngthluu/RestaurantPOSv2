@@ -46,8 +46,8 @@
                     <td> 
                     <?php 
                         $branch = $this->M_Branch->get($menu->branch);
-                        echo $branch ? $branch->name : "";
-                        ?>    
+                        if ($branch) echo '<a href="'.site_url("cms/branch/edit/".$branch->id).'">'.$branch->name.'</a>';
+                    ?>    
                     </td>
                     <td> 
                     <?php 
