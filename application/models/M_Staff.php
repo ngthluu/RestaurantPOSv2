@@ -138,6 +138,7 @@ class M_Staff extends CI_Model {
 		$gender = $this->input->post("gender");
 		$birthday = $this->input->post("birthday");
 		$branch = $this->input->post("branch");
+        $salary = $this->input->post("salary");
 
         $new_data = array(
             "phone"         => $phone,
@@ -150,6 +151,7 @@ class M_Staff extends CI_Model {
             "branch"        => $branch,
             "role"          => $this->role,
             "status"        => self::STATUS_LOCKED,
+            "salary"        => $salary,
             "create_by"    => $_SESSION["cms_uid"]
         );
         $this->db->insert($this->table, $new_data);
@@ -172,6 +174,7 @@ class M_Staff extends CI_Model {
 		$gender = $this->input->post("gender");
 		$birthday = $this->input->post("birthday");
 		$branch = $this->input->post("branch");
+        $salary = $this->input->post("salary");
 
         $new_data = array(
             "phone"         => $phone,
@@ -180,6 +183,7 @@ class M_Staff extends CI_Model {
             "gender"        => $gender,
             "birthday"      => $birthday,
             "branch"        => $branch,
+            "salary"        => $salary
         );
 
         $this->db->update($this->table, $new_data, array("id" => $id));

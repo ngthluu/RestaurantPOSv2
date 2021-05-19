@@ -69,6 +69,10 @@ if (isset($staff)) {
                             <?php } ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="inputSalary">Salary (*)</label>
+                        <input type="number" id="inputSalary" class="form-control" name="salary" value="<?= isset($staff) ? $staff->salary : "" ?>">
+                    </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

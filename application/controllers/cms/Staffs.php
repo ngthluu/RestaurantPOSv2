@@ -172,6 +172,7 @@ class Staffs extends CMS_Controllers {
 		$idc = $this->input->post("idc");
 		$gender = $this->input->post("gender");
 		$birthday = $this->input->post("birthday");
+		$salary = $this->input->post("salary");
 
 		if (strlen(trim($name)) == 0) {
 			raise_message_err("Please type the name");
@@ -199,6 +200,12 @@ class Staffs extends CMS_Controllers {
 
 		if (strlen(trim($birthday)) == 0) {
 			raise_message_err("Please type the birthday");
+			echo $this->load->view("cms/layout/message_box", null, true);
+			return false;
+		}
+
+		if (!(filter_var($salary, FILTER_VALIDATE_INT) && $salary > 0)) {
+			raise_message_err("Please type a correct salary");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}
