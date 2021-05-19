@@ -90,7 +90,7 @@ class M_Branch extends CI_Model {
         $branch = $this->get($id);
         if ($branch->status == self::STATUS_PAUSED) {
             $this->db->update($this->table, array("status" => self::STATUS_ACTIVE), array("id" => $id));
-        } else {
+        } else if ($branch->status == self::STATUS_ACTIVE) {
             $this->db->update($this->table, array("status" => self::STATUS_PAUSED), array("id" => $id));
         }
 

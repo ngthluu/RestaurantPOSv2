@@ -112,7 +112,7 @@ class M_Menu extends CI_Model {
         $menu = $this->get($id);
         if ($menu->status == self::STATUS_NOT_PUBLISHED) {
             $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
-        } else {
+        } else if ($menu->status == self::STATUS_PUBLISHED) {
             $this->db->update($this->table, array("status" => self::STATUS_NOT_PUBLISHED), array("id" => $id));
         }
 
@@ -125,7 +125,7 @@ class M_Menu extends CI_Model {
         $menu = $this->get($id);
         if ($menu->status_date == self::STATUS_DATE_NOT_AVAILABLE) {
             $this->db->update($this->table, array("status_date" => self::STATUS_DATE_AVAILABLE), array("id" => $id));
-        } else {
+        } else if ($menu->status == self::STATUS_DATE_AVAILABLE) {
             $this->db->update($this->table, array("status_date" => self::STATUS_DATE_NOT_AVAILABLE), array("id" => $id));
         }
 

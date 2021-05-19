@@ -193,7 +193,7 @@ class M_Staff extends CI_Model {
                 $this->db->update($this->db->dbprefix("branches"), array("manager" => $staff->id), array("id" => $staff->branch));
             } 
             $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
-        } else {
+        } else if ($staff->status == self::STATUS_PUBLISHED) {
             $this->db->update($this->table, array("status" => self::STATUS_LOCKED), array("id" => $id));
         }
 
