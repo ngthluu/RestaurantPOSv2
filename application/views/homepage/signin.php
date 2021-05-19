@@ -1,6 +1,7 @@
 <main id="main">
     <div class="container d-flex h-100">
         <div class="justify-content-center align-self-center">
+            <?php echo form_open("signin/signin", ["id" => "form-info"]); ?>
             <h1 class="page-title t-white font-weight-bold">
                 Sign in to <?= PROJECT_SHORTCUT ?>
             </h1>
@@ -26,6 +27,7 @@
                 <div class="t-white">Not have an account ?</div>
                 <a href="<?= site_url("signup") ?>" class="t-red">Sign up here</a>
             </div>
+            <?php echo form_close(); ?>
         </div>
     </div>
 </main>
