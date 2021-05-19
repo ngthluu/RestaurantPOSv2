@@ -35,7 +35,12 @@ class Statistics extends CMS_Controllers {
 
         $this->load->model("M_Staff");
         $this->load->model("M_Branch");
-        $data["staffs_list"] = $this->M_Staff->gets_all();
+
+		if (in_role(["manager"])) {
+			$data["staffs_list"] = $this->M_Staff->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
+		} else {
+			$data["staffs_list"] = $this->M_Staff->gets_all();
+		}
 
 		$data["main_view"] = "cms/statistics/salary";
 
