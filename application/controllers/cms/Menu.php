@@ -6,7 +6,7 @@ class Menu extends CMS_Controllers {
 	public function __construct() {
 		parent::__construct();
 
-		if (!in_role(["admin", "manager"])) {
+		if (!in_role(["admin", "manager", "chef"])) {
 			redirect(site_url("cms/dashboard"));
 			return;
 		} 
@@ -24,7 +24,7 @@ class Menu extends CMS_Controllers {
 
 		$data["main_view"] = "cms/menu/home";
 
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["menu_list"] = $this->M_Menu->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
 		} else {
 			$data["menu_list"] = $this->M_Menu->gets_all();
@@ -45,7 +45,7 @@ class Menu extends CMS_Controllers {
 		];
 
 		$this->load->model("M_Branch");
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["branch_list"] = $this->M_Branch->gets_all([
 				"status" => M_Branch::STATUS_ACTIVE,
 				"id" => $_SESSION["cms_ubranch"]
@@ -73,7 +73,7 @@ class Menu extends CMS_Controllers {
 		];
 
 		$this->load->model("M_Branch");
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["branch_list"] = $this->M_Branch->gets_all([
 				"status" => M_Branch::STATUS_ACTIVE,
 				"id" => $_SESSION["cms_ubranch"]
@@ -84,7 +84,7 @@ class Menu extends CMS_Controllers {
 
 		$data["menu"] = $this->M_Menu->get($id);
 
-		if (in_role(["manager"]) && $data["menu"]->branch != $_SESSION["cms_ubranch"]) {
+		if (!in_role(["admin"]) && $data["menu"]->branch != $_SESSION["cms_ubranch"]) {
 			redirect(site_url("cms/menu"));
 			return;
 		}

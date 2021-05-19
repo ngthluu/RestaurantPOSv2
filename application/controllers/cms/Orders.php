@@ -19,7 +19,7 @@ class Orders extends CMS_Controllers {
 
 		$data["main_view"] = "cms/orders/home";
 
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["orders_list"] = $this->M_Order->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
 		} else {
 			$data["orders_list"] = $this->M_Order->gets_all();

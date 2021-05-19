@@ -68,9 +68,12 @@
                     ?>
                     </td>
                     <td class="project-actions text-right">
+                        <?php if (!in_role(["chef"])) { ?>
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/menu/edit/".$menu->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
+                        <?php } ?>
+                        <?php if (!in_role(["chef"])) { ?>
                         <?php if ($menu->status == M_Menu::STATUS_NOT_PUBLISHED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
@@ -91,6 +94,7 @@
                         >
                             <i class="fas fa-lock"> </i> Un-publish
                         </a>
+                        <?php } ?>
                         <?php } ?>
                         <?php if ($menu->status_date == M_Menu::STATUS_DATE_NOT_AVAILABLE) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
@@ -113,6 +117,7 @@
                             <i class="fas fa-lock"> </i> Not Available
                         </a>
                         <?php } ?>
+                        <?php if (!in_role(["chef"])) { ?>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -122,6 +127,7 @@
                         >
                             <i class="fas fa-trash"> </i> Delete
                         </a>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php } ?>

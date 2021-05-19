@@ -38,6 +38,8 @@ class Statistics extends CMS_Controllers {
 
 		if (in_role(["manager"])) {
 			$data["staffs_list"] = $this->M_Staff->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
+		} else if (!in_role(["admin"])) {
+			$data["staffs_list"] = $this->M_Staff->gets_all(["id" => $_SESSION["cms_uid"]]);
 		} else {
 			$data["staffs_list"] = $this->M_Staff->gets_all();
 		}

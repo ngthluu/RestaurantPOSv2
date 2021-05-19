@@ -51,7 +51,7 @@ class Staffs extends CMS_Controllers {
 		$data["type"] = $type;
 		$data["main_view"] = "cms/staffs/home";
 		
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
 		} else {
 			$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all();
@@ -100,7 +100,7 @@ class Staffs extends CMS_Controllers {
 		}
 
 		$this->load->model("M_Branch");
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["branch_list"] = $this->M_Branch->gets_all([
 				"status" => M_Branch::STATUS_ACTIVE,
 				"id" => $_SESSION["cms_ubranch"]
@@ -157,7 +157,7 @@ class Staffs extends CMS_Controllers {
 		}
 
 		$this->load->model("M_Branch");
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["branch_list"] = $this->M_Branch->gets_all([
 				"status" => M_Branch::STATUS_ACTIVE,
 				"id" => $_SESSION["cms_ubranch"]
@@ -168,7 +168,7 @@ class Staffs extends CMS_Controllers {
 
 		$data["staff"] = $this->M_Staff->get($id);
 
-		if (in_role(["manager"]) && $data["staff"]->branch != $_SESSION["cms_ubranch"]) {
+		if (!in_role(["admin"]) && $data["staff"]->branch != $_SESSION["cms_ubranch"]) {
 			redirect(site_url("cms/staffs?type=".$type));
 			return;
 		}

@@ -22,7 +22,7 @@ class Branch extends CMS_Controllers {
 		];
         $data["main_view"] = "cms/branch/home";
 		
-		if (in_role(["manager"])) {
+		if (!in_role(["admin"])) {
 			$data["branch_list"] = $this->M_Branch->gets_all(["id" => $_SESSION["cms_ubranch"]]);
 		} else {
 			$data["branch_list"] = $this->M_Branch->gets_all();

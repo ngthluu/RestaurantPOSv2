@@ -62,6 +62,7 @@
                         <?= $this_month_payment ? date("H:i:s d/m/Y", strtotime($this_month_payment->payment_date)) : "" ?>
                     </td>
                     <td class="project-actions text-right">
+                        <?php if (in_role(["admin", "manager"])) { ?>
                         <?php if (!$this_month_payment) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
@@ -72,6 +73,7 @@
                         >
                             <i class="fas fa-dollar-sign"> </i> Pay
                         </a>
+                        <?php } ?>
                         <?php } ?>
                     </td>
                 </tr>
