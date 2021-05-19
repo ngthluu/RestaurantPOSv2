@@ -59,7 +59,7 @@ body, html {
   
 #main {
 	/* The image used */
-	background-image: url("../../../resources/bg.jpg");
+	background: url("../../../resources/bg.jpg");
 
 	/* Full height */
 	height: 100%;
@@ -68,6 +68,8 @@ body, html {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
 }
 
 /*--------------------------------------------------------------
