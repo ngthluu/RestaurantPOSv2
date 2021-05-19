@@ -50,7 +50,8 @@ create table `Menu` (
     `branch` int,
     `description` text,
     `price` int not null,
-    `status` int default 1
+    `status` int default 0,
+    `status_date` int default 0
 );
 
 create table `MenuRatings` (

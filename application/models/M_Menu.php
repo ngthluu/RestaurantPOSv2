@@ -3,8 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_Menu extends CI_Model {
 
-    public const STATUS_LOCKED = 0;
+    public const STATUS_NOT_PUBLISHED = 0;
     public const STATUS_PUBLISHED = 1;
+
+    public const STATUS_DATE_NOT_AVAILABLE = 0;
+    public const STATUS_DATE_AVAILABLE = 1;
 
     private function init_connection() {
         $this->table = $this->db->dbprefix("menu");
@@ -44,32 +47,6 @@ class M_Menu extends CI_Model {
         return $result->row();
     }
 
-    public function signin($email, $password) {
-        $this->init_connection();
-        $is_existed = $this->db->get_where($this->table, array(
-            "email" => $email,
-            "password" => hashing_password($password),
-            "status" => self::STATUS_PUBLISHED
-        ));
-        $this->db->flush_cache();
-        if ($is_existed->num_rows() == 0) {
-            $this->reset_connection();
-            return false;
-        }
-
-        // Logged in, set session
-        $user = $is_existed->row();
-        $_SESSION["cms_uid"] = $user->id;
-        $_SESSION["cms_uname"] = $user->name;
-        $_SESSION["cms_uemail"] = $user->email;
-        $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
-        $_SESSION["cms_urole"] = $user->role;
-        $_SESSION["cms_ubranch"] = $user->branch;
-
-        $this->reset_connection();
-        return true;
-    }
-
     private function get_count() {
         $this->init_connection();
         $result = $this->db->get_where($this->table);
@@ -81,60 +58,29 @@ class M_Menu extends CI_Model {
 
     private function uploadImage($id) {
         $this->init_connection();
-        $avatar = uploadImage("./resources/users/".$id."/", "avatar-file");
-        if ($avatar && $avatar != "") {
-            $this->db->update($this->table, array("avatar" => $avatar), array("id" => $id));
+        $image = uploadImage("./resources/menu/".$id."/", "image-file");
+        if ($image && $image != "") {
+            $this->db->update($this->table, array("image" => $image), array("id" => $id));
         }
         $this->reset_connection();
     } 
-
-    public function is_existed($email, $phone, $idc) {
-        $this->init_connection();
-        if ($email == "") {
-            $this->db->where("phone", $phone);
-            $this->db->or_where("idc", $idc);
-        } else {
-            $this->db->where("email != ", $email)
-                ->group_start()
-                ->where("phone", $phone)
-                ->or_where("idc", $idc)
-                ->group_end();
-        }
-        
-        $is_existed = $this->db->get_where($this->table);
-        $this->db->flush_cache();
-        if ($is_existed->num_rows() == 0) {
-            $this->reset_connection();
-            return false;
-        }
-        $this->reset_connection();
-        return true;
-    }
 
     public function add() {
 
         $this->init_connection();
 
-        $email = $this->role.date("dmy").sprintf('%03d', $this->get_count() + 1)."@".EMAIL_PATH;
         $name = $this->input->post("name");
-		$phone = $this->input->post("phone");
-		$idc = $this->input->post("idc");
-		$gender = $this->input->post("gender");
-		$birthday = $this->input->post("birthday");
 		$branch = $this->input->post("branch");
+        $description = $this->input->post("description");
+        $price = $this->input->post("price");
 
         $new_data = array(
-            "phone"         => $phone,
-            "password"      => hashing_password("123456"),
-            "email"         => $email,
             "name"          => $name,
-            "idc"           => $idc,
-            "gender"        => $gender,
-            "birthday"      => $birthday,
             "branch"        => $branch,
-            "role"          => $this->role,
-            "status"        => self::STATUS_LOCKED,
-            "create_by"    => $_SESSION["cms_uid"]
+            "description"   => $description,
+            "price"         => $price,
+            "status"        => self::STATUS_NOT_PUBLISHED,
+            "status_date"   => self::STATUS_DATE_NOT_AVAILABLE
         );
         $this->db->insert($this->table, $new_data);
         
@@ -151,19 +97,15 @@ class M_Menu extends CI_Model {
         $this->init_connection();
 
         $name = $this->input->post("name");
-		$phone = $this->input->post("phone");
-		$idc = $this->input->post("idc");
-		$gender = $this->input->post("gender");
-		$birthday = $this->input->post("birthday");
 		$branch = $this->input->post("branch");
+        $description = $this->input->post("description");
+        $price = $this->input->post("price");
 
         $new_data = array(
-            "phone"         => $phone,
             "name"          => $name,
-            "idc"           => $idc,
-            "gender"        => $gender,
-            "birthday"      => $birthday,
             "branch"        => $branch,
+            "description"   => $description,
+            "price"         => $price
         );
 
         $this->db->update($this->table, $new_data, array("id" => $id));
@@ -176,24 +118,26 @@ class M_Menu extends CI_Model {
 
     public function change_status($id) {
         $this->init_connection();
-        $staff = $this->get($id);
-        if ($staff->status == self::STATUS_LOCKED) {
-            // Update branch manager
-            if ($staff->role == "manager") {
-                $this->db->update($this->db->dbprefix("branches"), array("manager" => $staff->id), array("id" => $staff->branch));
-            } 
+        $menu = $this->get($id);
+        if ($menu->status == self::STATUS_NOT_PUBLISHED) {
             $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
         } else {
-            $this->db->update($this->table, array("status" => self::STATUS_LOCKED), array("id" => $id));
+            $this->db->update($this->table, array("status" => self::STATUS_NOT_PUBLISHED), array("id" => $id));
         }
 
         $this->reset_connection();
         return true;
     }
 
-    public function reset_password($id) {
+    public function change_status_date($id) {
         $this->init_connection();
-        $this->db->update($this->table, array("password" => hashing_password("123456")), array("id" => $id));
+        $menu = $this->get($id);
+        if ($menu->status_date == self::STATUS_DATE_NOT_AVAILABLE) {
+            $this->db->update($this->table, array("status_date" => self::STATUS_DATE_AVAILABLE), array("id" => $id));
+        } else {
+            $this->db->update($this->table, array("status_date" => self::STATUS_DATE_NOT_AVAILABLE), array("id" => $id));
+        }
+
         $this->reset_connection();
         return true;
     }

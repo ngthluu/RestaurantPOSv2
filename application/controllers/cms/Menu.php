@@ -84,12 +84,8 @@ class Menu extends CMS_Controllers {
 	
 	public function check_form() {
 
-		$email = $this->input->post("email");
 		$name = $this->input->post("name");
-		$phone = $this->input->post("phone");
-		$idc = $this->input->post("idc");
-		$gender = $this->input->post("gender");
-		$birthday = $this->input->post("birthday");
+		$price = $this->input->post("price");
 
 		if (strlen(trim($name)) == 0) {
 			raise_message_err("Please type the name");
@@ -97,33 +93,8 @@ class Menu extends CMS_Controllers {
 			return false;
 		}
 
-		if (!preg_match('/^[0-9]{10}$/', $phone)) {
-            raise_message_err("Please type the correct phone number");
-			echo $this->load->view("cms/layout/message_box", null, true);
-			return false;
-        }
-
-		if (strlen(trim($idc)) == 0) {
-			raise_message_err("Please type the identity card");
-			echo $this->load->view("cms/layout/message_box", null, true);
-			return false;
-		}
-
-		if (!isset($gender)) {
-			raise_message_err("Please choose gender");
-			echo $this->load->view("cms/layout/message_box", null, true);
-			return false;
-		}
-
-		if (strlen(trim($birthday)) == 0) {
-			raise_message_err("Please type the birthday");
-			echo $this->load->view("cms/layout/message_box", null, true);
-			return false;
-		}
-
-		$existed_account = $this->M_Menu->is_existed($email, $phone, $idc);
-		if ($existed_account) {
-			raise_message_err("This account existed in the system");
+		if (!(filter_var($price, FILTER_VALIDATE_INT) && $price > 0)) {
+			raise_message_err("Please type the correct price value");
 			echo $this->load->view("cms/layout/message_box", null, true);
 			return false;
 		}
@@ -140,10 +111,10 @@ class Menu extends CMS_Controllers {
 		redirect(site_url("cms/menu"));
 	}
 
-	public function reset_password($id=null) {
+	public function change_status_date($id=null) {
 		if ($id) {
-			$this->M_Menu->reset_password($id);
-			alert_message_box("Reset successfully");
+			$this->M_Menu->change_status_date($id);
+			alert_message_box("Updated successfully");
 		}
 		redirect(site_url("cms/menu"));
 	}

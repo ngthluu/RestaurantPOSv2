@@ -21,9 +21,9 @@ if (isset($menu)) {
                 <div class="card-body">
                     <div id="msg"> <?php $this->load->view("cms/layout/message_box") ?> </div>
                     <?php $this->load->view("cms/layout/avatar_box", array(
-                        "title" => "Image (*)",
+                        "title" => "Image",
                         "name" => "image",
-                        "image_link" => isset($menu) && $menu->avatar ? base_url("resources/menu/".$menu->id."/".$menu->avatar) : base_url("resources/no-image.jpg"),
+                        "image_link" => isset($menu) && $menu->image ? base_url("resources/menu/".$menu->id."/".$menu->image) : base_url("resources/no-image.jpg"),
                     )) ?>
                     <div class="form-group">
                         <label for="inputName">Name (*)</label>

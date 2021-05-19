@@ -40,22 +40,30 @@
             ?>
                 <tr>
                     <td> # </td>
-                    <td> <?= $menu->email ?> </td>
+                    <td> <img width="50px" src="<?= $menu->image ? base_url("resources/menu/".$menu->id."/".$menu->image) : base_url("resources/no-image.jpg"); ?>" alt=""> </td>
                     <td> <?= $menu->name ?></td>
-                    <td> <?= $menu->phone ?></td>
-                    <td> <?= gender_array()[$menu->gender] ?> </td>
+                    <td> <?= number_format($menu->price) ?></td>
                     <td> 
                     <?php 
-                    $branch = $this->M_Branch->get($menu->branch);
-                    echo $branch ? $branch->name : "";
+                        $branch = $this->M_Branch->get($menu->branch);
+                        echo $branch ? $branch->name : "";
+                        ?>    
+                    </td>
+                    <td> 
+                    <?php 
+                    if ($menu->status == M_Menu::STATUS_NOT_PUBLISHED) {
+                        echo '<span class="badge badge-warning">Not Published</span>';
+                    } else if ($menu->status == M_Menu::STATUS_PUBLISHED) {
+                        echo '<span class="badge badge-success">Published</span>';
+                    }
                     ?>
-                     </td>
+                    </td>
                     <td class="project-state">
                     <?php 
-                    if ($menu->status == M_Staff::STATUS_LOCKED) {
-                        echo '<span class="badge badge-warning">Locked</span>';
-                    } else if ($menu->status == M_Staff::STATUS_PUBLISHED) {
-                        echo '<span class="badge badge-success">Active</span>';
+                    if ($menu->status_date == M_Menu::STATUS_DATE_NOT_AVAILABLE) {
+                        echo '<span class="badge badge-warning">Not Available</span>';
+                    } else if ($menu->status_date == M_Menu::STATUS_DATE_AVAILABLE) {
+                        echo '<span class="badge badge-success">Available</span>';
                     }
                     ?>
                     </td>
@@ -63,41 +71,53 @@
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/menu/edit/".$menu->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
-                        <?php if ($menu->status == M_Staff::STATUS_LOCKED) { ?>
+                        <?php if ($menu->status == M_Menu::STATUS_DATE_NOT_AVAILABLE) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
-                            data-title="Active account"
-                            data-message="Are you sure you want to active this account ?"
+                            data-title="Publish Menu"
+                            data-message="Are you sure you want to publish this menu ?"
                             data-submit="<?= site_url("cms/menu/change-status/".$menu->id) ?>"
                         >
-                            <i class="fas fa-unlock"> </i> Active
+                            <i class="fas fa-unlock"> </i> Publish
                         </a>
-                        <?php } else if ($menu->status == M_Staff::STATUS_PUBLISHED) { ?>
+                        <?php } else if ($menu->status == M_Menu::STATUS_DATE_AVAILABLE) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
-                            data-title="Lock account"
-                            data-message="Are you sure you want to lock this account ?"
+                            data-title="Un-publish Menu"
+                            data-message="Are you sure you want to un-publish this menu ?"
                             data-submit="<?= site_url("cms/menu/change-status/".$menu->id) ?>"
                         >
-                            <i class="fas fa-lock"> </i> Lock
+                            <i class="fas fa-lock"> </i> Un-publish
                         </a>
                         <?php } ?>
-                        <a class="btn btn-primary btn-sm btn-modal" href="#"
-                            data-toggle="modal"
+                        <?php if ($menu->status == M_Menu::STATUS_DATE_NOT_AVAILABLE) { ?>
+                        <a class="btn btn-primary btn-sm btn-modal" href="#" 
+                            data-toggle="modal" 
                             data-target="#modal-alert"
-                            data-title="Reset password"
-                            data-message="Are you sure you want to reset this account password to 123456 ?"
-                            data-submit="<?= site_url("cms/menu/reset-password/".$menu->id) ?>"
+                            data-title="Make menu available today"
+                            data-message="Are you sure you want to make this menu available today ?"
+                            data-submit="<?= site_url("cms/menu/change-status-date/".$menu->id) ?>"
                         >
-                            <i class="fas fa-key"> </i> Reset password
+                            <i class="fas fa-unlock"> </i> Avaiable
                         </a>
+                        <?php } else if ($menu->status == M_Menu::STATUS_DATE_AVAILABLE) { ?>
+                        <a class="btn btn-primary btn-sm btn-modal" href="#"
+                            data-toggle="modal" 
+                            data-target="#modal-alert"
+                            data-title="Make menu not available today"
+                            data-message="Are you sure you want to make this menu not available today ?"
+                            data-submit="<?= site_url("cms/menu/change-status-date/".$menu->id) ?>"
+                        >
+                            <i class="fas fa-lock"> </i> Not Available
+                        </a>
+                        <?php } ?>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
-                            data-title="Delete staff"
-                            data-message="Are you sure you want to delete this staff ?"
+                            data-title="Delete menu"
+                            data-message="Are you sure you want to delete this menu ?"
                             data-submit="<?= site_url("cms/menu/delete/".$menu->id) ?>"
                         >
                             <i class="fas fa-trash"> </i> Delete
