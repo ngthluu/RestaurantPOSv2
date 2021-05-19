@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title><?= PROJECT_NAME ?></title>
+    <title><?= PROJECT_SHORTCUT ?> | <?= isset($main_header) ? $main_header : "Homepage" ?></title>
     <meta content="" name="description">
 
     <meta content="" name="keywords">
@@ -41,7 +41,7 @@
                 <ul>
                     <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
                     <li><a class="nav-link scrollto" href="<?= site_url("contact-us") ?>">Contact</a></li>
-                    <li><a class="getstarted scrollto" href="#">Sign up</a></li>
+                    <li><a class="getstarted scrollto" href="<?= site_url("signup") ?>">Sign up</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
