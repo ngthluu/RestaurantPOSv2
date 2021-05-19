@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row gy-4">
             <div class="col-lg-5 col-md-12 footer-info">
-                <a href="index.html" class="logo d-flex align-items-center">
+                <a href="<?= site_url() ?>" class="logo d-flex align-items-center">
                     <img src="<?= base_url("resources/logo.jpg") ?>" alt="">
                     <span><?= PROJECT_NAME ?></span>
                 </a>
@@ -22,20 +22,23 @@
             <div class="col-lg-2 col-6 footer-links">
                 <h4>Useful Links</h4>
                 <ul>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Contact us</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="<?= site_url() ?>">Home</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="<?= site_url("contact-us") ?>">Contact us</a></li>
+                    <li><i class="bi bi-chevron-right"></i> <a href="<?= site_url("privacy-policy") ?>">Privacy policy</a></li>
                 </ul>
             </div>
 
             <div class="col-lg-2 col-6 footer-links">
                 <h4>Our Branches</h4>
                 <ul>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-                    <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                <?php 
+                $CI = &get_instance();
+                $CI->load->model("M_Branch");
+                $branch_list = $CI->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+                foreach ($branch_list as $branch) {
+                ?>
+                    <li><i class="bi bi-chevron-right"></i> <a href="#"><?= $branch->name ?></a></li>
+                <?php } ?>
                 </ul>
             </div>
 
@@ -68,6 +71,14 @@
 <script src="<?= base_url("assets/homepage/js/jquery.min.js") ?>"></script>
 <script src="<?= base_url("assets/homepage/js/popper.min.js") ?>"></script>
 <script src="<?= base_url("assets/homepage/js/bootstrap.min.js") ?>"></script>
+<script>
+$(document).on('scroll', () => {
+    if (window.scrollY > 100) {
+        $('.back-to-top').addClass('active')
+    } else {
+        $('.back-to-top').removeClass('active')
+    }
+});
+</script>
 </body>
-
 </html>

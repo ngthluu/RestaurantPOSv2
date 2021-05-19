@@ -30,16 +30,16 @@
     <header id="header" class="header">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="<?= site_url() ?>" class="logo d-flex align-items-center">
                 <img src="<?= base_url("resources/logo.jpg") ?>" alt="">
                 <span><?= PROJECT_SHORTCUT ?></span>
             </a>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                    <li><a class="getstarted scrollto" href="#about">Sign up</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url("contact-us") ?>">Contact</a></li>
+                    <li><a class="getstarted scrollto" href="#">Sign up</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
