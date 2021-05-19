@@ -63,6 +63,7 @@
                     ?>
                     </td>
                     <td class="project-actions text-right">
+                        <?php if (in_role(["admin"])) { ?>
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/branch/edit/".$branch->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
@@ -87,9 +88,11 @@
                             <i class="fas fa-lock"> </i> Pause
                         </a>
                         <?php } ?>
+                        <?php } ?>
                         <a class="btn btn-primary btn-sm" href="<?= site_url("cms/branch/qrcode/".$branch->id) ?>">
                             <i class="fas fa-qrcode"> </i> QR Code
                         </a>
+                        <?php if (in_role(["admin"])) { ?>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -99,6 +102,7 @@
                         >
                             <i class="fas fa-trash"> </i> Delete
                         </a>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php } ?>
