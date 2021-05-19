@@ -93,3 +93,4 @@ defined('PROJECT_VERSION') OR define('PROJECT_VERSION', '1.0.0');
 
 defined('HASHING_KEY') OR define('HASHING_KEY', 'asfj&#@!kSDJS%23s');
 defined('EMAIL_PATH') OR define('EMAIL_PATH', 'pos.v2');
+defined('PHONE') OR define('PHONE', '038 347 7379');

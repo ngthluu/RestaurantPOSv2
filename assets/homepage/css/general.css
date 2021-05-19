@@ -1,0 +1,181 @@
+/* scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	background: #c0c0c0;
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+:root {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Open Sans", sans-serif;
+	color: #444444;
+}
+
+a {
+	color: #FF6477;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #e83152;
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Nunito", sans-serif;
+}
+
+body, html {
+	height: 100%;
+}
+  
+#main {
+	/* The image used */
+	background-image: url("../../../resources/bg.jpg");
+
+	/* Full height */
+	height: 100%;
+
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+/*--------------------------------------------------------------
+  # Sections
+  --------------------------------------------------------------*/
+section {
+	padding: 60px 0;
+	overflow: hidden;
+}
+
+.section-header {
+	text-align: center;
+	padding-bottom: 40px;
+}
+
+.section-header h2 {
+	font-size: 13px;
+	letter-spacing: 1px;
+	font-weight: 700;
+	margin: 0;
+	color: #4154f1;
+	text-transform: uppercase;
+}
+
+.section-header p {
+	margin: 10px 0 0 0;
+	padding: 0;
+	font-size: 38px;
+	line-height: 42px;
+	font-weight: 700;
+	color: #012970;
+}
+
+@media (max-width: 768px) {
+	.section-header p {
+		font-size: 28px;
+		line-height: 32px;
+	}
+}
+
+/*--------------------------------------------------------------
+  # Breadcrumbs
+  --------------------------------------------------------------*/
+.breadcrumbs {
+	padding: 15px 0;
+	background: #012970;
+	min-height: 40px;
+	margin-top: 82px;
+	color: #fff;
+}
+
+@media (max-width: 992px) {
+	.breadcrumbs {
+		margin-top: 57px;
+	}
+}
+
+.breadcrumbs h2 {
+	font-size: 28px;
+	font-weight: 500;
+}
+
+.breadcrumbs ol {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0 0 10px 0;
+	margin: 0;
+	font-size: 14px;
+}
+
+.breadcrumbs ol a {
+	color: #fff;
+	transition: 0.3s;
+}
+
+.breadcrumbs ol a:hover {
+	text-decoration: underline;
+}
+
+.breadcrumbs ol li + li {
+	padding-left: 10px;
+}
+
+.breadcrumbs ol li + li::before {
+	display: inline-block;
+	padding-right: 10px;
+	color: #8894f6;
+	content: "/";
+}
+
+/*--------------------------------------------------------------
+  # Back to top button
+  --------------------------------------------------------------*/
+.back-to-top {
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	right: 15px;
+	bottom: 15px;
+	z-index: 99999;
+	background: #4154f1;
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	transition: all 0.4s;
+}
+
+.back-to-top i {
+	font-size: 24px;
+	color: #fff;
+	line-height: 0;
+}
+
+.back-to-top:hover {
+	background: #6776f4;
+	color: #fff;
+}
+
+.back-to-top.active {
+	visibility: visible;
+	opacity: 1;
+}

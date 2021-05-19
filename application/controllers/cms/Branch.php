@@ -13,8 +13,7 @@ class Branch extends CMS_Controllers {
 		$this->load->model("M_Branch");
 	}
 
-	public function index()
-	{
+	public function index() {
 		$data["header_title"] = "Branch management";
 		$data["breadcrumb_list"] = [
 			["uri" => site_url("cms/dashboard"), "title" => "Home"],
@@ -33,8 +32,7 @@ class Branch extends CMS_Controllers {
 		$this->load->view("cms/layout/main", $data);
 	}
 
-	public function qrcode($id)
-	{
+	public function qrcode($id) {
 		$data["header_title"] = "Branch management";
 		$data["breadcrumb_list"] = [
 			["uri" => site_url("cms/dashboard"), "title" => "Home"],
