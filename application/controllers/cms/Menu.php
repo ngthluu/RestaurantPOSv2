@@ -23,7 +23,13 @@ class Menu extends CMS_Controllers {
 		];
 
 		$data["main_view"] = "cms/menu/home";
-		$data["menu_list"] = $this->M_Menu->gets_all();
+
+		if (in_role(["manager"])) {
+			$data["menu_list"] = $this->M_Menu->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
+		} else {
+			$data["menu_list"] = $this->M_Menu->gets_all();
+		}
+
 		$this->load->model("M_Branch");
 
 		$this->load->view("cms/layout/main", $data);
@@ -39,7 +45,14 @@ class Menu extends CMS_Controllers {
 		];
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		if (in_role(["manager"])) {
+			$data["branch_list"] = $this->M_Branch->gets_all([
+				"status" => M_Branch::STATUS_ACTIVE,
+				"id" => $_SESSION["cms_ubranch"]
+			]);
+		} else {
+			$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		}
 		
         $data["main_view"] = "cms/menu/add";
 		$this->load->view("cms/layout/main", $data);
@@ -60,9 +73,21 @@ class Menu extends CMS_Controllers {
 		];
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		if (in_role(["manager"])) {
+			$data["branch_list"] = $this->M_Branch->gets_all([
+				"status" => M_Branch::STATUS_ACTIVE,
+				"id" => $_SESSION["cms_ubranch"]
+			]);
+		} else {
+			$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		}
 
 		$data["menu"] = $this->M_Menu->get($id);
+
+		if (in_role(["manager"]) && $data["menu"]->branch != $_SESSION["cms_ubranch"]) {
+			redirect(site_url("cms/menu"));
+			return;
+		}
 		
         $data["main_view"] = "cms/menu/add";
 		$this->load->view("cms/layout/main", $data);

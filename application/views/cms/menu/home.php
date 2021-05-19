@@ -71,7 +71,7 @@
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/menu/edit/".$menu->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
-                        <?php if ($menu->status == M_Menu::STATUS_DATE_NOT_AVAILABLE) { ?>
+                        <?php if ($menu->status == M_Menu::STATUS_NOT_PUBLISHED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -81,7 +81,7 @@
                         >
                             <i class="fas fa-unlock"> </i> Publish
                         </a>
-                        <?php } else if ($menu->status == M_Menu::STATUS_DATE_AVAILABLE) { ?>
+                        <?php } else if ($menu->status == M_Menu::STATUS_PUBLISHED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -92,7 +92,7 @@
                             <i class="fas fa-lock"> </i> Un-publish
                         </a>
                         <?php } ?>
-                        <?php if ($menu->status == M_Menu::STATUS_DATE_NOT_AVAILABLE) { ?>
+                        <?php if ($menu->status_date == M_Menu::STATUS_DATE_NOT_AVAILABLE) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -102,7 +102,7 @@
                         >
                             <i class="fas fa-unlock"> </i> Avaiable
                         </a>
-                        <?php } else if ($menu->status == M_Menu::STATUS_DATE_AVAILABLE) { ?>
+                        <?php } else if ($menu->status_date == M_Menu::STATUS_DATE_AVAILABLE) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"

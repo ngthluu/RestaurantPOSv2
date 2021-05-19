@@ -40,7 +40,9 @@ if (isset($menu)) {
                     <div class="form-group">
                         <label for="inputBranch">Branch</label>
                         <select id="inputBranch" class="form-control custom-select" name="branch">
+                            <?php if (in_role(["admin"])) { ?>
                             <option selected disabled>Select a branch</option>
+                            <?php } ?>
                             <?php foreach ($branch_list as $branch) { ?>
                                 <option value="<?= $branch->id?>" <?= isset($menu) && $menu->branch == $branch->id ? "selected" : "" ?>><?= $branch->name ?></option>
                             <?php } ?>
