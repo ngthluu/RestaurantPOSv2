@@ -34,6 +34,14 @@ class Dashboard extends CMS_Controllers {
 		if ($is_correct_form) {
 			$this->M_Staff->update_profile($_SESSION["cms_uid"]);
 			raise_message_ok("Updated successfully");
+
+			// Reset session
+			$reset_session = $this->M_Staff->reset_session();
+			if (!$reset_session) {
+				redirect(site_url("cms/auth/signout"));
+				return;
+			}
+
 			redirect(site_url("cms/profile"));
 		} else {
 			raise_message_err("Your form is not valid");

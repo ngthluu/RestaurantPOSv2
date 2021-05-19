@@ -60,6 +60,30 @@ class M_Staff extends CI_Model {
         return $result->row();
     }
 
+    public function reset_session() {
+        $this->init_connection(true);
+        $is_existed = $this->db->get_where($this->table, [
+            "id" => $_SESSION["cms_uid"],
+            "status" => self::STATUS_PUBLISHED
+        ]);
+        $this->db->flush_cache();
+        if ($is_existed->num_rows() == 0) {
+            $this->reset_connection();
+            return false;
+        }
+
+        $user = $is_existed->row();
+        $_SESSION["cms_uid"] = $user->id;
+        $_SESSION["cms_uname"] = $user->name;
+        $_SESSION["cms_uemail"] = $user->email;
+        $_SESSION["cms_uavatar"] = $user->avatar ? base_url("resources/users/".$user->id."/".$user->avatar) : base_url("resources/no-avatar.png");
+        $_SESSION["cms_urole"] = $user->role;
+        $_SESSION["cms_ubranch"] = $user->branch;
+
+        $this->reset_connection();
+        return true;
+    }
+
     public function signin($email, $password) {
         $this->init_connection(true);
         $is_existed = $this->db->get_where($this->table, [
