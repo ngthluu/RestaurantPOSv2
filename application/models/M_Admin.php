@@ -8,7 +8,7 @@ class M_Admin extends CI_Model {
 
     private function init_connection() {
         $this->table = $this->db->dbprefix("staffs");
-        $this->where = array("role" => self::ROLE);
+        $this->where = ["role" => self::ROLE];
         $this->db->where($this->where);
     }
 
@@ -23,14 +23,14 @@ class M_Admin extends CI_Model {
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {
             // Create admin account here
-            $new_data = array(
+            $new_data = [
                 "phone"     => "1234567890",
                 "password"  => hashing_password("123456"),
                 "email"     => "admin@".EMAIL_PATH,
                 "name"      => "Super admin",
                 "role"      => self::ROLE,
                 "status"    => self::STATUS_PUBLISHED
-            );
+            ];
             $this->db->insert($this->table, $new_data);
             $this->reset_connection();
             return true;
@@ -41,11 +41,11 @@ class M_Admin extends CI_Model {
 
     public function signin($email, $password) {
         $this->init_connection();
-        $is_existed = $this->db->get_where($this->table, array(
+        $is_existed = $this->db->get_where($this->table, [
             "email" => $email,
             "password" => hashing_password($password),
             "status" => self::STATUS_PUBLISHED
-        ));
+        ]);
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {
             $this->reset_connection();

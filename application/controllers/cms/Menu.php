@@ -6,16 +6,21 @@ class Menu extends CMS_Controllers {
 	public function __construct() {
 		parent::__construct();
 
+		if (!in_role(["admin", "manager"])) {
+			redirect(site_url("cms/dashboard"));
+			return;
+		} 
+
 		$this->load->model("M_Menu");
 	}
 
 	public function index() {
 
 		$data["header_title"] = "Menu management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => "#", "title" => "Menu"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => "#", "title" => "Menu"],
+		];
 
 		$data["main_view"] = "cms/menu/home";
 		$data["menu_list"] = $this->M_Menu->gets_all();
@@ -27,14 +32,14 @@ class Menu extends CMS_Controllers {
 	public function add() {
 
 		$data["header_title"] = "Menu management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => site_url("cms/menu"), "title" => "Menu"),
-			array("uri" => "#", "title" => "Add Menu"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => site_url("cms/menu"), "title" => "Menu"],
+			["uri" => "#", "title" => "Add Menu"],
+		];
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
+		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
 		
         $data["main_view"] = "cms/menu/add";
 		$this->load->view("cms/layout/main", $data);
@@ -48,14 +53,14 @@ class Menu extends CMS_Controllers {
 		}
 
 		$data["header_title"] = "Menu management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => site_url("cms/menu"), "title" => "Menu"),
-			array("uri" => "#", "title" => "Edit Menu"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => site_url("cms/menu"), "title" => "Menu"],
+			["uri" => "#", "title" => "Edit Menu"],
+		];
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
+		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
 
 		$data["menu"] = $this->M_Menu->get($id);
 		

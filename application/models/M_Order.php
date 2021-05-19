@@ -27,7 +27,7 @@ class M_Order extends CI_Model {
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
-            return array();
+            return [];
         }
         $this->reset_connection();
         return $result->result();
@@ -35,7 +35,7 @@ class M_Order extends CI_Model {
 
     public function get($id, $where=null) {
         $this->init_connection();
-        $w = array("id" => $id);
+        $w = ["id" => $id];
         if ($where) {
             $w = array_merge($w, $where);
         }
@@ -53,11 +53,11 @@ class M_Order extends CI_Model {
         $this->init_connection();
         $menu = $this->get($id);
         if ($menu->status == self::STATUS_PAYMENT_OK) {
-            $this->db->update($this->table, array("status" => self::STATUS_RECEIVED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_RECEIVED], ["id" => $id]);
         } else if ($menu->status == self::STATUS_RECEIVED) {
-            $this->db->update($this->table, array("status" => self::STATUS_IN_PROCESS), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_IN_PROCESS], ["id" => $id]);
         } else if ($menu->status == self::STATUS_IN_PROCESS) {
-            $this->db->update($this->table, array("status" => self::STATUS_FINISHED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_FINISHED], ["id" => $id]);
         }
 
         $this->reset_connection();

@@ -6,6 +6,11 @@ class Customers extends CMS_Controllers {
 	public function __construct() {
 		parent::__construct();
 
+		if (!in_role(["admin"])) {
+			redirect(site_url("cms/dashboard"));
+			return;
+		}  
+
 		$this->load->model("M_Customers");
 	}
 
@@ -14,20 +19,20 @@ class Customers extends CMS_Controllers {
 		if (isset($_GET["locked"]) && $_GET["locked"] == "true") {
 			$locked_status = M_Customers::STATUS_LOCKED;
 			$data["header_title"] = "Customers management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => "#", "title" => "Customers (Locked)"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => "#", "title" => "Customers (Locked)"],
+			];
 		} else {
 			$locked_status = M_Customers::STATUS_PUBLISHED;
 			$data["header_title"] = "Customers management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => "#", "title" => "Customers"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => "#", "title" => "Customers"],
+			];
 		}
 		$data["main_view"] = "cms/customers/home";
-		$data["customers_list"] = $this->M_Customers->gets_all(array("status" => $locked_status));
+		$data["customers_list"] = $this->M_Customers->gets_all(["status" => $locked_status]);
 
 		$this->load->view("cms/layout/main", $data);
 	}

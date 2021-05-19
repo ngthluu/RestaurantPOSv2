@@ -1,9 +1,9 @@
 <!-- Main content -->
 <?php 
 if (isset($menu)) {
-    echo form_open_multipart("cms/menu/save/".$menu->id."", array("id" => "form-info"));
+    echo form_open_multipart("cms/menu/save/".$menu->id."", ["id" => "form-info"]);
 } else {
-    echo form_open_multipart("cms/menu/save", array("id" => "form-info"));
+    echo form_open_multipart("cms/menu/save", ["id" => "form-info"]);
 }
 ?>
 <section class="content">
@@ -20,11 +20,11 @@ if (isset($menu)) {
                 </div>
                 <div class="card-body">
                     <div id="msg"> <?php $this->load->view("cms/layout/message_box") ?> </div>
-                    <?php $this->load->view("cms/layout/avatar_box", array(
+                    <?php $this->load->view("cms/layout/avatar_box", [
                         "title" => "Image",
                         "name" => "image",
                         "image_link" => isset($menu) && $menu->image ? base_url("resources/menu/".$menu->id."/".$menu->image) : base_url("resources/no-image.jpg"),
-                    )) ?>
+                    ]) ?>
                     <div class="form-group">
                         <label for="inputName">Name (*)</label>
                         <input type="text" id="inputName" class="form-control" name="name" value="<?= isset($menu) ? $menu->name : "" ?>">

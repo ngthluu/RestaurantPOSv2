@@ -6,6 +6,11 @@ class Staffs extends CMS_Controllers {
 	public function __construct() {
 		parent::__construct();
 
+		if (!in_role(["admin", "manager"])) {
+			redirect(site_url("cms/dashboard"));
+			return;
+		} 
+
 		$this->load->model("M_Staff");
 	}
 
@@ -21,22 +26,22 @@ class Staffs extends CMS_Controllers {
 
 		if ($type == "chef") {
 			$data["header_title"] = "Chefs management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => "#", "title" => "Chefs"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => "#", "title" => "Chefs"],
+			];
 		} else if ($type == "waiter") {
 			$data["header_title"] = "Waiters management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => "#", "title" => "Waiters"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => "#", "title" => "Waiters"],
+			];
 		} else {
 			$data["header_title"] = "Managers management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => "#", "title" => "Managers"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => "#", "title" => "Managers"],
+			];
 		}
 
 		$data["type"] = $type;
@@ -60,29 +65,29 @@ class Staffs extends CMS_Controllers {
 
 		if ($type == "chef") {
 			$data["header_title"] = "Chefs management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Chefs"),
-				array("uri" => "#", "title" => "Add Chef"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => site_url("cms/staffs?type=".$type), "title" => "Chefs"],
+				["uri" => "#", "title" => "Add Chef"],
+			];
 		} else if ($type == "waiter") {
 			$data["header_title"] = "Waiters management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Waiters"),
-				array("uri" => "#", "title" => "Add Waiter"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => site_url("cms/staffs?type=".$type), "title" => "Waiters"],
+				["uri" => "#", "title" => "Add Waiter"],
+			];
 		} else {
 			$data["header_title"] = "Managers management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Managers"),
-				array("uri" => "#", "title" => "Add Manager"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => site_url("cms/staffs?type=".$type), "title" => "Managers"],
+				["uri" => "#", "title" => "Add Manager"],
+			];
 		}
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
+		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
 		
 		$data["type"] = $type;
         $data["main_view"] = "cms/staffs/add";
@@ -106,29 +111,29 @@ class Staffs extends CMS_Controllers {
 
 		if ($type == "chef") {
 			$data["header_title"] = "Chefs management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Chefs"),
-				array("uri" => "#", "title" => "Add Chef"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => site_url("cms/staffs?type=".$type), "title" => "Chefs"],
+				["uri" => "#", "title" => "Add Chef"],
+			];
 		} else if ($type == "waiter") {
 			$data["header_title"] = "Waiters management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Waiters"),
-				array("uri" => "#", "title" => "Add Waiter"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => site_url("cms/staffs?type=".$type), "title" => "Waiters"],
+				["uri" => "#", "title" => "Add Waiter"],
+			];
 		} else {
 			$data["header_title"] = "Managers management";
-			$data["breadcrumb_list"] = array(
-				array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-				array("uri" => site_url("cms/staffs?type=".$type), "title" => "Managers"),
-				array("uri" => "#", "title" => "Add Manager"),
-			);
+			$data["breadcrumb_list"] = [
+				["uri" => site_url("cms/dashboard"), "title" => "Home"],
+				["uri" => site_url("cms/staffs?type=".$type), "title" => "Managers"],
+				["uri" => "#", "title" => "Add Manager"],
+			];
 		}
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(array("status" => M_Branch::STATUS_ACTIVE));
+		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
 
 		$data["staff"] = $this->M_Staff->get($id);
 		

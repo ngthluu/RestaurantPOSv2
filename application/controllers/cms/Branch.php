@@ -6,19 +6,28 @@ class Branch extends CMS_Controllers {
 	public function __construct() {
 		parent::__construct();
 
+		if (!in_role(["admin", "manager"])) {
+			redirect(site_url("cms/dashboard"));
+			return;
+		} 
 		$this->load->model("M_Branch");
 	}
 
 	public function index()
 	{
 		$data["header_title"] = "Branch management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => "#", "title" => "Branch"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => "#", "title" => "Branch"],
+		];
         $data["main_view"] = "cms/branch/home";
-
-		$data["branch_list"] = $this->M_Branch->gets_all();
+		
+		if (in_role(["manager"])) {
+			$data["branch_list"] = $this->M_Branch->gets_all(["id" => $_SESSION["cms_ubranch"]]);
+		} else {
+			$data["branch_list"] = $this->M_Branch->gets_all();
+		}
+		
 		$this->load->model("M_Staff");
 
 		$this->load->view("cms/layout/main", $data);
@@ -27,11 +36,11 @@ class Branch extends CMS_Controllers {
 	public function qrcode($id)
 	{
 		$data["header_title"] = "Branch management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => site_url("cms/branch"), "title" => "Branch"),
-			array("uri" => "#", "title" => "QR Code"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => site_url("cms/branch"), "title" => "Branch"],
+			["uri" => "#", "title" => "QR Code"],
+		];
         $data["main_view"] = "cms/branch/qrcode";
 		
 		$data["branch"] = $this->M_Branch->get($id);
@@ -41,15 +50,15 @@ class Branch extends CMS_Controllers {
 
 	public function add() {
 		$data["header_title"] = "Branch management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => site_url("cms/branch"), "title" => "Branch"),
-			array("uri" => "#", "title" => "Add Branch"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => site_url("cms/branch"), "title" => "Branch"],
+			["uri" => "#", "title" => "Add Branch"],
+		];
         $data["main_view"] = "cms/branch/add";
 
 		$this->load->model("M_Staff");
-		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all(array("status" => M_Staff::STATUS_PUBLISHED));
+		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all(["status" => M_Staff::STATUS_PUBLISHED]);
 
 		$this->load->view("cms/layout/main", $data);
 	}
@@ -61,15 +70,15 @@ class Branch extends CMS_Controllers {
 		}
 
 		$data["header_title"] = "Branch management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => site_url("cms/branch"), "title" => "Branch"),
-			array("uri" => "#", "title" => "Edit Branch"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => site_url("cms/branch"), "title" => "Branch"],
+			["uri" => "#", "title" => "Edit Branch"],
+		];
         $data["main_view"] = "cms/branch/add";
 
 		$this->load->model("M_Staff");
-		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all(array("status" => M_Staff::STATUS_PUBLISHED));
+		$data["managers_list"] = $this->M_Staff->set_role("manager")->gets_all(["status" => M_Staff::STATUS_PUBLISHED]);
 
 		$data["branch"] = $this->M_Branch->get($id);
 

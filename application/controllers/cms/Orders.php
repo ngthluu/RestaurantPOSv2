@@ -12,10 +12,10 @@ class Orders extends CMS_Controllers {
 	public function index() {
 
 		$data["header_title"] = "Orders management";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => "#", "title" => "Orders"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => "#", "title" => "Orders"],
+		];
 
 		$data["main_view"] = "cms/orders/home";
 		$data["orders_list"] = $this->M_Order->gets_all();

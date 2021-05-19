@@ -9,7 +9,7 @@ class M_Staff extends CI_Model {
 
     private function init_connection($reset_where = false) {
         $this->table = $this->db->dbprefix("staffs");
-        $this->where = array("role" => $this->role);
+        $this->where = ["role" => $this->role];
         $this->db->where($this->where);
         if ($reset_where) {
             $this->db->reset_query();
@@ -38,7 +38,7 @@ class M_Staff extends CI_Model {
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
-            return array();
+            return [];
         }
         $this->reset_connection();
         return $result->result();
@@ -46,7 +46,7 @@ class M_Staff extends CI_Model {
 
     public function get($id, $where=null) {
         $this->init_connection(true);
-        $w = array("id" => $id);
+        $w = ["id" => $id];
         if ($where) {
             $w = array_merge($w, $where);
         }
@@ -62,11 +62,11 @@ class M_Staff extends CI_Model {
 
     public function signin($email, $password) {
         $this->init_connection(true);
-        $is_existed = $this->db->get_where($this->table, array(
+        $is_existed = $this->db->get_where($this->table, [
             "email" => $email,
             "password" => hashing_password($password),
             "status" => self::STATUS_PUBLISHED
-        ));
+        ]);
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {
             $this->reset_connection();
@@ -99,7 +99,7 @@ class M_Staff extends CI_Model {
         $this->init_connection();
         $avatar = uploadImage("./resources/users/".$id."/", "avatar-file");
         if ($avatar && $avatar != "") {
-            $this->db->update($this->table, array("avatar" => $avatar), array("id" => $id));
+            $this->db->update($this->table, ["avatar" => $avatar], ["id" => $id]);
         }
         $this->reset_connection();
     } 
@@ -140,7 +140,7 @@ class M_Staff extends CI_Model {
 		$branch = $this->input->post("branch");
         $salary = $this->input->post("salary");
 
-        $new_data = array(
+        $new_data = [
             "phone"         => $phone,
             "password"      => hashing_password("123456"),
             "email"         => $email,
@@ -153,7 +153,7 @@ class M_Staff extends CI_Model {
             "status"        => self::STATUS_LOCKED,
             "salary"        => $salary,
             "create_by"    => $_SESSION["cms_uid"]
-        );
+        ];
         $this->db->insert($this->table, $new_data);
         
         $id = $this->db->insert_id();
@@ -176,7 +176,7 @@ class M_Staff extends CI_Model {
 		$branch = $this->input->post("branch");
         $salary = $this->input->post("salary");
 
-        $new_data = array(
+        $new_data = [
             "phone"         => $phone,
             "name"          => $name,
             "idc"           => $idc,
@@ -184,9 +184,9 @@ class M_Staff extends CI_Model {
             "birthday"      => $birthday,
             "branch"        => $branch,
             "salary"        => $salary
-        );
+        ];
 
-        $this->db->update($this->table, $new_data, array("id" => $id));
+        $this->db->update($this->table, $new_data, ["id" => $id]);
 
         $this->uploadImage($id);
 
@@ -200,11 +200,11 @@ class M_Staff extends CI_Model {
         if ($staff->status == self::STATUS_LOCKED) {
             // Update branch manager
             if ($staff->role == "manager") {
-                $this->db->update($this->db->dbprefix("branches"), array("manager" => $staff->id), array("id" => $staff->branch));
+                $this->db->update($this->db->dbprefix("branches"), ["manager" => $staff->id], ["id" => $staff->branch]);
             } 
-            $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_PUBLISHED], ["id" => $id]);
         } else if ($staff->status == self::STATUS_PUBLISHED) {
-            $this->db->update($this->table, array("status" => self::STATUS_LOCKED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_LOCKED], ["id" => $id]);
         }
 
         $this->reset_connection();
@@ -213,14 +213,14 @@ class M_Staff extends CI_Model {
 
     public function reset_password($id) {
         $this->init_connection(true);
-        $this->db->update($this->table, array("password" => hashing_password("123456")), array("id" => $id));
+        $this->db->update($this->table, ["password" => hashing_password("123456")], ["id" => $id]);
         $this->reset_connection();
         return true;
     }
 
     public function delete($id) {
         $this->init_connection(true);
-        $this->db->delete($this->table, array("id" => $id));
+        $this->db->delete($this->table, ["id" => $id]);
         $this->reset_connection();
         return true;
     }
@@ -229,11 +229,11 @@ class M_Staff extends CI_Model {
         $this->init_connection(true);
 
         $staff = $this->get($id);
-        $payment_info = array(
+        $payment_info = [
             "staff_id"      => $staff->id,
             "payment_value" => $staff->salary,
             "payment_by"    => $_SESSION["cms_uid"]
-        );
+        ];
         $table = $this->db->dbprefix("staffssalaryhistory");
         $this->db->insert($table, $payment_info);
         
@@ -244,11 +244,11 @@ class M_Staff extends CI_Model {
     public function get_this_month_payment($staff_id) {
         $this->init_connection(true);
 
-        $w = array(
+        $w = [
             "staff_id" => $staff_id, 
             "payment_date >= " => date('Y-m-01'), 
             "payment_date <= " => date('Y-m-t')
-        );
+        ];
         $table = $this->db->dbprefix("staffssalaryhistory");
         $result = $this->db->get_where($table, $w);
         $this->db->flush_cache();

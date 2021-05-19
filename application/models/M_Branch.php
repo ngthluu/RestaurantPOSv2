@@ -23,7 +23,7 @@ class M_Branch extends CI_Model {
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
-            return array();
+            return [];
         }
         $this->reset_connection();
         return $result->result();
@@ -31,7 +31,7 @@ class M_Branch extends CI_Model {
 
     public function get($id) {
         $this->init_connection();
-        $result = $this->db->get_where($this->table, array("id" => $id));
+        $result = $this->db->get_where($this->table, ["id" => $id]);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
@@ -50,13 +50,13 @@ class M_Branch extends CI_Model {
 		$numberOfTables = $this->input->post("tablesNum");
 		$manager = $this->input->post("manager");
 
-        $new_data = array(
+        $new_data = [
             "name"          => $name,
             "address"       => $address,
             "manager"       => isset($manager) && $manager ? $manager : 1,
             "tables_num"    => $numberOfTables,
             "status"        => self::STATUS_PAUSED
-        );
+        ];
         $this->db->insert($this->table, $new_data);
         
         $id = $this->db->insert_id();
@@ -74,13 +74,13 @@ class M_Branch extends CI_Model {
 		$numberOfTables = $this->input->post("tablesNum");
 		$manager = $this->input->post("manager");
 
-        $new_data = array(
+        $new_data = [
             "name"          => $name,
             "address"       => $address,
             "manager"       => isset($manager) && $manager ? $manager : 1,
             "tables_num"    => $numberOfTables
-        );
-        $this->db->update($this->table, $new_data, array("id" => $id));
+        ];
+        $this->db->update($this->table, $new_data, ["id" => $id]);
         $this->reset_connection();
         return true;
     }
@@ -90,9 +90,9 @@ class M_Branch extends CI_Model {
 
         $branch = $this->get($id);
         if ($branch->status == self::STATUS_PAUSED) {
-            $this->db->update($this->table, array("status" => self::STATUS_ACTIVE), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_ACTIVE], ["id" => $id]);
         } else if ($branch->status == self::STATUS_ACTIVE) {
-            $this->db->update($this->table, array("status" => self::STATUS_PAUSED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_PAUSED], ["id" => $id]);
         }
 
         $this->reset_connection();
@@ -101,7 +101,7 @@ class M_Branch extends CI_Model {
 
     public function delete($id) {
         $this->init_connection();
-        $this->db->delete($this->table, array("id" => $id));
+        $this->db->delete($this->table, ["id" => $id]);
         $this->reset_connection();
         return true;
     }

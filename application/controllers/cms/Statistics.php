@@ -9,11 +9,16 @@ class Statistics extends CMS_Controllers {
 
 	public function revenue() {
 
+		if (!in_role(["admin", "manager"])) {
+			redirect(site_url("cms/dashboard"));
+			return;
+		}  
+
 		$data["header_title"] = "Revenue";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => "#", "title" => "Revenue"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => "#", "title" => "Revenue"],
+		];
 
 		$data["main_view"] = "cms/statistics/revenue";
 
@@ -23,10 +28,10 @@ class Statistics extends CMS_Controllers {
 	public function salary() {
 
 		$data["header_title"] = "Staffs salary";
-		$data["breadcrumb_list"] = array(
-			array("uri" => site_url("cms/dashboard"), "title" => "Home"),
-			array("uri" => "#", "title" => "Salary"),
-		);
+		$data["breadcrumb_list"] = [
+			["uri" => site_url("cms/dashboard"), "title" => "Home"],
+			["uri" => "#", "title" => "Salary"],
+		];
 
         $this->load->model("M_Staff");
         $this->load->model("M_Branch");

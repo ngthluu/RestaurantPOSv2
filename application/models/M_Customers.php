@@ -23,7 +23,7 @@ class M_Customers extends CI_Model {
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
-            return array();
+            return [];
         }
         $this->reset_connection();
         return $result->result();
@@ -31,7 +31,7 @@ class M_Customers extends CI_Model {
 
     public function get($id, $where=null) {
         $this->init_connection();
-        $w = array("id" => $id);
+        $w = ["id" => $id];
         if ($where) {
             $w = array_merge($w, $where);
         }
@@ -49,9 +49,9 @@ class M_Customers extends CI_Model {
         $this->init_connection();
         $customer = $this->get($id);
         if ($customer->status == self::STATUS_LOCKED) {
-            $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_PUBLISHED], ["id" => $id]);
         } else if ($customer->status == self::STATUS_PUBLISHED) {
-            $this->db->update($this->table, array("status" => self::STATUS_LOCKED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_LOCKED], ["id" => $id]);
         }
 
         $this->reset_connection();
@@ -60,7 +60,7 @@ class M_Customers extends CI_Model {
 
     public function delete($id) {
         $this->init_connection();
-        $this->db->delete($this->table, array("id" => $id));
+        $this->db->delete($this->table, ["id" => $id]);
         $this->reset_connection();
         return true;
     }

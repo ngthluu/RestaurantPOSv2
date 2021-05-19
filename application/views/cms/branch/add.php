@@ -1,9 +1,9 @@
 <!-- Main content -->
 <?php 
 if (isset($branch)) {
-    echo form_open("cms/branch/save/".$branch->id, array("id" => "form-info"));
+    echo form_open("cms/branch/save/".$branch->id, ["id" => "form-info"]);
 } else {
-    echo form_open("cms/branch/save", array("id" => "form-info"));
+    echo form_open("cms/branch/save", ["id" => "form-info"]);
 }
 ?>
 <section class="content">

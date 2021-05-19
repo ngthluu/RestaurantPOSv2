@@ -4,11 +4,13 @@
     <!-- Default box -->
     <div class="card">
     <div class="card-header">
+        <?php if (in_role(["admin"])) { ?>
         <div class="card-title">
             <a class="btn btn-primary btn-sm" href="<?= site_url("cms/branch/add")?>">
                 <i class="fas fa-plus"></i> Add Branch
             </a>
         </div>
+        <?php } ?>
 
         <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -46,7 +48,7 @@
                     <?php 
                     $manager = $this->M_Staff
                         ->set_role("manager")
-                        ->get($branch->manager, array("status" => M_Staff::STATUS_PUBLISHED));
+                        ->get($branch->manager, ["status" => M_Staff::STATUS_PUBLISHED]);
                     
                         if ($manager) echo '<a href="'.site_url("cms/staffs/edit/".$manager->id."?type=manager").'">'.$manager->email." - ".$manager->name.'</a>';
                     ?>

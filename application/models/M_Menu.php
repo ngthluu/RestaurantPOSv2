@@ -26,7 +26,7 @@ class M_Menu extends CI_Model {
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
-            return array();
+            return [];
         }
         $this->reset_connection();
         return $result->result();
@@ -34,7 +34,7 @@ class M_Menu extends CI_Model {
 
     public function get($id, $where=null) {
         $this->init_connection();
-        $w = array("id" => $id);
+        $w = ["id" => $id];
         if ($where) {
             $w = array_merge($w, $where);
         }
@@ -52,7 +52,7 @@ class M_Menu extends CI_Model {
         $this->init_connection();
         $image = uploadImage("./resources/menu/".$id."/", "image-file");
         if ($image && $image != "") {
-            $this->db->update($this->table, array("image" => $image), array("id" => $id));
+            $this->db->update($this->table, ["image" => $image], ["id" => $id]);
         }
         $this->reset_connection();
     } 
@@ -66,14 +66,14 @@ class M_Menu extends CI_Model {
         $description = $this->input->post("description");
         $price = $this->input->post("price");
 
-        $new_data = array(
+        $new_data = [
             "name"          => $name,
             "branch"        => $branch,
             "description"   => $description,
             "price"         => $price,
             "status"        => self::STATUS_NOT_PUBLISHED,
             "status_date"   => self::STATUS_DATE_NOT_AVAILABLE
-        );
+        ];
         $this->db->insert($this->table, $new_data);
         
         $id = $this->db->insert_id();
@@ -93,14 +93,14 @@ class M_Menu extends CI_Model {
         $description = $this->input->post("description");
         $price = $this->input->post("price");
 
-        $new_data = array(
+        $new_data = [
             "name"          => $name,
             "branch"        => $branch,
             "description"   => $description,
             "price"         => $price
-        );
+        ];
 
-        $this->db->update($this->table, $new_data, array("id" => $id));
+        $this->db->update($this->table, $new_data, ["id" => $id]);
 
         $this->uploadImage($id);
 
@@ -112,9 +112,9 @@ class M_Menu extends CI_Model {
         $this->init_connection();
         $menu = $this->get($id);
         if ($menu->status == self::STATUS_NOT_PUBLISHED) {
-            $this->db->update($this->table, array("status" => self::STATUS_PUBLISHED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_PUBLISHED], ["id" => $id]);
         } else if ($menu->status == self::STATUS_PUBLISHED) {
-            $this->db->update($this->table, array("status" => self::STATUS_NOT_PUBLISHED), array("id" => $id));
+            $this->db->update($this->table, ["status" => self::STATUS_NOT_PUBLISHED], ["id" => $id]);
         }
 
         $this->reset_connection();
@@ -125,9 +125,9 @@ class M_Menu extends CI_Model {
         $this->init_connection();
         $menu = $this->get($id);
         if ($menu->status_date == self::STATUS_DATE_NOT_AVAILABLE) {
-            $this->db->update($this->table, array("status_date" => self::STATUS_DATE_AVAILABLE), array("id" => $id));
+            $this->db->update($this->table, ["status_date" => self::STATUS_DATE_AVAILABLE], ["id" => $id]);
         } else if ($menu->status == self::STATUS_DATE_AVAILABLE) {
-            $this->db->update($this->table, array("status_date" => self::STATUS_DATE_NOT_AVAILABLE), array("id" => $id));
+            $this->db->update($this->table, ["status_date" => self::STATUS_DATE_NOT_AVAILABLE], ["id" => $id]);
         }
 
         $this->reset_connection();
@@ -136,7 +136,7 @@ class M_Menu extends CI_Model {
 
     public function delete($id) {
         $this->init_connection();
-        $this->db->delete($this->table, array("id" => $id));
+        $this->db->delete($this->table, ["id" => $id]);
         $this->reset_connection();
         return true;
     }

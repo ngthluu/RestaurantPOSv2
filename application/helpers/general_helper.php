@@ -30,13 +30,13 @@ function uploadImage($path, $filename) {
         }
     }
 
-    $config = array(
+    $config = [
         'upload_path' => $path,
         'allowed_types' => "jpg|jpeg|jpg|png",
         'overwrite' => TRUE,
         'encrypt_name' => TRUE,
         'max_size' => "102400000"
-    );
+    ];
 
     $CI->load->library('upload', $config);
     $CI->upload->initialize($config);
@@ -51,9 +51,13 @@ function uploadImage($path, $filename) {
 }
 
 function gender_array() {
-    return array(
+    return [
         "0" => "Other",
         "1" => "Male",
         "2" => "Female"
-    );
+    ];
+}
+
+function in_role($role_array) {
+    return in_array($_SESSION["cms_urole"], $role_array);
 }

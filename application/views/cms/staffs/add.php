@@ -1,9 +1,9 @@
 <!-- Main content -->
 <?php 
 if (isset($staff)) {
-    echo form_open_multipart("cms/staffs/save/".$staff->id."?type=".$type, array("id" => "form-info"));
+    echo form_open_multipart("cms/staffs/save/".$staff->id."?type=".$type, ["id" => "form-info"]);
 } else {
-    echo form_open_multipart("cms/staffs/save?type=".$type, array("id" => "form-info"));
+    echo form_open_multipart("cms/staffs/save?type=".$type, ["id" => "form-info"]);
 }
 ?>
 <section class="content">
@@ -20,11 +20,11 @@ if (isset($staff)) {
                 </div>
                 <div class="card-body">
                     <div id="msg"> <?php $this->load->view("cms/layout/message_box") ?> </div>
-                    <?php $this->load->view("cms/layout/avatar_box", array(
+                    <?php $this->load->view("cms/layout/avatar_box", [
                         "title" => "Avatar (*)",
                         "name" => "avatar",
                         "image_link" => isset($staff) && $staff->avatar ? base_url("resources/users/".$staff->id."/".$staff->avatar) : base_url("resources/no-avatar.png"),
-                    )) ?>
+                    ]) ?>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
                         <input readonly type="text" id="inputEmail" class="form-control" name="email" value="<?= isset($staff) ? $staff->email : "" ?>">
