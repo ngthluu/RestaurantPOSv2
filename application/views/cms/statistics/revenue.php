@@ -8,17 +8,6 @@
                 <h3 class="card-title">Statistics Overview</h3>
                 </div>
                 <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                    <p class="text-success text-xl">
-                    <i class="ion ion-ios-refresh-empty"></i>
-                    </p>
-                    <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                        <i class="ion ion-android-arrow-up text-success"></i> 12%
-                    </span>
-                    <span class="text-muted">CONVERSION RATE</span>
-                    </p>
-                </div>
                 <!-- /.d-flex -->
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                     <p class="text-warning text-xl">
@@ -56,10 +45,9 @@
                 <table class="table table-striped table-valign-middle">
                     <thead>
                     <tr>
-                    <th>Product</th>
+                    <th>Menu</th>
                     <th>Price</th>
                     <th>Sales</th>
-                    <th>More</th>
                     </tr>
                     </thead>
                     <tbody>
