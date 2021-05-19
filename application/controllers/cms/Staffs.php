@@ -22,6 +22,10 @@ class Staffs extends CMS_Controllers {
 			$type = "waiter";
 		} else {
 			$type = "manager";
+			if (!in_role(["admin"])) {
+				redirect(site_url("cms/staffs?type=chef"));
+				return;
+			}
 		}
 
 		if ($type == "chef") {
@@ -46,8 +50,13 @@ class Staffs extends CMS_Controllers {
 
 		$data["type"] = $type;
 		$data["main_view"] = "cms/staffs/home";
-
-		$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all();
+		
+		if (in_role(["manager"])) {
+			$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
+		} else {
+			$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all();
+		}
+		
 		$this->load->model("M_Branch");
 
 		$this->load->view("cms/layout/main", $data);
@@ -61,6 +70,10 @@ class Staffs extends CMS_Controllers {
 			$type = "waiter";
 		} else {
 			$type = "manager";
+			if (!in_role(["admin"])) {
+				redirect(site_url("cms/staffs?type=chef"));
+				return;
+			}
 		}
 
 		if ($type == "chef") {
@@ -87,8 +100,15 @@ class Staffs extends CMS_Controllers {
 		}
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
-		
+		if (in_role(["manager"])) {
+			$data["branch_list"] = $this->M_Branch->gets_all([
+				"status" => M_Branch::STATUS_ACTIVE,
+				"id" => $_SESSION["cms_ubranch"]
+			]);
+		} else {
+			$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		}
+
 		$data["type"] = $type;
         $data["main_view"] = "cms/staffs/add";
 		$this->load->view("cms/layout/main", $data);
@@ -102,6 +122,10 @@ class Staffs extends CMS_Controllers {
 			$type = "waiter";
 		} else {
 			$type = "manager";
+			if (!in_role(["admin"])) {
+				redirect(site_url("cms/staffs?type=chef"));
+				return;
+			}
 		}
 
 		if (!$id) {
@@ -133,9 +157,21 @@ class Staffs extends CMS_Controllers {
 		}
 
 		$this->load->model("M_Branch");
-		$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		if (in_role(["manager"])) {
+			$data["branch_list"] = $this->M_Branch->gets_all([
+				"status" => M_Branch::STATUS_ACTIVE,
+				"id" => $_SESSION["cms_ubranch"]
+			]);
+		} else {
+			$data["branch_list"] = $this->M_Branch->gets_all(["status" => M_Branch::STATUS_ACTIVE]);
+		}
 
 		$data["staff"] = $this->M_Staff->get($id);
+
+		if (in_role(["manager"]) && $data["staff"]->branch != $_SESSION["cms_ubranch"]) {
+			redirect(site_url("cms/staffs?type=".$type));
+			return;
+		}
 		
 		$data["type"] = $type;
         $data["main_view"] = "cms/staffs/add";
@@ -150,6 +186,10 @@ class Staffs extends CMS_Controllers {
 			$type = "waiter";
 		} else {
 			$type = "manager";
+			if (!in_role(["admin"])) {
+				redirect(site_url("cms/staffs?type=chef"));
+				return;
+			}
 		}
 
 		$is_correct_form = $this->check_form();
