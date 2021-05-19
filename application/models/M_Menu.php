@@ -12,6 +12,7 @@ class M_Menu extends CI_Model {
     private function init_connection() {
         $this->table = $this->db->dbprefix("menu");
         $this->db->reset_query();
+        $this->db->order_by("id", "desc");
     }
 
     private function reset_connection() {

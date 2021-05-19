@@ -14,6 +14,7 @@ class M_Staff extends CI_Model {
         if ($reset_where) {
             $this->db->reset_query();
         }
+        $this->db->order_by("id", "desc");
     }
 
     private function reset_connection() {

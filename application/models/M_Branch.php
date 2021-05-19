@@ -9,6 +9,7 @@ class M_Branch extends CI_Model {
     private function init_connection() {
         $this->table = $this->db->dbprefix("branches");
         $this->db->reset_query();
+        $this->db->order_by("id", "desc");
     }
 
     private function reset_connection() {
