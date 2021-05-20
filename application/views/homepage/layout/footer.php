@@ -71,6 +71,8 @@
 <script src="<?= base_url("assets/homepage/js/jquery.min.js") ?>"></script>
 <script src="<?= base_url("assets/homepage/js/popper.min.js") ?>"></script>
 <script src="<?= base_url("assets/homepage/js/bootstrap.min.js") ?>"></script>
+<script src="<?= base_url("assets/homepage/js/toastr.min.js") ?>"></script>
+
 <script>
     (function() {
         "use strict";
@@ -207,6 +209,10 @@
             }
         });
     })();
+</script>
+
+<script>
+
 </script>
 </body>
 

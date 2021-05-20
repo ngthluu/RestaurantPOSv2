@@ -58,7 +58,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let input = menu.find('.quantity');
         let menuQuantity = parseInt(input.val());
-        console.log([menuId, menuQuantity]);
+        
+        let data = {
+            menuId: menuId,
+            menuQuantity: menuQuantity
+        }
+        $.post('<?= site_url("order/add-cart/".$branch_id."/".$table_num) ?>', data, function(response) {
+            $('.menu-box .quantity').val(1);
+            if (response == "ok") {
+                toastr.success(`Added ${menuQuantity} items to the cart`);
+            } else {
+                toastr.error(response);
+            }
+        });
     });
 });
 </script>
