@@ -1,7 +1,7 @@
 <main id="main" class="d-flex flex-column justify-content-center menu-list">
     <div class="container">
         <h1 class="page-title t-white font-weight-bold mt-3">
-            Orders history
+            Your orders history
         </h1>
         <?php if (!empty($orders_list)) { ?>
         <div class="row gy-4">
@@ -45,7 +45,8 @@
                         </div>
                     <?php } ?>
                     </div>
-                    <div class="d-flex justify-content-end">
+                    <div class="mt-2 d-flex justify-content-between">
+                        <div class="t-red"> <?= date("H:i:s d/m/Y", strtotime($order->order_time)) ?> </div>
                         <strong class="t-red">Total: <?= number_format($this->M_Order->get_price($order->id)) ?>đ</strong>
                     </div>
                 </div>
