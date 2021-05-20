@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_Customers extends CI_Model {
+class M_Customer extends CI_Model {
 
     public const STATUS_LOCKED = 0;
     public const STATUS_PUBLISHED = 1;
@@ -63,5 +63,64 @@ class M_Customers extends CI_Model {
         $this->db->delete($this->table, ["id" => $id]);
         $this->reset_connection();
         return true;
+    }
+
+    public function signin($phone, $password) {
+        $this->init_connection();
+        $is_existed = $this->db->get_where($this->table, [
+            "phone" => $phone,
+            "password" => hashing_password($password),
+            "status" => self::STATUS_PUBLISHED
+        ]);
+        $this->db->flush_cache();
+        if ($is_existed->num_rows() == 0) {
+            $this->reset_connection();
+            return false;
+        }
+
+        // Logged in, set session
+        $customer = $is_existed->row();
+        $_SESSION["uid"] = $customer->id;
+        $_SESSION["uname"] = $customer->name;
+        $_SESSION["uphone"] = $customer->phone;
+        $_SESSION["uavatar"] = $customer->avatar ? base_url("resources/customers/".$customer->id."/".$customer->avatar) : base_url("resources/no-avatar.png");
+
+        $this->reset_connection();
+        return true;
+    }
+
+    public function is_existed($phone) {
+        $this->init_connection();
+        $is_existed = $this->db->get_where($this->table, array("phone" => $phone));
+        $this->db->flush_cache();
+        if ($is_existed->num_rows() == 0) {
+            $this->reset_connection();
+            return false;
+        }
+        $this->reset_connection();
+        return true;
+    }
+
+    public function add() {
+
+        $this->init_connection();
+
+        $name = random_string('alnum', 10);
+		$phone = $this->input->post("phone");
+        $password = $this->input->post("password");
+
+        $new_data = [
+            "phone"         => $phone,
+            "password"      => hashing_password($password),
+            "email"         => $name.'@'.EMAIL_PATH,
+            "name"          => $name,
+            "status"        => self::STATUS_PUBLISHED
+        ];
+        $this->db->insert($this->table, $new_data);
+        
+        $id = $this->db->insert_id();
+
+        $this->reset_connection();
+        return $id;
     }
 }

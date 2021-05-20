@@ -8,7 +8,8 @@
             <h3 class="t-yellow mt-3">
                 Fast, convenient & delicious.
             </h3>
-            <div class="input-group mt-5">
+            <div id="msg" class="mt-5"> <?php $this->load->view("homepage/layout/message_box") ?> </div>
+            <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bi bi-phone"></i></span>
                 </div>
@@ -45,3 +46,22 @@
         </div>
     </div>
 </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function (event) {
+
+$("#form-info").submit(function(e) {
+    e.preventDefault();
+    $.post("<?= site_url("signup/check-form") ?>", $(this).serialize(), function(response) {
+        if (response == "ok") {
+            $("#form-info").off("submit").submit();
+        } else {
+            $("html, body").animate({ scrollTop: 0 }, "fast");
+            $("#msg").html(response);
+        }
+    });
+});
+
+});
+
+</script>

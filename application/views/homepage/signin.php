@@ -8,17 +8,18 @@
             <h3 class="t-yellow mt-3">
                 Fast, convenient & delicious.
             </h3>
-            <div class="input-group mt-5">
+            <div id="msg" class="mt-5"> <?php $this->load->view("homepage/layout/message_box") ?> </div>
+            <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bi bi-phone"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Your phone">
+                <input type="text" name="phone" class="form-control" placeholder="Your phone">
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bi bi-key"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="Your password">
+                <input type="password" name="password" class="form-control" placeholder="Your password">
             </div>
             <div class="mt-5">
                 <button class="btn btn-danger" href="#">Sign in</button>

@@ -1,7 +1,7 @@
 <?php 
-if (isset($_SESSION["cms_alert_message"])) {
-    $message = $_SESSION["cms_alert_message"];
-    unset($_SESSION["cms_alert_message"]);
+if (isset($_SESSION["alert_message"])) {
+    $message = $_SESSION["alert_message"];
+    unset($_SESSION["alert_message"]);
 ?>
 <div class="modal fade" id="modal-message">
     <div class="modal-dialog">

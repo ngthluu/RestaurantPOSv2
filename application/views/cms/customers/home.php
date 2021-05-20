@@ -44,9 +44,9 @@
                     <td> <?= $customer->address ?></td>
                     <td class="project-state"> 
                     <?php 
-                    if ($customer->status == M_Customers::STATUS_LOCKED) {
+                    if ($customer->status == M_Customer::STATUS_LOCKED) {
                         echo '<span class="badge badge-warning">Locked</span>';
-                    } else if ($customer->status == M_Customers::STATUS_PUBLISHED) {
+                    } else if ($customer->status == M_Customer::STATUS_PUBLISHED) {
                         echo '<span class="badge badge-success">Actived</span>';
                     }
                     ?>
@@ -55,7 +55,7 @@
                         <a class="btn btn-info btn-sm" href="<?= site_url("cms/customers/edit/".$customer->id) ?>">
                             <i class="fas fa-pencil-alt"> </i> Edit
                         </a>
-                        <?php if ($customer->status == M_Customers::STATUS_LOCKED) { ?>
+                        <?php if ($customer->status == M_Customer::STATUS_LOCKED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
                             data-target="#modal-alert"
@@ -65,7 +65,7 @@
                         >
                             <i class="fas fa-unlock"> </i> Un-lock
                         </a>
-                        <?php } else if ($customer->status == M_Customers::STATUS_PUBLISHED) { ?>
+                        <?php } else if ($customer->status == M_Customer::STATUS_PUBLISHED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"

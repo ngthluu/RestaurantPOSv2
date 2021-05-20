@@ -10,15 +10,15 @@ function cms_is_logged_in() {
 }
 
 function alert_message_box($message) {
-    $_SESSION["cms_alert_message"] = $message;
+    $_SESSION["alert_message"] = $message;
 }
 
 function raise_message_ok($message) {
-    $_SESSION["cms_message_ok"] = $message;
+    $_SESSION["message_ok"] = $message;
 }
 
 function raise_message_err($message) {
-    $_SESSION["cms_message_err"] = $message;
+    $_SESSION["message_err"] = $message;
 }
 
 function uploadImage($path, $filename) {
@@ -60,4 +60,8 @@ function gender_array() {
 
 function in_role($role_array) {
     return in_array($_SESSION["cms_urole"], $role_array);
+}
+
+function is_logged_in() {
+    return isset($_SESSION["uid"]) && $_SESSION["uid"] > 0;
 }
