@@ -36,11 +36,31 @@
                 <tr>
                     <td> # </td>
                     <td> <?= $order->order_code ?> </td>
-                    <td> <?= $order->customer ?></td>
-                    <td> <?= $order->branch ?></td>
-                    <td> <?= $order->table ?></td>
-                    <td>  </td>
-                    <td>  </td>
+                    <td> 
+                    <?php 
+                    $customer = $this->M_Customer->get($order->customer);
+                    if ($customer) echo '<a href="'.site_url("cms/customer/edit/".$customer->id).'">'.$customer->name.'</a>';
+                    ?></td>
+                    <td> 
+                    <?php 
+                    $branch = $this->M_Branch->get($order->branch);
+                    if ($branch) echo '<a href="'.site_url("cms/branch/edit/".$branch->id).'">'.$branch->name.'</a>';
+                    ?>
+                    </td>
+                    <td> #<?= $order->table ?></td>
+                    <td class=""> 
+                        <?php 
+                        $order_details = $this->M_Order->get_details($order->id);
+                        foreach ($order_details as $detail) {
+                        ?>
+                            <div class="d-flex justify-content-between">
+                                <a href="<?= site_url("cms/menu/edit/".$detail->id) ?>"><?= $detail->name ?></a>
+                                <strong>Num: <?= $detail->quantity ?></strong>
+                            </div>
+                        <?php } ?>
+                        <strong>Note:</strong> <?= $order->note ?>
+                    </td>
+                    <td> <?= number_format($this->M_Order->get_price($order->id)) ?>đ </td>
                     <td> 
                     <?php 
                     if ($order->status == M_Order::STATUS_INIT) {

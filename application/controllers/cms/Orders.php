@@ -26,6 +26,7 @@ class Orders extends CMS_Controllers {
 		}
 		
 		$this->load->model("M_Branch");
+		$this->load->model("M_Customer");
 
 		$this->load->view("cms/layout/main", $data);
 	}

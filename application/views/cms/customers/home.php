@@ -36,11 +36,11 @@
             ?>
                 <tr>
                     <td> # </td>
-                    <td> <img width="50px" src="<?= $customer->image ? base_url("resources/customers/".$customer->id."/".$customer->avatar) : base_url("resources/no-avatar.png"); ?>" alt=""> </td>
+                    <td> <img width="50px" src="<?= $customer->avatar ? base_url("resources/customers/".$customer->id."/".$customer->avatar) : base_url("resources/no-avatar.png"); ?>" alt=""> </td>
                     <td> <?= $customer->name ?></td>
                     <td> <?= $customer->phone ?></td>
-                    <td> <?= $customer->birthday ?></td>
-                    <td> <?= $customer->gender ?></td>
+                    <td> <?= date("d/m/Y", strtotime($customer->birthday)) ?></td>
+                    <td> <?= gender_array()[$customer->gender] ?></td>
                     <td> <?= $customer->address ?></td>
                     <td class="project-state"> 
                     <?php 
@@ -52,9 +52,6 @@
                     ?>
                     </td>
                     <td class="project-actions text-right">
-                        <a class="btn btn-info btn-sm" href="<?= site_url("cms/customers/edit/".$customer->id) ?>">
-                            <i class="fas fa-pencil-alt"> </i> Edit
-                        </a>
                         <?php if ($customer->status == M_Customer::STATUS_LOCKED) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
@@ -76,6 +73,15 @@
                             <i class="fas fa-lock"> </i> Lock
                         </a>
                         <?php } ?>
+                        <a class="btn btn-primary btn-sm btn-modal" href="#"
+                            data-toggle="modal"
+                            data-target="#modal-alert"
+                            data-title="Reset password"
+                            data-message="Are you sure you want to reset this customer password to 123456 ?"
+                            data-submit="<?= site_url("cms/customers/reset-password/".$customer->id) ?>"
+                        >
+                            <i class="fas fa-key"> </i> Reset password
+                        </a>
                         <a class="btn btn-danger btn-sm btn-modal" href="#"
                             data-toggle="modal" 
                             data-target="#modal-alert"
