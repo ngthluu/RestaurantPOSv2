@@ -81,17 +81,23 @@ class M_Customer extends CI_Model {
         // Logged in, set session
         $customer = $is_existed->row();
         $_SESSION["uid"] = $customer->id;
-        $_SESSION["uname"] = $customer->name;
-        $_SESSION["uphone"] = $customer->phone;
-        $_SESSION["uavatar"] = $customer->avatar ? base_url("resources/customers/".$customer->id."/".$customer->avatar) : base_url("resources/no-avatar.png");
 
         $this->reset_connection();
         return true;
     }
 
-    public function is_existed($phone) {
+    public function is_existed($phone, $email=null) {
         $this->init_connection();
-        $is_existed = $this->db->get_where($this->table, array("phone" => $phone));
+        if (is_logged_in()) {
+            $this->db->where("id != ", $_SESSION["uid"])
+                ->group_start()
+                ->where("phone", $phone)
+                ->or_where("email", $email)
+                ->group_end();
+        } else {
+            $this->db->where("phone", $phone);
+        }
+        $is_existed = $this->db->get_where($this->table);
         $this->db->flush_cache();
         if ($is_existed->num_rows() == 0) {
             $this->reset_connection();
@@ -100,6 +106,16 @@ class M_Customer extends CI_Model {
         $this->reset_connection();
         return true;
     }
+
+    private function uploadImage() {
+        $this->init_connection();
+        $id = $_SESSION["uid"];
+        $avatar = uploadImage("./resources/customers/".$id."/", "avatar-file");
+        if ($avatar && $avatar != "") {
+            $this->db->update($this->table, ["avatar" => $avatar], ["id" => $id]);
+        }
+        $this->reset_connection();
+    } 
 
     public function add() {
 
@@ -122,5 +138,33 @@ class M_Customer extends CI_Model {
 
         $this->reset_connection();
         return $id;
+    }
+
+    public function update() {
+        $this->init_connection();
+
+        $id = $_SESSION["uid"];
+		$phone = $this->input->post("phone");
+        $email = $this->input->post("email");
+        $name = $this->input->post("name");
+		$gender = $this->input->post("gender");
+		$birthday = $this->input->post("birthday");
+		$address = $this->input->post("address");
+
+        $new_data = [
+            "phone"         => $phone,
+            "email"         => $email,
+            "name"          => $name,
+            "gender"        => $gender,
+            "birthday"      => $birthday,
+            "address"       => $address
+        ];
+
+        $this->db->update($this->table, $new_data, ["id" => $id]);
+
+        $this->uploadImage();
+
+        $this->reset_connection();
+        return true;
     }
 }

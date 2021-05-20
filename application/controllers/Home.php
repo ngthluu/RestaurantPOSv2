@@ -28,9 +28,6 @@ class Home extends SITE_Controllers {
 
 	public function signout() {
 		unset($_SESSION["uid"]);
-        unset($_SESSION["uname"]);
-        unset($_SESSION["uphone"]);
-        unset($_SESSION["uavatar"]);
         redirect(site_url());
 	}
 }

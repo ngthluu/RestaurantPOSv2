@@ -1,7 +1,7 @@
 <main id="main">
     <div class="container d-flex h-100">
         <div class="justify-content-center align-self-center">
-            <?php echo form_open("settings/save", ["id" => "form-info"]); ?>
+            <?php echo form_open_multipart("settings/save", ["id" => "form-info"]); ?>
             <h1 class="page-title t-white font-weight-bold">
                 Edit your account settings
             </h1>
@@ -54,3 +54,21 @@
     </div>
 </main>
 
+<script>
+document.addEventListener("DOMContentLoaded", function (event) {
+
+$("#form-info").submit(function(e) {
+    e.preventDefault();
+    $.post("<?= site_url("settings/check-form") ?>", $(this).serialize(), function(response) {
+        if (response == "ok") {
+            $("#form-info").off("submit").submit();
+        } else {
+            $("html, body").animate({ scrollTop: 0 }, "fast");
+            $("#msg").html(response);
+        }
+    });
+});
+
+});
+
+</script>
