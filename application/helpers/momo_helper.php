@@ -72,30 +72,29 @@ function paymentMomo($order, $order_price) {
     return $jsonResult["payUrl"];
 }
 
-function paymentMomoCheckResult($response) {
-    $partnerCode = $response["partnerCode"];
-    $accessKey = $response["accessKey"];
-    $orderId = $response["orderId"];
-    $localMessage = $response["localMessage"];
-    $message = $response["message"];
-    $transId = $response["transId"];
-    $orderInfo = $response["orderInfo"];
-    $amount = $response["amount"];
-    $errorCode = $response["errorCode"];
-    $responseTime = $response["responseTime"];
-    $requestId = $response["requestId"];
-    $extraData = $response["extraData"];
-    $payType = $response["payType"];
-    $orderType = $response["orderType"];
-    $extraData = $response["extraData"];
-    $m2signature = $response["signature"];
+function paymentMomoCheckResult($data) {
+    $partnerCode = $data["partnerCode"];
+    $accessKey = $data["accessKey"];
+    $orderId = $data["orderId"];
+    $localMessage = $data["localMessage"];
+    $message = $data["message"];
+    $transId = $data["transId"];
+    $orderInfo = $data["orderInfo"];
+    $amount = $data["amount"];
+    $errorCode = $data["errorCode"];
+    $responseTime = $data["responseTime"];
+    $requestId = $data["requestId"];
+    $extraData = $data["extraData"];
+    $payType = $data["payType"];
+    $orderType = $data["orderType"];
+    $extraData = $data["extraData"];
+    $m2signature = $data["signature"];
 
     $rawHash = "partnerCode=".$partnerCode
-        ."&accessKey=" . $accessKey 
+        . "&accessKey=" . $accessKey 
         . "&requestId=" . $requestId 
         . "&amount=" . $amount 
-        . "&orderId=" 
-        . $orderId 
+        . "&orderId=" . $orderId 
         . "&orderInfo=" . $orderInfo 
         . "&orderType=" . $orderType 
         . "&transId=" . $transId 

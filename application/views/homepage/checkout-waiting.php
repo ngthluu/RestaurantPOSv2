@@ -4,7 +4,7 @@
             Your order has been recorded in the system
         </h1>
         <h3 class="t-yellow">
-            Click <a href="<?= $payment_url ?>">here</a> to complete the payment.
+            Click <a target="_blank" href="<?= $payment_url ?>">here</a> to complete the payment.
         </h3>
     </div>
 </main>

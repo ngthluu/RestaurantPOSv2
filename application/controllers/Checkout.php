@@ -62,6 +62,7 @@ class Checkout extends SITE_Controllers {
 			$data["main_header"] = "Payment successfully";
         	$data["main_view"] = "homepage/checkout-success";
 
+			// Paid successfully
 			$this->M_Order->paid($order->id);
 
 		} else if ($check_payment_result == "failed"){
@@ -72,7 +73,8 @@ class Checkout extends SITE_Controllers {
 			$data["main_header"] = "Payment failed";
 			$data["message"] = $check_payment_result;
         	$data["main_view"] = "homepage/checkout-failed";
-
+			
+			// Paid failed
 			$this->M_Order->cancel($order->id);
 		}
 
@@ -80,7 +82,36 @@ class Checkout extends SITE_Controllers {
 	}
 
 	public function payment_notify() {
+		$this->load->model("M_Order");
 
+		$this->load->helper("momo_helper");
+		$check_payment_result = paymentMomoCheckResult($_POST);
+
+		$order_code = explode(".", $_POST["orderId"]);
+		$order_code = $order_code[0];
+		$order = $this->M_Order->get_with_code($order_code);
+
+		if ($check_payment_result == "ok") {
+			$data["main_header"] = "Payment successfully";
+        	$data["main_view"] = "homepage/checkout-success";
+
+			// Paid successfully
+			$this->M_Order->paid($order->id);
+
+		} else if ($check_payment_result == "failed"){
+			$data["main_header"] = "Payment failed";
+			$data["message"] = "Your transaction is broken, please try again.";
+        	$data["main_view"] = "homepage/checkout-failed";
+		} else {
+			$data["main_header"] = "Payment failed";
+			$data["message"] = $check_payment_result;
+        	$data["main_view"] = "homepage/checkout-failed";
+			
+			// Paid failed
+			$this->M_Order->cancel($order->id);
+		}
+
+		$this->load->view("homepage/layout/main", $data);
 	}
 
 }
