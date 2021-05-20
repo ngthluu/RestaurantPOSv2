@@ -1,5 +1,5 @@
 
-<main id="main" class="d-flex flex-column justify-content-start menu-list">
+<main id="main" class="d-flex flex-column justify-content-center menu-list">
     <div class="container">
         <h1 class="page-title t-white font-weight-bold mt-3">
             <?php if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"]->details)) { ?>
