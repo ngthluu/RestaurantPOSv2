@@ -142,3 +142,10 @@ section {
 	visibility: visible;
 	opacity: 1;
 }
+
+.custom-control-label:before{
+	background-color: #fff;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+	background-color:#e83152;
+}

@@ -28,9 +28,9 @@
                 <input type="password" class="form-control" name="repassword"  placeholder="Re type your password">
             </div>
             <div class="input-group mt-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="privacy" id="privacyPolicy">
-                    <label class="form-check-label t-white" for="privacyPolicy">
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" name="privacy" id="privacyPolicy">
+                    <label class="custom-control-label t-white" for="privacyPolicy">
                         I accept the <a href="<?= site_url("privacy-policy") ?>">Privacy and Policy.</a>
                     </label>
                 </div>
