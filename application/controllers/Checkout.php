@@ -47,23 +47,33 @@ class Checkout extends SITE_Controllers {
 		$this->load->view("homepage/layout/main", $data);
 	}
 
-	public function payment_result() {
-
+	private function pay_success($order_code) {
 		$this->load->model("M_Order");
+		
+		$order = $this->M_Order->get_with_code($order_code);
+		$this->M_Order->paid($order->id);
+	}
+
+	private function pay_failed ($order_code) {
+		$this->load->model("M_Order");
+		
+		$order = $this->M_Order->get_with_code($order_code);
+	}
+
+	public function payment_result() {
 
 		$this->load->helper("momo_helper");
 		$check_payment_result = paymentMomoCheckResult($_GET);
 
 		$order_code = explode(".", $_GET["orderId"]);
 		$order_code = $order_code[0];
-		$order = $this->M_Order->get_with_code($order_code);
 
 		if ($check_payment_result == "ok") {
 			$data["main_header"] = "Payment successfully";
         	$data["main_view"] = "homepage/checkout-success";
 
 			// Paid successfully
-			$this->M_Order->paid($order->id);
+			$this->pay_success($order_code);
 
 		} else if ($check_payment_result == "failed"){
 			$data["main_header"] = "Payment failed";
@@ -74,29 +84,26 @@ class Checkout extends SITE_Controllers {
 			$data["message"] = $check_payment_result;
         	$data["main_view"] = "homepage/checkout-failed";
 			
-			// Paid failed
-			$this->M_Order->cancel($order->id);
+			// Paid successfully
+			$this->pay_failed($order_code);
 		}
 
 		$this->load->view("homepage/layout/main", $data);
 	}
 
 	public function payment_notify() {
-		$this->load->model("M_Order");
-
 		$this->load->helper("momo_helper");
 		$check_payment_result = paymentMomoCheckResult($_POST);
 
 		$order_code = explode(".", $_POST["orderId"]);
 		$order_code = $order_code[0];
-		$order = $this->M_Order->get_with_code($order_code);
 
 		if ($check_payment_result == "ok") {
 			$data["main_header"] = "Payment successfully";
         	$data["main_view"] = "homepage/checkout-success";
 
 			// Paid successfully
-			$this->M_Order->paid($order->id);
+			$this->pay_success($order_code);
 
 		} else if ($check_payment_result == "failed"){
 			$data["main_header"] = "Payment failed";
@@ -107,8 +114,8 @@ class Checkout extends SITE_Controllers {
 			$data["message"] = $check_payment_result;
         	$data["main_view"] = "homepage/checkout-failed";
 			
-			// Paid failed
-			$this->M_Order->cancel($order->id);
+			// Paid successfully
+			$this->pay_failed($order_code);
 		}
 
 		$this->load->view("homepage/layout/main", $data);
