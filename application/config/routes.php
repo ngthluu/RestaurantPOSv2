@@ -54,5 +54,7 @@ $route['404_override'] = 'home/not_found';
 $route['translate_uri_dashes'] = TRUE;
 
 $route['cms/profile'] = 'cms/dashboard/profile';
+
 $route['contact-us'] = 'home/contact-us';
 $route['privacy-policy'] = 'home/privacy-policy';
+$route['signout'] = 'home/signout';

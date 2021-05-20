@@ -25,4 +25,12 @@ class Home extends SITE_Controllers {
 		$data["main_view"] = "homepage/not-found";
 		$this->load->view("homepage/layout/main", $data);
 	}
+
+	public function signout() {
+		unset($_SESSION["uid"]);
+        unset($_SESSION["uname"]);
+        unset($_SESSION["uphone"]);
+        unset($_SESSION["uavatar"]);
+        redirect(site_url());
+	}
 }

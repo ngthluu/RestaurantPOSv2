@@ -39,9 +39,17 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
+                <?php if (is_logged_in()) { ?>
                     <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
-                    <li><a class="nav-link scrollto" href="<?= site_url("contact-us") ?>">Contact</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url("settings") ?>">Settings</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url("orders-history") ?>">Orders History</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url("checkout") ?>">Checkout</a></li>
+                    <li><a class="getstarted scrollto" href="<?= site_url("signout") ?>">Sign out</a></li>
+                <?php } else { ?>
+                    <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url("contact-us") ?>">Contact us</a></li>
                     <li><a class="getstarted scrollto" href="<?= site_url("signup") ?>">Sign up</a></li>
+                <?php } ?>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
