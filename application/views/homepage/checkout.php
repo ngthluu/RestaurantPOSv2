@@ -66,7 +66,7 @@
                     </div>
                     <div>
                         <hr>
-                        <button type="submit" class="btn btn-danger btn-block">Pay this order</button>
+                        <button type="submit" class="btn btn-danger btn-block">Pay this order (via Momo)</button>
                     </div>
                 </div>
             </div>

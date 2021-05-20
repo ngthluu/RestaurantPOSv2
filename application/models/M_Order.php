@@ -49,6 +49,22 @@ class M_Order extends CI_Model {
         return $result->row();
     }
 
+    public function get_with_code($order_code, $where=null) {
+        $this->init_connection();
+        $w = ["order_code" => $order_code];
+        if ($where) {
+            $w = array_merge($w, $where);
+        }
+        $result = $this->db->get_where($this->table, $w);
+        $this->db->flush_cache();
+        if ($result->num_rows() == 0) {
+            $this->reset_connection();
+            return null;
+        }
+        $this->reset_connection();
+        return $result->row();
+    }
+
     public function change_status($id) {
         $this->init_connection();
         $menu = $this->get($id);
@@ -59,6 +75,24 @@ class M_Order extends CI_Model {
         } else if ($menu->status == self::STATUS_IN_PROCESS) {
             $this->db->update($this->table, ["status" => self::STATUS_FINISHED], ["id" => $id]);
         }
+
+        $this->reset_connection();
+        return true;
+    }
+
+    public function cancel($id) {
+        $this->init_connection();
+        
+        $this->db->update($this->table, ["status" => self::STATUS_PAYMENT_FAILED], ["id" => $id]);
+
+        $this->reset_connection();
+        return true;
+    }
+
+    public function paid($id) {
+        $this->init_connection();
+        
+        $this->db->update($this->table, ["status" => self::STATUS_PAYMENT_OK], ["id" => $id]);
 
         $this->reset_connection();
         return true;

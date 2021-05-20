@@ -49,6 +49,12 @@
                         <div class="t-red"> <?= date("H:i:s d/m/Y", strtotime($order->order_time)) ?> </div>
                         <strong class="t-red">Total: <?= number_format($this->M_Order->get_price($order->id)) ?>đ</strong>
                     </div>
+                    <?php if ($order->status == M_Order::STATUS_INIT) { ?>
+                    <div class="mt-2 d-flex justify-content-end">
+                        <a target="_blank" href="<?= site_url("order/pay/".$order->id) ?>" class="btn btn-danger mr-2">Pay</a>
+                        <a href="<?= site_url("order/cancel/".$order->id) ?>" class="btn btn-secondary">Cancel</a>
+                    </div>
+                    <?php } ?>
                 </div>
             </div>
         <?php } ?>

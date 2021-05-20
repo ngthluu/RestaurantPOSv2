@@ -167,4 +167,20 @@ class Order extends SITE_Controllers {
         echo "Your menu is not valid";
         return;
     }
+
+    public function cancel($id) {
+        $this->load->model("M_Order");
+        $this->M_Order->cancel($id);
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function pay($id) {
+        // Generate payment url
+        $this->load->model("M_Order");
+		$order = $this->M_Order->get($id);
+		$order_price = $this->M_Order->get_price($id);
+		$this->load->helper("momo_helper");
+		$payment_url = paymentMomo($order, $order_price);
+        redirect($payment_url);
+    }
 }
