@@ -1,6 +1,6 @@
 
 <main id="main" class="d-flex flex-column justify-content-center menu-list">
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <h1 class="page-title t-white font-weight-bold mt-3">
             <?php if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"]->details)) { ?>
             <a href="<?= site_url("order/index/".$_SESSION["cart"]->branch."/".$_SESSION["cart"]->table) ?>" class="t-white"><i class="bi bi-arrow-left"></i></a> 

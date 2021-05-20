@@ -5,7 +5,7 @@
             <p>Privacy policy</p>
         </header>
 
-        <div class="row gy-4">
+        <div class="row gy-4 p-3">
             <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In placerat nibh ipsum, quis ornare dolor luctus quis. Vivamus sem elit, feugiat nec iaculis eu, semper sed neque. Mauris fringilla lectus non elit congue finibus. Donec commodo rutrum mauris, sed consequat lorem porta ac. Etiam turpis ipsum, varius a purus in, porttitor tempor dolor. In dictum hendrerit nisl, ac iaculis dolor gravida pellentesque. Nunc enim dolor, congue cursus purus eget, imperdiet viverra lectus. Fusce bibendum lacinia nisi in faucibus. Donec vitae efficitur orci. Vivamus ac odio arcu. Nullam ut justo quam. Vivamus congue et sem vitae commodo. Nam imperdiet leo eget risus sodales vulputate. In purus dui, rhoncus non libero sed, consectetur fringilla sapien. Etiam egestas aliquam augue, sit amet tempus nulla faucibus et. 
             Curabitur egestas massa sit amet tincidunt luctus. Vestibulum vehicula convallis sapien sit amet fermentum. Duis ut elementum lectus. Nulla gravida convallis congue. Morbi odio arcu, volutpat dignissim lorem iaculis, lacinia scelerisque nibh. Suspendisse in commodo erat, quis pulvinar dolor. Suspendisse tempus arcu libero, sed aliquet leo auctor sed. Mauris pretium tincidunt eros, vel iaculis dui pulvinar elementum. Sed in eros augue. Nam in nisi leo.
