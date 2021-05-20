@@ -1,6 +1,6 @@
+
 <main id="main" class="d-flex flex-column justify-content-start menu-list">
     <div class="container">
-        
         <h1 class="page-title t-white font-weight-bold mt-3">
             <?php if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"]->details)) { ?>
             <a href="<?= site_url("order/index/".$_SESSION["cart"]->branch."/".$_SESSION["cart"]->table) ?>" class="t-white"><i class="bi bi-arrow-left"></i></a> 
@@ -8,6 +8,7 @@
             Your order
         </h1>
         <?php if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"]->details)) { ?>
+        <?php echo form_open("checkout/waiting", ["id" => "form-info"]); ?>
         <div class="row">
             <div class="col-md-8">
             <?php 
@@ -58,15 +59,19 @@
                             <strong class="t-red">Total Price: </strong>
                             <strong class="total-price"><?= number_format($total_price) ?>đ</strong>
                         </div>
+                        <div class="mt-2">
+                            <strong class="t-red">Note: </strong>
+                            <textarea class="form-control mt-2" rows="3" name="note" placeholder="Your note"></textarea>
+                        </div>
                     </div>
                     <div>
                         <hr>
-                        <a href="<?= site_url("checkout/waiting") ?>" class="btn btn-danger btn-block">Pay this order</a>
+                        <button type="submit" class="btn btn-danger btn-block">Pay this order</button>
                     </div>
-                    
                 </div>
             </div>
         </div>
+        <?= form_close() ?>
         <?php } else { ?>
         <div class="t-yellow mt-3">Your order is currently empty.</div> 
         <?php } ?>

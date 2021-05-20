@@ -63,4 +63,43 @@ class M_Order extends CI_Model {
         $this->reset_connection();
         return true;
     }
+
+    private function get_count() {
+        $this->init_connection();
+        $result = $this->db->get_where($this->table);
+        $this->db->flush_cache();
+        $result = $result->num_rows();
+        $this->reset_connection();
+        return $result;
+    }
+
+    public function save() {
+
+        $this->init_connection();
+
+        $order_code = "ORDER".date("dmy").sprintf('%03d', $this->get_count() + 1);
+
+        $new_data = [
+            "order_code"    => $order_code,
+            "customer"      => $_SESSION["uid"],
+            "branch"        => $_SESSION["cart"]->branch,
+            "table"         => $_SESSION["cart"]->table,
+            "note"          => $_SESSION["cart"]->note,
+            "status"        => self::STATUS_INIT,
+        ];
+        $this->db->insert($this->table, $new_data);
+        $id = $this->db->insert_id();
+
+        // Order details
+        foreach ($_SESSION["cart"]->details as $detail) {
+            $this->db->insert($this->db->dbprefix("orderdetails"), [
+                "order" => $id,
+                "menu" => $detail->id,
+                "quantity" => $detail->quantity
+            ]);
+        }
+
+        $this->reset_connection();
+        return $id;
+    }
 }

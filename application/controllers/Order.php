@@ -67,6 +67,7 @@ class Order extends SITE_Controllers {
             $_SESSION["cart"] = (object) [
                 "branch" => -1,
                 "table" => -1,
+                "note" => "",
                 "details" => []
             ];
         }
