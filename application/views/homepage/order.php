@@ -1,28 +1,53 @@
-<main id="main">
+<main id="main" class="menu-list">
     <div class="container d-flex h-100">
         <div class="justify-content-center align-self-center">
             <h1 class="page-title t-white font-weight-bold">
-                Order
+                Our menu
             </h1>
-            <h3 class="t-yellow mt-3">
-                Fast, convenient & delicious.
-            </h3>
-            <?php if (is_logged_in()) { ?>
-            <div class="t-white mt-3">
-                Scan QR Code and have a delicious meal.
+            <div class="row gy-4">
+                <div class="col-md-6">
+                    <div class="menu-box">
+                        <i class="bi bi-geo-alt"></i>
+                        <h3>Address</h3>
+                        <p>Khoi 6, Dak To, Dak To,<br>Kon Tum, Viet Nam</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="menu-box">
+                        <i class="bi bi-telephone"></i>
+                        <h3>Call Us</h3>
+                        <p>+038 347 7379<br>+038 347 7370</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="menu-box">
+                        <i class="bi bi-envelope"></i>
+                        <h3>Email Us</h3>
+                        <p>admin@<?= EMAIL_PATH ?><br>contact@<?= EMAIL_PATH ?></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="menu-box">
+                        <i class="bi bi-clock"></i>
+                        <h3>Open Hours</h3>
+                        <p>Monday - Friday<br>07:00 AM - 09:00 PM</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="menu-box">
+                        <i class="bi bi-clock"></i>
+                        <h3>Open Hours</h3>
+                        <p>Monday - Friday<br>07:00 AM - 09:00 PM</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="menu-box">
+                        <i class="bi bi-clock"></i>
+                        <h3>Open Hours</h3>
+                        <p>Monday - Friday<br>07:00 AM - 09:00 PM</p>
+                    </div>
+                </div>
             </div>
-            <?php } else { ?>
-            <div class="t-white mt-3">
-                Create account, scan QR Code and have a delicious meal.
-            </div>
-            <div class="mt-5">
-                <a href="<?= site_url("signup") ?>" class="btn btn-danger" href="#">Sign up here > </a>
-            </div>
-            <div class="mt-3">
-                <div class="t-white">Already have account ?</div>
-                <a href="<?= site_url("signin") ?>" class="t-red">Sign in here</a>
-            </div>
-            <?php } ?>
         </div>
     </div>
 </main>

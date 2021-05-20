@@ -1,6 +1,6 @@
 <!-- ======= Contact Section ======= -->
 <section id="contact" class="contact">
-    <div class="container" data-aos="fade-up">
+    <div class="container">
         <header class="section-header">
             <p>Privacy policy</p>
         </header>

@@ -23,7 +23,7 @@ class Order extends SITE_Controllers {
             return;
         }
         
-        $data["main_header"] = "Order";
+        $data["main_header"] = "Our menu";
         $data["main_view"] = "homepage/order";
 
 		$this->load->view("homepage/layout/main", $data);
