@@ -61,7 +61,7 @@
                     </div>
                     <div>
                         <hr>
-                        <button class="btn btn-danger btn-block">Pay this order</button>
+                        <a href="<?= site_url("checkout/waiting") ?>" class="btn btn-danger btn-block">Pay this order</a>
                     </div>
                     
                 </div>

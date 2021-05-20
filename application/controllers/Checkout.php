@@ -19,4 +19,11 @@ class Checkout extends SITE_Controllers {
 
 		$this->load->view("homepage/layout/main", $data);
 	}
+
+	public function waiting() {
+		$data["main_header"] = "Order successfully";
+        $data["main_view"] = "homepage/checkout-waiting";
+
+		$this->load->view("homepage/layout/main", $data);
+	}
 }
