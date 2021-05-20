@@ -86,4 +86,72 @@ class Order extends SITE_Controllers {
 
         echo "ok";
     }
+
+    public function update_cart() {
+
+        $menuId = $this->input->post("menuId");
+        $menuQuantity = $this->input->post("menuQuantity");
+        if (!(
+            $menuId
+            && $menuQuantity
+            && filter_var($menuId, FILTER_VALIDATE_INT)
+            && filter_var($menuQuantity, FILTER_VALIDATE_INT)
+            && $menuQuantity > 0
+        )) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Your menu or quantity is not valid"
+            ]);
+            return;
+        }
+
+        if (!isset($_SESSION["cart"])) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Your cart is not valid"
+            ]);
+            return;
+        }
+        foreach ($_SESSION["cart"]->details as $index => $detail) {
+            if ($menuId == $detail->id) {
+                $menuQuantityOld = $_SESSION["cart"]->details[$index]->quantity;
+                $_SESSION["cart"]->details[$index]->quantity = $menuQuantity;
+                $menu = $this->M_Menu->get($menuId);
+                echo json_encode([
+                    "status" => "ok",
+                    "menuPrice" => $menu->price,
+                    "menuQuantityNew" => $menuQuantity,
+                    "menuQuantityOld" => $menuQuantityOld
+                ]);
+                return;
+            }
+        }
+        echo json_encode([
+            "status" => "error",
+            "message" => "Your cart is not valid"
+        ]);
+        return;
+    }
+
+    public function remove_cart() {
+
+        $menuId = $this->input->post("menuId");
+        if (!(
+            $menuId
+            && filter_var($menuId, FILTER_VALIDATE_INT)
+        )) {
+            echo "Your menu is not valid";
+            return;
+        }
+
+        foreach ($_SESSION["cart"]->details as $index => $detail) {
+            if ($menuId == $detail->id) {
+                unset($_SESSION["cart"]->details[$index]);
+                echo "ok";
+                return;
+            }
+        }
+        echo "Your menu is not valid";
+        return;
+    }
 }

@@ -12,6 +12,11 @@ class Checkout extends SITE_Controllers {
 	}
 
 	public function index() {
-        var_dump($_SESSION["cart"]);
+        $data["main_header"] = "Order checkout";
+        $data["main_view"] = "homepage/checkout";
+
+		$this->load->model("M_Menu");
+
+		$this->load->view("homepage/layout/main", $data);
 	}
 }

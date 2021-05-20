@@ -8,7 +8,7 @@
 
 .menu-list .menu-box {
 	padding: 20px;
-	margin: 10px;
+	margin: 10px 0px;
 	border-radius: 19px;
 	height: 100%;
 }
@@ -48,6 +48,10 @@
     -webkit-appearance: none;
 }
 
+.menu-list .menu-box button i {
+	font-size: 18px;
+}
+
 @-webkit-keyframes animate-loading {
 	0% {
 		transform: rotate(0deg);
@@ -64,4 +68,12 @@
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+.menu-list .checkoutinfo-box {
+	padding: 20px;
+	margin: 10px;
+	border-radius: 19px;
+	height: 100%;
+	background-color: white;
 }
