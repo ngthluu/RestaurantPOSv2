@@ -1,30 +1,50 @@
 /*--------------------------------------------------------------
 # Menu
 --------------------------------------------------------------*/
-.menu-list .menu-box {
-	color: #444444;
-	background: #fafbff;
-	padding: 30px;
+
+.menu-list {
+	padding: 10px 0px;
 }
 
-.menu-list .menu-box i {
-	font-size: 38px;
-	line-height: 0;
-	color: #e83152;
+.menu-list .menu-box {
+	padding: 20px;
+	margin: 10px;
+	border-radius: 19px;
+	height: 100%;
 }
 
 .menu-list .menu-box h3 {
-	font-size: 20px;
-	color: #e83152;
+	font-size: 24px;
+	color: white;
 	font-weight: 700;
-	margin: 20px 0 10px 0;
+}
+
+.menu-list .menu-box .price {
+	font-size: 16px;
+	color: #FCF9B8;
+	margin-bottom: 10px;
 }
 
 .menu-list .menu-box p {
 	padding: 0;
+	color: white;
 	line-height: 24px;
-	font-size: 14px;
-	margin-bottom: 0;
+	font-size: 16px;
+	margin-bottom: 15px;
+}
+
+.menu-list .menu-box input {
+	border-radius: 8px;
+	border: none;
+	width: 93px;
+}
+
+.menu-list .menu-box input[type='number'] {
+    -moz-appearance:textfield;
+}
+.menu-list .menu-box input::-webkit-outer-spin-button,
+.menu-list .menu-box input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 @-webkit-keyframes animate-loading {
