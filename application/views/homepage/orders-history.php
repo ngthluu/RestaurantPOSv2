@@ -13,7 +13,7 @@
                 <div class="checkoutinfo-box d-flex flex-column justify-content-between">
                     <div class="d-flex justify-content-between">
                         <strong class="t-red">#<?= $order->order_code?></strong>
-                        <strong>
+                        <strong class="text-right">
                         <?php 
                         if ($order->status == M_Order::STATUS_INIT) {
                             echo '<strong class="text-primary">Initialized</strong>';
@@ -47,7 +47,7 @@
                     </div>
                     <div class="mt-2 d-flex justify-content-between">
                         <div class="t-red"> <?= date("H:i:s d/m/Y", strtotime($order->order_time)) ?> </div>
-                        <strong class="t-red">Total: <?= number_format($this->M_Order->get_price($order->id)) ?>đ</strong>
+                        <strong class="t-red text-right">Total: <?= number_format($this->M_Order->get_price($order->id)) ?>đ</strong>
                     </div>
                     <?php if ($order->status == M_Order::STATUS_INIT) { ?>
                     <div class="mt-2 d-flex justify-content-end">

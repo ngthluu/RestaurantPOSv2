@@ -1,5 +1,5 @@
 <main id="main" class="d-flex flex-column justify-content-center">
-    <div class="container col-auto">
+    <div class="container col-auto mt-5 mb-5">
         <?php echo form_open("signup/save", ["id" => "form-info"]); ?>
         <h1 class="page-title t-white font-weight-bold">
             Sign up to <?= PROJECT_SHORTCUT ?>
