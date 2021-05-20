@@ -39,6 +39,18 @@ class Order extends SITE_Controllers {
 		$this->load->view("homepage/layout/main", $data);
 	}
 
+    public function history() {
+        $data["main_header"] = "Orders history";
+        $data["main_view"] = "homepage/orders-history";
+
+        $this->load->model("M_Order");
+        $data["orders_list"] = $this->M_Order->gets_all([
+            "customer" => $_SESSION["uid"]
+        ]);
+
+		$this->load->view("homepage/layout/main", $data);
+    }
+
     public function add_cart($branch_id=null, $table_num=null) {
         if (!(
             $branch_id

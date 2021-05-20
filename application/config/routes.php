@@ -56,5 +56,6 @@ $route['translate_uri_dashes'] = TRUE;
 $route['cms/profile'] = 'cms/dashboard/profile';
 
 $route['contact-us'] = 'home/contact-us';
+$route['orders-history'] = 'order/history';
 $route['privacy-policy'] = 'home/privacy-policy';
 $route['signout'] = 'home/signout';
