@@ -44,7 +44,7 @@
                     <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
                     <li><a class="nav-link scrollto" href="<?= site_url("settings") ?>">Settings</a></li>
                     <li><a class="nav-link scrollto" href="<?= site_url("orders-history") ?>">Orders History</a></li>
-                    <li><a class="nav-link scrollto" href="<?= site_url("checkout") ?>">Checkout</a></li>
+                    <li><a class="nav-link scrollto" href="<?= site_url("checkout") ?>">Checkout (0)</a></li>
                     <li><a class="getstarted scrollto" href="<?= site_url("signout") ?>">Sign out</a></li>
                 <?php } else { ?>
                     <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
