@@ -51,10 +51,10 @@
                     <td class=""> 
                         <?php 
                         $order_details = $this->M_Order->get_details($order->id);
-                        foreach ($order_details as $detail) {
+                        foreach ($order_details as $index => $detail) {
                         ?>
                             <div class="d-flex justify-content-between">
-                                <a href="<?= site_url("cms/menu/edit/".$detail->id) ?>"><?= $detail->name ?></a>
+                                <a href="<?= site_url("cms/menu/edit/".$detail->id) ?>"><?= "#".($index+1).". ".$detail->name ?></a>
                                 <strong>Num: <?= $detail->quantity ?></strong>
                             </div>
                         <?php } ?>

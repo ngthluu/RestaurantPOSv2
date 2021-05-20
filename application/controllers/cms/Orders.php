@@ -19,10 +19,18 @@ class Orders extends CMS_Controllers {
 
 		$data["main_view"] = "cms/orders/home";
 
-		if (!in_role(["admin"])) {
-			$data["orders_list"] = $this->M_Order->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
-		} else {
+		if (in_role(["admin"])) {
 			$data["orders_list"] = $this->M_Order->gets_all();
+		} else if (in_role(["manager"])){
+			$data["orders_list"] = $this->M_Order->gets_all([
+				"branch" => $_SESSION["cms_ubranch"]
+			]);
+		} else {
+			$data["orders_list"] = $this->M_Order->gets_all([
+				"branch" => $_SESSION["cms_ubranch"],
+				"status != " => M_Order::STATUS_INIT,
+				"status <> " => M_Order::STATUS_PAYMENT_FAILED
+			]);
 		}
 		
 		$this->load->model("M_Branch");
