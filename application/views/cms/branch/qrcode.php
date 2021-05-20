@@ -33,8 +33,7 @@
             <tbody>
             <?php 
             for ($table = 1; $table <= $branch->tables_num; $table++) { 
-                $url = site_url("order?branch=".$branch->id."&table=".$table);
-                $url = str_replace("&", "%26", $url);
+                $url = site_url("order/index/".$branch->id."/".$table);
             ?>
                 <tr>
                     <td> <?= "#".$table ?> </td>
