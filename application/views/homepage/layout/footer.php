@@ -211,8 +211,13 @@
     })();
 </script>
 
+<audio id="successSound" controls preload="none" hidden>
+    <source src="<?= base_url("assets/success.mp3") ?>" type="audio/mpeg">
+</audio>
 <script>
-
+toastr.options.onShown = function() {
+    document.getElementById('successSound').play();
+}
 </script>
 </body>
 
