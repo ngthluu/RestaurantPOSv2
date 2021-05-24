@@ -67,12 +67,29 @@ class M_Order extends CI_Model {
 
     public function change_status($id) {
         $this->init_connection();
+        $this->load->helper("onesignal_helper");
+        $this->load->model("M_Customer");
         $menu = $this->get($id);
         if ($menu->status == self::STATUS_PAYMENT_OK) {
+            $notification_uid = $this->M_Customer->get_notification_uid($menu->customer);
+            sendMessage($notification_uid, [
+                "status" => "ok",
+                "message" => "Your order has been received"
+            ]);
             $this->db->update($this->table, ["status" => self::STATUS_RECEIVED], ["id" => $id]);
         } else if ($menu->status == self::STATUS_RECEIVED) {
+            $notification_uid = $this->M_Customer->get_notification_uid($menu->customer);
+            sendMessage($notification_uid, [
+                "status" => "ok",
+                "message" => "Your order is in processing now"
+            ]);
             $this->db->update($this->table, ["status" => self::STATUS_IN_PROCESS], ["id" => $id]);
         } else if ($menu->status == self::STATUS_IN_PROCESS) {
+            $notification_uid = $this->M_Customer->get_notification_uid($menu->customer);
+            sendMessage($notification_uid, [
+                "status" => "ok",
+                "message" => "Your order has been finished"
+            ]);
             $this->db->update($this->table, ["status" => self::STATUS_FINISHED], ["id" => $id]);
         }
 

@@ -30,15 +30,4 @@ class Home extends SITE_Controllers {
 		unset($_SESSION["uid"]);
         redirect(site_url());
 	}
-
-	public function test_notification() {
-		$this->load->helper("onesignal_helper");
-		$this->load->model("M_Customer");
-		$uid = $this->M_Customer->get_notification_uid($_SESSION["uid"]);
-		$result = sendMessage($uid, [
-			"status" => "ok",
-			"message" => "Hello World"
-		]);
-		var_dump($result);
-	}
 }
