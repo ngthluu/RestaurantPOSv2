@@ -167,4 +167,18 @@ class M_Customer extends CI_Model {
         $this->reset_connection();
         return true;
     }
+
+    public function register_notification($user_id, $uid) {
+        $this->init_connection();
+        $new_data = ["notification_uid" => $uid];
+        $this->db->update($this->table, $new_data, ["id" => $user_id]);
+        $this->reset_connection();
+        return true;
+    }
+
+    public function get_notification_uid($user_id) {
+        $user = $this->get($user_id);
+        return $user->notification_uid;
+    }
+
 }
