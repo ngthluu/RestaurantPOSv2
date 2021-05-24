@@ -6,11 +6,11 @@ const ONESIGNAL_APP_ID = "f8f03c9f-5aff-482d-8e2f-1b54a0ea5b68";
 const ONESIGNAL_SAFARI_WEB_ID = "web.onesignal.auto.11512f5d-61af-48e1-99c6-cc09fe5cc2c2";
 const ONESIGNAL_REST_API_KEY = "MjFhMzk2ODMtYTZiMi00NDljLTk5YTktMDEwZmQ1ZDA1Yzgy";
 
-function sendMessage($uid, $data) {
+function sendMessage($uids, $data) {
     $content = ["en" => $data["message"]];
     $fields = [
         'app_id' => ONESIGNAL_APP_ID,
-        'include_player_ids' => [$uid],
+        'include_player_ids' => $uids,
         'data' => $data,
         'contents' => $content
     ];
