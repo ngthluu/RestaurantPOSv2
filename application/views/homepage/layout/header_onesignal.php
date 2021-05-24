@@ -9,11 +9,13 @@ if (is_logged_in()) {
     OneSignal.push(function() {
         OneSignal.init({
             appId: "<?= ONESIGNAL_APP_ID ?>",
+            safari_web_id: "<?= ONESIGNAL_SAFARI_WEB_ID ?>",
             notifyButton: {
                 enable: false,
             },
             subdomainName: "ttcnpm",
         });
+        OneSignal.showSlidedownPrompt();
         OneSignal.on('notificationDisplay', function(response) {
             if (response.data.status == "ok") {
                 toastr.success(response.data.message);
