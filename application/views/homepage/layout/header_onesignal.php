@@ -14,8 +14,8 @@ if (is_logged_in()) {
             },
             subdomainName: "ttcnpm",
         });
-        OneSignal.on('notificationDisplay', function(event) {
-            console.log(event);
+        OneSignal.on('notificationDisplay', function(response) {
+            toastr.error(response.data.message);
         });
         OneSignal.getUserId(function(userId) {
             $.post('<?= site_url("settings/register_notification") ?>', {uid: userId}, function(response) {});

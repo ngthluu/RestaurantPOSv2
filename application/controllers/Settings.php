@@ -78,11 +78,7 @@ class Settings extends SITE_Controllers {
 
 	public function register_notification() {
 		$uid = $this->input->post("uid");
-		$_SESSION["uid_notification"] = $uid;
+		$this->M_Customer->register_notification($_SESSION["uid"], $uid);
 		echo "ok";
-	}
-
-	public function get_notification_ids() {
-		echo isset($_SESSION["uid_notification"]) ? $_SESSION["uid_notification"] : "";
 	}
 }

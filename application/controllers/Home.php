@@ -28,12 +28,17 @@ class Home extends SITE_Controllers {
 
 	public function signout() {
 		unset($_SESSION["uid"]);
-		unset($_SESSION["uid_notification"]);
         redirect(site_url());
 	}
 
 	public function test_notification() {
 		$this->load->helper("onesignal_helper");
-		sendMessageToCustomer("Hello World");
+		$this->load->model("M_Customer");
+		$uid = $this->M_Customer->get_notification_uid($_SESSION["uid"]);
+		$result = sendMessage($uid, [
+			"status" => "ok",
+			"message" => "Hello World"
+		]);
+		var_dump($result);
 	}
 }
