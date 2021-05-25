@@ -120,4 +120,8 @@ class Dashboard extends CMS_Controllers {
 		$this->M_Staff->register_notification($_SESSION["cms_uid"], $uid);
 		echo "ok";
 	}
+
+	public function get_notifications_html() {
+		$this->load->view("cms/layout/header_notification");
+	}
 }

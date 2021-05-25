@@ -3,7 +3,6 @@
         <i class="nav-icon fas fa-file-alt"></i>
         <p>
             Orders
-            <span class="right badge badge-info">2</span>
         </p>
     </a>
 </li>

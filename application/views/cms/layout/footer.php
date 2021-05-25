@@ -51,5 +51,16 @@
 <script src="<?= base_url("assets/adminlte/dist/js/demo.js"); ?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url("assets/adminlte/dist/js/pages/dashboard.js"); ?>"></script>
+
+<script src="<?= base_url("assets/homepage/js/toastr.min.js") ?>"></script>
+<audio id="successSound" controls preload="none" hidden>
+    <source src="<?= base_url("assets/success.mp3") ?>" type="audio/mpeg">
+</audio>
+<script>
+toastr.options.onShown = function() {
+    document.getElementById('successSound').play();
+}
+</script>
+
 </body>
 </html>

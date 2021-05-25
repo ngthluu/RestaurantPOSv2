@@ -18,10 +18,14 @@ if (cms_is_logged_in()) {
         OneSignal.showSlidedownPrompt();
         OneSignal.on('notificationDisplay', function(response) {
             if (response.data.status == "ok") {
-                console.log(response.data.message);
+                toastr.success(response.data.message);
             } else {
-                console.log(response.data.message);
+                toastr.error(response.data.message);
             }
+            // Update notification html
+            $.post('<?= site_url("cms/dashboard/get_notifications_html") ?>', {}, function(html) {
+                $("#header_notification").html(html);
+            });
         });
         OneSignal.getUserId(function(userId) {
             $.post('<?= site_url("cms/dashboard/register_notification") ?>', {uid: userId}, function(response) {});
