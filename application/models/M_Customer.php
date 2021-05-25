@@ -29,6 +29,15 @@ class M_Customer extends CI_Model {
         return $result->result();
     }
 
+    public function gets_count($where=null) {
+        $this->init_connection();
+        $result = $this->db->get_where($this->table, $where);
+        $this->db->flush_cache();
+        $count = $result->num_rows();
+        $this->reset_connection();
+        return $count;
+    }
+
     public function get($id, $where=null) {
         $this->init_connection();
         $w = ["id" => $id];

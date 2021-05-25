@@ -2,8 +2,8 @@
 $CI = &get_instance();
 $CI->load->model("M_Order");
 $where = [
-    "order_time >= " => date('Y-m-d H:i:s'),
-    "order_time <= " => date('Y-m-d H:i:s', strtotime('+ 1 day'))
+    "order_time >= " => beginDate(),
+    "order_time <= " => endDate()
 ];
 if (!in_role(["admin"])) {
     $where = array_merge($where, ["branch" => $_SESSION["cms_ubranch"]]);

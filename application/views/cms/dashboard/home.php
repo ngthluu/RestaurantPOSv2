@@ -7,31 +7,33 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-            <h3>150</h3>
+            <h3><?= $orders_count ?></h3>
 
             <p>New Orders</p>
             </div>
             <div class="icon">
             <i class="fas fa-file-alt"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="<?= site_url("cms/orders") ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
         </div>
         <!-- ./col -->
+        
+        <?php if (in_role(["admin"])) { ?>
         <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-            <div class="inner">
-            <h3>44</h3>
-
-            <p>User Registrations</p>
-            </div>
-            <div class="icon">
-            <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <!-- small box -->
+          <div class="small-box bg-warning">
+              <div class="inner">
+              <h3><?= $customers_count ?></h3>
+              <p>New Customers</p>
+              </div>
+              <div class="icon">
+              <i class="ion ion-person-add"></i>
+              </div>
+              <a href="<?= site_url("cms/customers") ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
         </div>
-        </div>
+        <?php } ?>
     </div>
     <div class="row">
         <div class="col-lg-6">

@@ -10,6 +10,27 @@ class Dashboard extends CMS_Controllers {
 			["uri" => "#", "title" => "Dashboard"],
 		];
         $data["main_view"] = "cms/dashboard/home";
+
+		$this->load->model("M_Order");
+		$this->load->model("M_Customer");
+
+		$where = [];
+		if (!in_role(["admin"])) {
+			$where = array_merge($where, ["branch" => $_SESSION["cms_ubranch"]]);
+		}
+
+		$data["orders_count"] = $this->M_Order->gets_count(array_merge($where, [
+			"status != " => M_Order::STATUS_INIT,
+			"status <> " => M_Order::STATUS_PAYMENT_FAILED,
+			"order_time >= " => firstMonthDate(),
+			"order_time <= " => lastMonthDate()
+		]));
+		
+		$data["customers_count"] = $this->M_Customer->gets_count([
+			"create_time >= " => firstMonthDate(),
+			"create_time <= " => lastMonthDate()
+		]);
+
 		$this->load->view("cms/layout/main", $data);
 	}
 

@@ -65,3 +65,19 @@ function in_role($role_array) {
 function is_logged_in() {
     return isset($_SESSION["uid"]) && $_SESSION["uid"] > 0;
 }
+
+function firstMonthDate() {
+    return date('Y-m-d H:i:s', strtotime(date('Y-m-01')));
+}
+
+function lastMonthDate() {
+    return date('Y-m-d H:i:s', strtotime(date('Y-m-t')));
+}
+
+function beginDate() {
+    return date('Y-m-d 00:00:00');
+}
+
+function endDate() {
+    return date('Y-m-d 23:59:59');
+}

@@ -30,8 +30,8 @@ class Orders extends CMS_Controllers {
 				"branch" => $_SESSION["cms_ubranch"],
 				"status != " => M_Order::STATUS_INIT,
 				"status <> " => M_Order::STATUS_PAYMENT_FAILED,
-				"order_time >= " => date('Y-m-d H:i:s'),
-    			"order_time <= " => date('Y-m-d H:i:s', strtotime('+ 1 day'))
+				"order_time >= " => beginDate(),
+    			"order_time <= " => endDate()
 			]);
 		}
 		

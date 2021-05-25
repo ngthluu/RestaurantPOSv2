@@ -301,8 +301,8 @@ class M_Staff extends CI_Model {
 
         $w = [
             "staff_id" => $staff_id, 
-            "payment_date >= " => date('Y-m-01'), 
-            "payment_date <= " => date('Y-m-t')
+            "payment_date >= " => firstMonthDate(), 
+            "payment_date <= " => lastMonthDate()
         ];
         $table = $this->db->dbprefix("staffssalaryhistory");
         $result = $this->db->get_where($table, $w);
