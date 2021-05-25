@@ -52,11 +52,26 @@ class Staffs extends CMS_Controllers {
 		$data["main_view"] = "cms/staffs/home";
 		
 		if (!in_role(["admin"])) {
-			$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
+			$where = ["branch" => $_SESSION["cms_ubranch"]];
 		} else {
-			$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all();
+			$where = [];
 		}
 		
+		$per_page = 10;
+		if (isset($_GET["page"]) && filter_var($_GET["page"], FILTER_VALIDATE_INT) && $_GET["page"] > 0) {
+			$page = $_GET["page"];
+		} else {
+			$page = 1;
+		}
+		$data["staffs_list"] = $this->M_Staff->set_role($type)->gets_all($where, $page, $per_page);
+		$total_items = $this->M_Staff->set_role($type)->gets_count($where);
+
+		$this->load->library('pagination');
+		$this->pagination->initialize(paginationConfigs(
+			$page, $per_page, $total_items,
+			"cms/staffs"
+		));
+
 		$this->load->model("M_Branch");
 
 		$this->load->view("cms/layout/main", $data);

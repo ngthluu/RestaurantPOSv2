@@ -27,13 +27,14 @@ class M_Staff extends CI_Model {
         return $this;
     }
 
-    public function gets_all($where=null) {
+    public function gets_all($where=null, $page=1, $per_page=10) {
         if ($this->role == "staff") {
             $this->init_connection(true);
             $this->db->where("role != ", "admin");
         } else {
             $this->init_connection();
         }
+        $this->db->limit($per_page, ($page-1) * $per_page);
         $result = $this->db->get_where($this->table, $where);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
@@ -42,6 +43,18 @@ class M_Staff extends CI_Model {
         }
         $this->reset_connection();
         return $result->result();
+    }
+
+    public function gets_count($where=null) {
+        if ($this->role == "staff") {
+            $this->init_connection(true);
+            $this->db->where("role != ", "admin");
+        } else {
+            $this->init_connection();
+        }
+        $result = $this->db->get_where($this->table, $where);
+        $this->reset_connection();
+        return $result->num_rows();
     }
 
     public function get($id, $where=null) {
