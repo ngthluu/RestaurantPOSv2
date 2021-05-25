@@ -71,7 +71,16 @@
 <script src="<?= base_url("assets/homepage/js/jquery.min.js") ?>"></script>
 <script src="<?= base_url("assets/homepage/js/popper.min.js") ?>"></script>
 <script src="<?= base_url("assets/homepage/js/bootstrap.min.js") ?>"></script>
+
 <script src="<?= base_url("assets/homepage/js/toastr.min.js") ?>"></script>
+<audio id="successSound" controls preload="none" hidden>
+    <source src="<?= base_url("assets/success.mp3") ?>" type="audio/mpeg">
+</audio>
+<script>
+toastr.options.onShown = function() {
+    document.getElementById('successSound').play();
+}
+</script>
 
 <script>
     (function() {
@@ -209,15 +218,6 @@
             }
         });
     })();
-</script>
-
-<audio id="successSound" controls preload="none" hidden>
-    <source src="<?= base_url("assets/success.mp3") ?>" type="audio/mpeg">
-</audio>
-<script>
-toastr.options.onShown = function() {
-    document.getElementById('successSound').play();
-}
 </script>
 </body>
 

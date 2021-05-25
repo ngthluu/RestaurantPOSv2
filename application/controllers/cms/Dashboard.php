@@ -113,4 +113,11 @@ class Dashboard extends CMS_Controllers {
 		echo "ok";
 		return true;
 	}
+
+	public function register_notification() {
+		$this->load->model("M_Staff");
+		$uid = $this->input->post("uid");
+		$this->M_Staff->register_notification($_SESSION["cms_uid"], $uid);
+		echo "ok";
+	}
 }

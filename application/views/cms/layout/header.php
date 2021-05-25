@@ -28,6 +28,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="<?= base_url("assets/adminlte/plugins/summernote/summernote-bs4.min.css"); ?>">
 
+  <?php $this->load->view("cms/layout/header_onesignal") ?>
 <style>
 /* scrollbar */
 ::-webkit-scrollbar {
