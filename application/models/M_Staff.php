@@ -327,4 +327,15 @@ class M_Staff extends CI_Model {
         $user = $this->get($user_id);
         return $user->notification_uid;
     }
+
+    public function get_notification_uids($where=null) {
+        $this->init_connection(true);
+        $result_query = $this->db->get_where($this->table, $where);
+        $result = [];
+        foreach ($result_query->result() as $row) {
+            array_push($result, $row->notification_uid);
+        }
+        $this->reset_connection();
+        return $result; 
+    }
 }

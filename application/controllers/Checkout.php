@@ -38,6 +38,16 @@ class Checkout extends SITE_Controllers {
 		$order_id = $this->M_Order->save();
 		unset($_SESSION["cart"]);
 
+		// Notify to branch manager
+		$order = $this->M_Order->get($order_id);
+		$this->load->model("M_Staff");
+		$uids = $this->M_Staff->get_notification_uids(["role" => "manager", "branch" => $order->branch]);
+		$this->load->helper("onesignal_helper");
+		sendMessage($uids, [
+			"status" => "ok",
+			"message" => "Order $order->order_code has been placed."
+		]);
+
 		// Generate payment url
 		$order = $this->M_Order->get($order_id);
 		$order_price = $this->M_Order->get_price($order_id);
@@ -52,6 +62,15 @@ class Checkout extends SITE_Controllers {
 		
 		$order = $this->M_Order->get_with_code($order_code);
 		$this->M_Order->paid($order->id);
+
+		// Pay successful, notify to all branch chefs
+		$this->load->model("M_Staff");
+		$uids = $this->M_Staff->get_notification_uids(["role" => "chef", "branch" => $order->branch]);
+		$this->load->helper("onesignal_helper");
+		sendMessage($uids, [
+			"status" => "ok",
+			"message" => "Order $order->order_code has been paid. Please receive this order as soon as possible."
+		]);
 	}
 
 	private function pay_failed ($order_code) {

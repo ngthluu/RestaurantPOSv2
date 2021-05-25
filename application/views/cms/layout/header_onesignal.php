@@ -18,9 +18,9 @@ if (cms_is_logged_in()) {
         OneSignal.showSlidedownPrompt();
         OneSignal.on('notificationDisplay', function(response) {
             if (response.data.status == "ok") {
-                toastr.success(response.data.message);
+                console.log(response.data.message);
             } else {
-                toastr.error(response.data.message);
+                console.log(response.data.message);
             }
         });
         OneSignal.getUserId(function(userId) {
