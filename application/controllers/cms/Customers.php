@@ -32,7 +32,22 @@ class Customers extends CMS_Controllers {
 			];
 		}
 		$data["main_view"] = "cms/customers/home";
-		$data["customers_list"] = $this->M_Customer->gets_all(["status" => $locked_status]);
+		
+		$where = ["status" => $locked_status];
+
+		$per_page = 10;
+		if (isset($_GET["page"]) && filter_var($_GET["page"], FILTER_VALIDATE_INT) && $_GET["page"] > 0) {
+			$page = $_GET["page"];
+		} else {
+			$page = 1;
+		}
+		$data["customers_list"] = $this->M_Customer->gets_all($where, $page, $per_page);
+		$total_items = $this->M_Customer->gets_count($where);
+		$this->load->library('pagination');
+		$this->pagination->initialize(paginationConfigs(
+			$page, $per_page, $total_items,
+			"cms/customers"
+		));
 
 		$this->load->view("cms/layout/main", $data);
 	}

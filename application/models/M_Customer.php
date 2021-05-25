@@ -17,8 +17,9 @@ class M_Customer extends CI_Model {
         $this->db->initialize();
     }
 
-    public function gets_all($where=null) {
+    public function gets_all($where=null, $page=1, $per_page=10) {
         $this->init_connection();
+        $this->db->limit($per_page, ($page-1) * $per_page);
         $result = $this->db->get_where($this->table, $where);
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
