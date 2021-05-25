@@ -19,6 +19,7 @@
                 <tr>
                     <th> # </th>
                     <th> Code </th>
+                    <th> Order time </th>
                     <th> Customer </th>
                     <th> Branch </th>
                     <th> Table </th>
@@ -36,6 +37,7 @@
                 <tr>
                     <td> # </td>
                     <td> <?= $order->order_code ?> </td>
+                    <td> <?= date("H:i:s d/m/Y", strtotime($order->order_time)) ?> </td>
                     <td> 
                     <?php 
                     $customer = $this->M_Customer->get($order->customer);

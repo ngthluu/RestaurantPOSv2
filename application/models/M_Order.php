@@ -108,7 +108,7 @@ class M_Order extends CI_Model {
             $uids = $this->M_Staff->get_notification_uids(["role" => "waiter", "branch" => $order->branch]);
             sendMessage($uids, [
                 "status" => "ok",
-                "message" => "Order $order->order_code is ready to serve at table $order->table."
+                "message" => "Order $order->order_code is ready to serve at table #$order->table."
             ]);
 
             $this->db->update($this->table, ["status" => self::STATUS_FINISHED], ["id" => $id]);

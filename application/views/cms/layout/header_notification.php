@@ -1,9 +1,15 @@
 <?php 
 $CI = &get_instance();
 $CI->load->model("M_Order");
-$where = [];
+$where = [
+    "order_time >= " => date('Y-m-d H:i:s'),
+    "order_time <= " => date('Y-m-d H:i:s', strtotime('+ 1 day'))
+];
 if (!in_role(["admin"])) {
-    $where = ["branch" => $_SESSION["cms_ubranch"]];
+    $where = array_merge($where, ["branch" => $_SESSION["cms_ubranch"]]);
+}
+if (!in_role(["admin", "manager"])) {
+    $where = array_merge($where, ["status <> " => M_Order::STATUS_INIT]);
 }
 $total_count = $CI->M_Order->gets_count(array_merge($where, ["status != " => M_Order::STATUS_PAYMENT_FAILED]));
 $initialized_count = $CI->M_Order->gets_count(array_merge($where, ["status" => M_Order::STATUS_INIT]));

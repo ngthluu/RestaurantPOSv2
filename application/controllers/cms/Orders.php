@@ -29,7 +29,9 @@ class Orders extends CMS_Controllers {
 			$data["orders_list"] = $this->M_Order->gets_all([
 				"branch" => $_SESSION["cms_ubranch"],
 				"status != " => M_Order::STATUS_INIT,
-				"status <> " => M_Order::STATUS_PAYMENT_FAILED
+				"status <> " => M_Order::STATUS_PAYMENT_FAILED,
+				"order_time >= " => date('Y-m-d H:i:s'),
+    			"order_time <= " => date('Y-m-d H:i:s', strtotime('+ 1 day'))
 			]);
 		}
 		
