@@ -25,10 +25,25 @@ class Menu extends CMS_Controllers {
 		$data["main_view"] = "cms/menu/home";
 
 		if (!in_role(["admin"])) {
-			$data["menu_list"] = $this->M_Menu->gets_all(["branch" => $_SESSION["cms_ubranch"]]);
+			$where = ["branch" => $_SESSION["cms_ubranch"]];
 		} else {
-			$data["menu_list"] = $this->M_Menu->gets_all();
+			$where = [];
 		}
+
+		$per_page = 10;
+		if (isset($_GET["page"]) && filter_var($_GET["page"], FILTER_VALIDATE_INT) && $_GET["page"] > 0) {
+			$page = $_GET["page"];
+		} else {
+			$page = 1;
+		}
+		$data["menu_list"] = $this->M_Menu->gets_all($where, $page, $per_page);
+		$total_items = $this->M_Menu->gets_count($where);
+
+		$this->load->library('pagination');
+		$this->pagination->initialize(paginationConfigs(
+			$page, $per_page, $total_items,
+			"cms/menu"
+		));
 
 		$this->load->model("M_Branch");
 
