@@ -34,12 +34,19 @@ class M_Menu extends CI_Model {
 
     public function gets_all_statistics($where=null) {
         $this->init_connection();
-        $result = $this->db->get_where($this->table, $where);
-        $this->db->flush_cache();
-        if ($result->num_rows() == 0) {
-            $this->reset_connection();
-            return [];
-        }
+        $this->db->reset_query();
+        
+        $this->db->select("*");
+        $this->db->select("menu.id AS menu_id");
+        $this->db->select("SUM(quantity) AS sum");
+        $this->db->from($this->db->dbprefix("menu"));
+        $this->db->join($this->db->dbprefix("orderdetails"), 'orderdetails.menu = menu.id');
+        $this->db->join($this->db->dbprefix("orders"), 'orders.id = orderdetails.order');
+        $this->db->group_by("menu.id");
+        $this->db->order_by("sum", "DESC");
+        $this->db->where($where);
+        $result = $this->db->get();
+
         $this->reset_connection();
         return $result->result();
     }

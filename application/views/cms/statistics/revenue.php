@@ -20,6 +20,7 @@
                     <span class="text-muted">SALES RATE</span>
                     </p>
                 </div>
+                <?php if (in_role(["admin"])) { ?>
                 <!-- /.d-flex -->
                 <div class="d-flex justify-content-between align-items-center mb-0">
                     <p class="text-warning text-xl">
@@ -33,6 +34,7 @@
                     </p>
                 </div>
                 <!-- /.d-flex -->
+                <?php } ?>
                 </div>
             </div>
             <!-- /.card -->
@@ -54,16 +56,12 @@
                     <?php foreach ($menu_list as $menu) { ?>
                     <tr>
                       <td>
-                          <img src="<?= $menu->image ? base_url("resources/menu/".$menu->id."/".$menu->image) : base_url("resources/no-image.jpg"); ?>" alt="<?= $menu->name ?>" class="img-circle img-size-32 mr-2">
+                          <img src="<?= $menu->image ? base_url("resources/menu/".$menu->menu_id."/".$menu->image) : base_url("resources/no-image.jpg"); ?>" alt="<?= $menu->name ?>" class="img-circle img-size-32 mr-2">
                           <?= $menu->name ?>
                       </td>
                       <td><?= number_format($menu->price)?> đ</td>
                       <td>
-                          <small class="text-success mr-1">
-                          <i class="fas fa-arrow-up"></i>
-                          12%
-                          </small>
-                          12,000 Sold
+                          <?= $menu->sum ?> Sold
                       </td>
                     </tr>
                     <?php } ?>
