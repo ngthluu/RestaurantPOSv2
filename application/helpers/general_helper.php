@@ -116,3 +116,38 @@ function month_array() {
         "12" => "DEC",
     ];
 }
+
+function paginationConfigs($page, $per_page, $total, $url) {
+    $config["base_url"] = str_replace("page=".$page, "", str_replace("&page=".$page, "", base_url($url.(($_SERVER["QUERY_STRING"] != "") ? "?".$_SERVER["QUERY_STRING"] : "?"))));
+    $config["cur_page"] = $page;
+    $config["per_page"] = $per_page;
+    $config["num_links"] = 3;
+    $config["use_page_numbers"] = true;
+    $config["total_rows"] = $total;
+  
+    $config['full_tag_open'] = '<ul class="pagination pagination-md m-0 float-right">';
+    $config['full_tag_close'] = '</ul>';
+    $config['first_link'] = '<<';
+    $config['last_link'] = '>>';
+    $config['first_tag_open'] = '<li class="page-item">';
+    $config['first_tag_close'] = '</li>';
+    $config['first_tag_class'] = 'page-link';
+    $config['last_tag_open'] = '<li class="page-item">';
+    $config['last_tag_close'] = '</li>';
+    $config['last_tag_class'] = 'page-link';
+    $config['prev_link'] = '<';
+    $config['prev_tag_open'] = '<li class="page-item">';
+    $config['prev_tag_close'] = '</li>';
+    $config['prev_tag_class'] = 'page-link';
+    $config['next_link'] = '>';
+    $config['next_tag_open'] = '<li class="page-item">';
+    $config['next_tag_close'] = '</li>';
+    $config['next_tag_class'] = 'page-link';
+    $config['cur_tag_open'] = '<li class="page-item active"><a href="#" class="page-link">';
+    $config['cur_tag_close'] = '</a></li>';
+    $config['num_tag_open'] = '<li class="page-item">';
+    $config['num_tag_close'] = '</li>';
+    $config['num_tag_class'] = 'page-link';
+    
+    return $config;
+}

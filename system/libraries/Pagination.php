@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2016, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
- * @license	https://opensource.org/licenses/MIT	MIT License
+ * @copyright	Copyright (c) 2014 - 2016, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
  * @since	Version 1.0.0
  * @filesource
@@ -174,6 +174,8 @@ class CI_Pagination {
 	 */
 	protected $first_tag_close = '';
 
+	protected $first_tag_class = 'char';
+
 	/**
 	 * Last tag open
 	 *
@@ -187,6 +189,8 @@ class CI_Pagination {
 	 * @var	string
 	 */
 	protected $last_tag_close = '';
+
+	protected $last_tag_class = 'char';
 
 	/**
 	 * First URL
@@ -219,6 +223,13 @@ class CI_Pagination {
 	protected $next_tag_open = '';
 
 	/**
+	 * Next tag class
+	 *
+	 * @var	string
+	 */
+	protected $next_tag_class = 'char';
+
+	/**
 	 * Next tag close
 	 *
 	 * @var	string
@@ -231,6 +242,13 @@ class CI_Pagination {
 	 * @var	string
 	 */
 	protected $prev_tag_open = '';
+
+	/**
+	 * Previous tag class
+	 *
+	 * @var	string
+	 */
+	protected $prev_tag_class = 'char';
 
 	/**
 	 * Previous tag close
@@ -253,6 +271,13 @@ class CI_Pagination {
 	 */
 	protected $num_tag_close = '';
 
+	/**
+	 * Number tag class
+	 *
+	 * @var	string
+	 */
+	protected $num_tag_class = 'char';
+	
 	/**
 	 * Page query string flag
 	 *
@@ -339,10 +364,6 @@ class CI_Pagination {
 			}
 		}
 
-		// _parse_attributes(), called by initialize(), needs to run at least once
-		// in order to enable "rel" attributes, and this triggers it.
-		isset($params['attributes']) OR $params['attributes'] = array();
-
 		$this->initialize($params);
 		log_message('info', 'Pagination Class Initialized');
 	}
@@ -357,7 +378,8 @@ class CI_Pagination {
 	 */
 	public function initialize(array $params = array())
 	{
-		if (isset($params['attributes']) && is_array($params['attributes']))
+		isset($params['attributes']) OR $params['attributes'] = array();
+		if (is_array($params['attributes']))
 		{
 			$this->_parse_attributes($params['attributes']);
 			unset($params['attributes']);
@@ -431,7 +453,7 @@ class CI_Pagination {
 		{
 			$get = $this->CI->input->get();
 
-			// Unset the control, method, old-school routing options
+			// Unset the controll, method, old-school routing options
 			unset($get['c'], $get['m'], $get[$this->query_string_segment]);
 		}
 		else
@@ -489,7 +511,7 @@ class CI_Pagination {
 				$first_url = $base_url.$query_string;
 			}
 
-			$base_url = rtrim($base_url, '/').'/';
+			$base_url = rtrim($base_url, '/').'&page=';
 		}
 
 		// Determine the current page number.
@@ -569,7 +591,7 @@ class CI_Pagination {
 			// Take the general parameters, and squeeze this pagination-page attr in for JS frameworks.
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, 1);
 
-			$output .= $this->first_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
+			$output .= $this->first_tag_open.'<a href="'.$first_url.'" class="'.$this->first_tag_class.'"'.$attributes.$this->_attr_rel('start').'>'
 				.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
@@ -583,13 +605,13 @@ class CI_Pagination {
 			if ($i === $base_page)
 			{
 				// First page
-				$output .= $this->prev_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('prev').'>'
+				$output .= $this->prev_tag_open.'<a href="'.$first_url.'" class="'.$this->prev_tag_class.'"'.$attributes.$this->_attr_rel('prev').'>'
 					.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 			else
 			{
 				$append = $this->prefix.$i.$this->suffix;
-				$output .= $this->prev_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.$this->_attr_rel('prev').'>'
+				$output .= $this->prev_tag_open.'<a href="'.$base_url.$append.'" class="'.$this->prev_tag_class.'"'.$attributes.$this->_attr_rel('prev').'>'
 					.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 
@@ -615,13 +637,13 @@ class CI_Pagination {
 					elseif ($i === $base_page)
 					{
 						// First page
-						$output .= $this->num_tag_open.'<a href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
+						$output .= $this->num_tag_open.'<a class="'.$this->num_tag_class.'" href="'.$first_url.'"'.$attributes.$this->_attr_rel('start').'>'
 							.$loop.'</a>'.$this->num_tag_close;
 					}
 					else
 					{
 						$append = $this->prefix.$i.$this->suffix;
-						$output .= $this->num_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.'>'
+						$output .= $this->num_tag_open.'<a class="'.$this->num_tag_class.'" href="'.$base_url.$append.'"'.$attributes.'>'
 							.$loop.'</a>'.$this->num_tag_close;
 					}
 				}
@@ -635,7 +657,7 @@ class CI_Pagination {
 
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, $this->cur_page + 1);
 
-			$output .= $this->next_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes
+			$output .= $this->next_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'" class="'.$this->next_tag_class.'"'.$attributes
 				.$this->_attr_rel('next').'>'.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
@@ -646,10 +668,13 @@ class CI_Pagination {
 
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, $num_pages);
 
-			$output .= $this->last_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes.'>'
+			$output .= $this->last_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'" class="'.$this->last_tag_class.'"'.$attributes.'>'
 				.$this->last_link.'</a>'.$this->last_tag_close;
 		}
-
+		
+		$output = str_replace('?"', '"', $output);
+		$output = str_replace("?&", "?", $output);
+		
 		// Kill double slashes. Note: Sometimes we can end up with a double slash
 		// in the penultimate link so we'll kill all double slashes.
 		$output = preg_replace('#([^:"])//+#', '\\1/', $output);

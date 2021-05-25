@@ -121,6 +121,9 @@
         </table>
     </div>
     <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <?= $this->pagination->create_links(); ?>
+    </div>
     </div>
     <!-- /.card -->
 

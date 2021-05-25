@@ -19,12 +19,19 @@ class Orders extends CMS_Controllers {
 
 		$data["main_view"] = "cms/orders/home";
 
+		$per_page = 10;
+		if (isset($_GET["page"]) && filter_var($_GET["page"], FILTER_VALIDATE_INT) && $_GET["page"] > 0) {
+			$page = $_GET["page"];
+		} else {
+			$page = 1;
+		}
+
 		if (in_role(["admin"])) {
-			$data["orders_list"] = $this->M_Order->gets_all();
+			$data["orders_list"] = $this->M_Order->gets_all([], $page, $per_page);
 		} else if (in_role(["manager"])){
 			$data["orders_list"] = $this->M_Order->gets_all([
 				"branch" => $_SESSION["cms_ubranch"]
-			]);
+			], $page, $per_page);
 		} else {
 			$data["orders_list"] = $this->M_Order->gets_all([
 				"branch" => $_SESSION["cms_ubranch"],
@@ -32,8 +39,14 @@ class Orders extends CMS_Controllers {
 				"status <> " => M_Order::STATUS_PAYMENT_FAILED,
 				"order_time >= " => beginDate(),
     			"order_time <= " => endDate()
-			]);
+			], $page, $per_page);
 		}
+
+		$this->load->library('pagination');
+		$this->pagination->initialize(paginationConfigs(
+			$page, $per_page, 12,
+			"cms/orders"
+		));
 		
 		$this->load->model("M_Branch");
 		$this->load->model("M_Customer");
