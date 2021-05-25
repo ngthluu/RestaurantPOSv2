@@ -93,12 +93,24 @@ class M_Order extends CI_Model {
                 "message" => "Your order $order->order_code is in processing now"
             ]);
             $this->db->update($this->table, ["status" => self::STATUS_IN_PROCESS], ["id" => $id]);
+        
         } else if ($order->status == self::STATUS_IN_PROCESS) {
+            
+            // Notify to customers
             $notification_uid = $this->M_Customer->get_notification_uid($order->customer);
             sendMessage([$notification_uid], [
                 "status" => "ok",
-                "message" => "Your order $order->order_code has been finished"
+                "message" => "Your order $order->order_code has been finished. It will be served immediately."
             ]);
+
+            // Notify to waiters
+            $this->load->model("M_Staff");
+            $uids = $this->M_Staff->get_notification_uids(["role" => "waiter", "branch" => $order->branch]);
+            sendMessage($uids, [
+                "status" => "ok",
+                "message" => "Order $order->order_code is ready to serve at table $order->table."
+            ]);
+
             $this->db->update($this->table, ["status" => self::STATUS_FINISHED], ["id" => $id]);
         }
 

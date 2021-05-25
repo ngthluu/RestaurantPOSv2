@@ -79,6 +79,7 @@
                     ?>
                     </td>
                     <td class="project-actions text-right">
+                    <?php if (!in_role(["waiter"])) { ?>
                         <?php if ($order->status == M_Order::STATUS_PAYMENT_OK) { ?>
                         <a class="btn btn-primary btn-sm btn-modal" href="#" 
                             data-toggle="modal" 
@@ -110,6 +111,7 @@
                             <i class="fas fa-thumbs-up"> </i> Finish
                         </a>
                         <?php } ?>
+                    <?php } ?>
                     </td>
                 </tr>
             <?php } ?>

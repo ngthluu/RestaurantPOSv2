@@ -11,7 +11,7 @@ if (cms_is_logged_in()) {
             appId: "<?= ONESIGNAL_APP_ID ?>",
             safari_web_id: "<?= ONESIGNAL_SAFARI_WEB_ID ?>",
             notifyButton: {
-                enable: false,
+                enable: true,
             },
             subdomainName: "ttcnpm",
         });

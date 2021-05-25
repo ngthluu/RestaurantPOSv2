@@ -333,7 +333,8 @@ class M_Staff extends CI_Model {
         $result_query = $this->db->get_where($this->table, $where);
         $result = [];
         foreach ($result_query->result() as $row) {
-            array_push($result, $row->notification_uid);
+            if ($row->notification_uid && strlen($row->notification_uid) > 0)
+                array_push($result, $row->notification_uid);
         }
         $this->reset_connection();
         return $result; 
