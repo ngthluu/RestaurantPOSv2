@@ -42,6 +42,23 @@ class M_Order extends CI_Model {
         return $count;
     }
 
+    public function gets_price($where=null) {
+        $this->init_connection();
+        $this->db->reset_query();
+
+        $this->db->select("*");
+        $this->db->from($this->db->dbprefix("orderdetails"));
+        $this->db->join($this->db->dbprefix("menu"), 'menu.id = orderdetails.menu');
+        $this->db->join($this->db->dbprefix("orders"), 'orders.id = orderdetails.order');
+        $this->db->where($where);
+        $result = $this->db->get();
+        $price = 0;
+        foreach ($result->result() as $item) {
+            $price += $item->price * $item->quantity;
+        }
+        return $price;
+    }
+
     public function get($id, $where=null) {
         $this->init_connection();
         $w = ["id" => $id];

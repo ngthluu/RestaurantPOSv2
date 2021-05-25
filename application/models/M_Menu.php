@@ -32,6 +32,18 @@ class M_Menu extends CI_Model {
         return $result->result();
     }
 
+    public function gets_all_statistics($where=null) {
+        $this->init_connection();
+        $result = $this->db->get_where($this->table, $where);
+        $this->db->flush_cache();
+        if ($result->num_rows() == 0) {
+            $this->reset_connection();
+            return [];
+        }
+        $this->reset_connection();
+        return $result->result();
+    }
+
     public function get($id, $where=null) {
         $this->init_connection();
         $w = ["id" => $id];

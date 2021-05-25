@@ -66,12 +66,22 @@ function is_logged_in() {
     return isset($_SESSION["uid"]) && $_SESSION["uid"] > 0;
 }
 
-function firstMonthDate() {
-    return date('Y-m-d H:i:s', strtotime(date('Y-m-01')));
+function firstMonthDate($month=null) {
+    if ($month == null) {
+        $month_date = date('Y-m-01');
+    } else {
+        $month_date = date('Y-'.sprintf('%02d', $month).'-01');
+    }
+    return date('Y-m-01 00:00:00', strtotime($month_date));
 }
 
-function lastMonthDate() {
-    return date('Y-m-d H:i:s', strtotime(date('Y-m-t')));
+function lastMonthDate($month=null) {
+    if ($month == null) {
+        $month_date = date('Y-m-01');
+    } else {
+        $month_date = date('Y-'.sprintf('%02d', $month).'-01');
+    }
+    return date('Y-m-t 23:59:59', strtotime($month_date));
 }
 
 function beginDate() {
@@ -80,4 +90,29 @@ function beginDate() {
 
 function endDate() {
     return date('Y-m-d 23:59:59');
+}
+
+function deltaMonthFirstDate($delta) {
+    return date('Y-m-01 00:00:00', strtotime("-$delta month"));
+}
+
+function deltaMonthLastDate($delta) {
+    return date('Y-m-t 23:59:59', strtotime("-$delta month"));
+}
+
+function month_array() {
+    return [
+        "1" => "JAN",
+        "2" => "FEB",
+        "3" => "MAR",
+        "4" => "APR",
+        "5" => "MAY",
+        "6" => "JUN",
+        "7" => "JUL",
+        "8" => "AUG",
+        "9" => "SEP",
+        "10" => "OCT",
+        "11" => "NOV",
+        "12" => "DEC",
+    ];
 }
