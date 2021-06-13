@@ -2,14 +2,14 @@
 	padding: 20px;
 }
 
-.menu-view h3 {
-	font-size: 24px;
+.menu-view h1 {
+	font-size: 40px;
 	color: white;
 	font-weight: 700;
 }
 
 .menu-view .price {
-	font-size: 18px;
+	font-size: 28px;
 	color: #FCF9B8;
 	margin-bottom: 10px;
 	font-weight: 700;
@@ -18,8 +18,8 @@
 .menu-view p {
 	padding: 0;
 	color: white;
-	line-height: 24px;
-	font-size: 16px;
+	line-height: 30px;
+	font-size: 18px;
 	margin-bottom: 15px;
 }
 
@@ -41,28 +41,30 @@
 	font-size: 18px;
 }
 
-@-webkit-keyframes animate-loading {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes animate-loading {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
-.checkoutinfo-box {
+.menu-view .checkoutinfo-box {
 	padding: 20px;
 	margin: 10px;
 	border-radius: 19px;
 	height: 100%;
 	background-color: white;
+}
+
+.menu-view .rating span {
+	color: white;
+	font-size: 24px;
+}
+
+.menu-view .rating .checked {
+	color: #FF6477;
+}
+
+.comments h3 {
+	font-size: 28px;
+	color: white;
+	font-weight: 700;
+}
+
+.comments .rating span {
+	color: white;
+	font-size: 16px;
 }

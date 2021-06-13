@@ -6,11 +6,21 @@
         background-size: cover;
     ">
     <div class="container menu-view">
-        <h1 class="page-title t-white font-weight-bold mt-3">
-            <?= $menu->name ?>
-        </h1>
-        <p class="price"><?= number_format($menu->price) ?>đ</p>
-        <p><?= $menu->description ?></p>
+        <div>
+            <h1 class="page-title t-white font-weight-bold mt-3">
+                <?= $menu->name ?>
+            </h1>
+            <p class="price"><?= number_format($menu->price) ?>đ</p>
+            <div class="rating mt-3">
+                <span class="fas fa-star checked"></span>
+                <span class="fas fa-star checked"></span>
+                <span class="fas fa-star checked"></span>
+                <span class="fas fa-star"></span>
+                <span class="fas fa-star"></span>
+            </div>
+        </div>
+        <p class="mt-5"><?= $menu->description ?></p>
+        <?php $this->load->view('homepage/menu_comments') ?>
     </div>
 </main>
 
