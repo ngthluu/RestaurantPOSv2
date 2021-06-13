@@ -33,7 +33,9 @@
                     data-id="<?= $menu->id ?>"
                     > 
                         <div>
-                            <h3><?= $menu->name ?></h3>
+                            <a href="<?= site_url("menu/view/".$menu->id) ?>">
+                                <h3><?= $menu->name ?></h3>
+                            </a>
                             <p class="price"><?= number_format($menu->price) ?>đ x <span class="quantity"><?= $menuQuantity ?></span></p>
                         </div>
                         <div class="d-flex justify-content-between">

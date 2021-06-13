@@ -37,7 +37,9 @@
                             <div class="d-flex justify-content-start align-items-center">
                                 <img class="rounded-circle" width="75px" height="75px" src="<?= $detail->image ? base_url("resources/menu/".$detail->id."/".$detail->image) : base_url("resources/no-image.jpg") ?>" alt="">
                                 <div class="d-flex flex-column justify-content-start ml-2">
-                                    <strong><?= $detail->name ?> x <?= $detail->quantity ?></strong>
+                                    <a href="<?= site_url("menu/view/".$detail->id) ?>" style="color:inherit">
+                                        <strong><?= $detail->name ?> x <?= $detail->quantity ?></strong>
+                                    </a>
                                     <strong class="t-red"><?= number_format($detail->price) ?>đ</strong>
                                 </div>
                             </div>
