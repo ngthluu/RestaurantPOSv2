@@ -54,7 +54,11 @@ class Menu extends SITE_Controllers {
             echo json_encode(['status' => 'error']);
             return;
         }
-        $feedbacks = $this->M_Menu->get_feedbacks($menu_id);
+
+        $page = $this->input->get('page');
+        $perpage = $this->input->get('perpage');
+
+        $feedbacks = $this->M_Menu->get_feedbacks($menu_id, $page, $perpage);
         $feedbacks_count = $this->M_Menu->get_feedbacks_count($menu_id);
         if (empty($feedbacks)) {
             echo json_encode(['status' => 'empty']);

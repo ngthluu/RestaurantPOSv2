@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-8 mt-5">
             <h3>Customers feedbacks (<span id='commentTotals'></span>)</h3>
-            <div id='commentContent'></div>
+            <div id='commentContent' class='mt-4'></div>
         </div>
         <?php if (is_logged_in()) { ?>
         <div class="col-md-4 mt-5">
@@ -108,6 +108,10 @@ function fetchCommentsData() {
             }
             $('#commentContent').html(html);
             $('#commentTotals').html(response.total_items);
+
+            if (response.total_items > page * perpage) {
+                $('#commentContent').append(`<button class="btn btn-danger btnCommentsLoadMore">Load more</button>`);
+            }
         } else {
             $('#commentContent').html(`<div>Feedbacks are empty</div>`);
             $('#commentTotals').html(0);
@@ -117,5 +121,10 @@ function fetchCommentsData() {
 
 document.addEventListener("DOMContentLoaded", function (event) {
     fetchCommentsData();
+    
+    $(document).on('click', '.btnCommentsLoadMore', function(e) {
+        page += 1;
+        fetchCommentsData();
+    });
 });
 </script>

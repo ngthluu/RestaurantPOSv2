@@ -188,7 +188,7 @@ class M_Menu extends CI_Model {
     public function get_feedbacks($id, $page=1, $per_page=5) {
         $this->init_connection();
 
-        $this->db->limit($per_page, ($page-1) * $per_page);
+        $this->db->limit($page * $per_page, 0);
         $this->db->select("menuratings.*");
         $this->db->select("customers.id AS customer_id");
         $this->db->select("customers.name AS customer_name");
