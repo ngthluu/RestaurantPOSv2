@@ -6,6 +6,20 @@ class Order extends SITE_Controllers {
 	public function __construct() {
 		parent::__construct();
 
+        // Log customer table
+        if ($this->uri->segment(2) === 'index') {
+            $branch_id = $this->uri->segment(3);
+            $table_num = $this->uri->segment(4);
+            if ($branch_id
+                && $table_num
+                && filter_var($branch_id, FILTER_VALIDATE_INT)
+                && filter_var($table_num, FILTER_VALIDATE_INT)
+            ) {
+                $_SESSION["ubranch"] = $branch_id;
+                $_SESSION["utable"] = $table_num;
+            }
+        }
+
 		if (!is_logged_in()) {
 			redirect(site_url());
 		}

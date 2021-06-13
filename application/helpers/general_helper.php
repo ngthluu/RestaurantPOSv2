@@ -66,6 +66,11 @@ function is_logged_in() {
     return isset($_SESSION["uid"]) && $_SESSION["uid"] > 0;
 }
 
+function is_logged_seat() {
+    return isset($_SESSION["ubranch"]) && $_SESSION["ubranch"] > 0
+        && isset($_SESSION["utable"]) && $_SESSION["utable"] > 0;
+}
+
 function firstMonthDate($month=null) {
     if ($month == null) {
         $month_date = date('Y-m-01');

@@ -28,6 +28,8 @@ class Home extends SITE_Controllers {
 
 	public function signout() {
 		unset($_SESSION["uid"]);
+		unset($_SESSION["ubranch"]);
+		unset($_SESSION["utable"]);
         redirect(site_url());
 	}
 }

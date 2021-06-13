@@ -44,6 +44,9 @@
                 <ul>
                 <?php if (is_logged_in()) { ?>
                     <li><a class="nav-link scrollto" href="<?= site_url() ?>">Home</a></li>
+                    <?php if (is_logged_seat()) { ?>
+                        <li><a class="nav-link scrollto" href="<?= site_url("order/index/".$_SESSION["ubranch"]."/".$_SESSION["utable"]) ?>">Order</a></li>
+                    <?php } ?> 
                     <li><a class="nav-link scrollto" href="<?= site_url("settings") ?>">Settings</a></li>
                     <li><a class="nav-link scrollto" href="<?= site_url("orders-history") ?>">Orders History</a></li>
                     <li><a class="nav-link scrollto" href="<?= site_url("checkout") ?>">Checkout</a></li>
