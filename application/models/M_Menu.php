@@ -235,10 +235,22 @@ class M_Menu extends CI_Model {
             "comment" => $comment,
             "comment_time" => date('Y-m-d H:i:s')
         ];
-        $this->db->insert($this->db->dbprefix('menuratings'), $new_data);
-        $id = $this->db->insert_id();
 
-        $this->reset_connection();
-        return $id;
+        $is_existed = $this->db->get_where($this->db->dbprefix('menuratings'), [
+            'menu' => $menu_id, 
+            'customer' => $customer
+        ]);
+        if ($is_existed->num_rows() > 0) {
+            $this->db->update($this->db->dbprefix('menuratings'), $new_data, [
+                'menu' => $menu_id, 
+                'customer' => $customer
+            ]);
+            $this->reset_connection();
+            return "update";
+        } else {
+            $this->db->insert($this->db->dbprefix('menuratings'), $new_data);
+            $this->reset_connection();
+            return "insert";
+        }
     }
 }

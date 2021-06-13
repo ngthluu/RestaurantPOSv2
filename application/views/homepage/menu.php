@@ -17,7 +17,7 @@
                 <span class="fas fa-star <?= $menu_rating_point >= 3 ? "checked" : "" ?>"></span>
                 <span class="fas fa-star <?= $menu_rating_point >= 4 ? "checked" : "" ?>"></span>
                 <span class="fas fa-star <?= $menu_rating_point >= 5 ? "checked" : "" ?>"></span>
-                <span class="ml-2">(<?= round($menu_rating_point, 2) ?> / 5)</span>
+                <span class="ml-2">(<?= round($menu_rating_point, 2) ?>/5)</span>
             </div>
             <p class="price mt-3"><?= number_format($menu->price) ?>đ</p>
         </div>

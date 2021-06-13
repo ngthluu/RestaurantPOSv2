@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $("#commentMessage").addClass('d-none');
         }
         $.post('<?= site_url("menu/submit-feedback/".$menu_id)?>', $(this).serialize(), (response) => {
-            if (response.status == 'ok') {
+            if (response.status == 'insert') {
                 var customer = response.data.customer;
                 var rating = response.data.rating;
                 var comment = response.data.comment;
@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 } else {
                     $('#commentContent').html(html);
                 }
+            } else if (response.status == 'update') {
+                fetchCommentsData();
             } else {
                 $("#commentMessage").removeClass('d-none');
                 $("#commentMessage").html("Your form is invalid!");
@@ -108,7 +110,7 @@ function fetchCommentsData() {
             $('#commentTotals').html(response.total_items);
         } else {
             $('#commentContent').html(`<div>Feedbacks are empty</div>`);
-            $('#commentTotals').html(response.total_items);
+            $('#commentTotals').html(0);
         }
     }, 'json');
 }

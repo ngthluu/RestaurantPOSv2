@@ -30,7 +30,7 @@ class Menu extends SITE_Controllers {
         }
 
         // Save data to database
-        $this->M_Menu->save_feedback($menu_id);
+        $status = $this->M_Menu->save_feedback($menu_id);
 
         // Return data to client
         $rating = $this->input->post("rating");
@@ -39,7 +39,7 @@ class Menu extends SITE_Controllers {
         $customer = $this->input->post("customer");
         $customer = $this->M_Customer->get($customer);
 
-        echo json_encode(['status' => 'ok', 'data' => [
+        echo json_encode(['status' => $status, 'data' => [
             'customer' => [
                 'image' => $customer->avatar ? base_url("resources/customers/".$customer->id."/".$customer->avatar) : base_url("resources/no-avatar.png"), 
                 'name' => $customer->name
