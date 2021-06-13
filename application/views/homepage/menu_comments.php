@@ -40,10 +40,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else {
             $("#commentMessage").addClass('d-none');
         }
-        console.log($(this).serialize());
         $.post('<?= site_url("menu/submit-feedback/".$menu_id)?>', $(this).serialize(), (response) => {
             if (response.status == 'ok') {
-                console.log(response);
                 var customer = response.data.customer;
                 var rating = response.data.rating;
                 var comment = response.data.comment;
@@ -101,7 +99,10 @@ function fetchCommentsData() {
         var html = '';
         if (response.status == 'fetch') {
             for (var data of response.data) {
-                html += renderHTMLElement('', 'Luu', 5, 'Hello World');
+                var customer = data.customer;
+                var rating = data.rating;
+                var comment = data.comment;
+                html += renderHTMLElement(customer.image, customer.name, rating, comment);
             }
             $('#commentContent').html(html);
         } else {

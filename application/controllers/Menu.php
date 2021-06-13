@@ -28,14 +28,16 @@ class Menu extends SITE_Controllers {
             echo json_encode(['status' => 'error']);
             return;
         }
-        
-        $rating = $this->input->post("rating");
-        $comment = $this->input->post("comment");
 
+        // Save data to database
+        $this->M_Menu->save_feedback($menu_id);
+
+        // Return data to client
+        $rating = $this->input->post("rating");
+        $comment = htmlentities($this->input->post("comment"));
         $this->load->model('M_Customer');
         $customer = $this->input->post("customer");
         $customer = $this->M_Customer->get($customer);
-
 
         echo json_encode(['status' => 'ok', 'data' => [
             'customer' => [
@@ -57,6 +59,19 @@ class Menu extends SITE_Controllers {
             echo json_encode(['status' => 'empty']);
             return;
         }
-        echo json_encode(['status' => 'fetch', 'data' => $feedbacks]);
+
+        $data = [];
+        foreach ($feedbacks as $feedback) {
+            $data[] = [
+                "customer" => [
+                    "name" => $feedback->customer_name, 
+                    "image" => $feedback->customer_avatar ? base_url("resources/customers/".$feedback->customer_id."/".$feedback->customer_avatar) : base_url("resources/no-avatar.png")
+                ],
+                "rating" => $feedback->rating,
+                "comment" => $feedback->comment,
+            ];
+        }
+
+        echo json_encode(['status' => 'fetch', 'data' => $data]);
     }
 }

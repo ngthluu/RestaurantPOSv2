@@ -187,8 +187,18 @@ class M_Menu extends CI_Model {
 
     public function get_feedbacks($id, $page=1, $per_page=5) {
         $this->init_connection();
+
         $this->db->limit($per_page, ($page-1) * $per_page);
-        $result = $this->db->get_where($this->db->dbprefix('menuratings'), ["menu" => $id]);
+        $this->db->select("menuratings.*");
+        $this->db->select("customers.id AS customer_id");
+        $this->db->select("customers.name AS customer_name");
+        $this->db->select("customers.avatar AS customer_avatar");
+        $this->db->from($this->db->dbprefix("menuratings"));
+        $this->db->join($this->db->dbprefix("customers"), 'customers.id = menuratings.customer');
+        $this->db->where(["menu" => $id]);
+        
+        $result = $this->db->get();
+        
         $this->db->flush_cache();
         if ($result->num_rows() == 0) {
             $this->reset_connection();
@@ -196,5 +206,26 @@ class M_Menu extends CI_Model {
         }
         $this->reset_connection();
         return $result->result();
+    }
+
+    public function save_feedback($menu_id) {
+        $this->init_connection();
+
+        $customer = $this->input->post("customer");
+        $rating = $this->input->post("rating");
+        $comment = htmlentities($this->input->post("comment"));
+
+        $new_data = [
+            "menu" => $menu_id,
+            "customer" => $customer,
+            "rating" => $rating,
+            "comment" => $comment,
+            "comment_time" => date('Y-m-d H:i:s')
+        ];
+        $this->db->insert($this->db->dbprefix('menuratings'), $new_data);
+        $id = $this->db->insert_id();
+
+        $this->reset_connection();
+        return $id;
     }
 }
