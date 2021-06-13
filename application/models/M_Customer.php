@@ -191,4 +191,21 @@ class M_Customer extends CI_Model {
         return $user->notification_uid;
     }
 
+    public function can_feedback($customer_id, $menu_id) {
+        $this->init_connection();
+        $this->db->reset_query();
+
+        $this->load->model('M_Order');
+
+        $this->db->select("*");
+        $this->db->from($this->db->dbprefix("orders"));
+        $this->db->join($this->db->dbprefix("orderdetails"), 'orderdetails.order = orders.id');
+        $this->db->join($this->db->dbprefix("menu"), 'orderdetails.menu = menu.id');
+        $this->db->where("orders.status", M_Order::STATUS_FINISHED);
+        $this->db->where("orders.customer", $customer_id);
+        $this->db->where("orderdetails.menu", $menu_id);
+        $result = $this->db->get();
+        return $result->num_rows() > 0;
+    }
+
 }

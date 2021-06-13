@@ -158,6 +158,13 @@ function paginationConfigs($page, $per_page, $total, $url) {
 }
 
 function can_feedback($menu_id) {
+
+    if (!is_logged_in()) return false;
+
     $CI = &get_instance();
-    return true;
+    $CI->load->model('M_Customer');
+
+    $can_feedback = $CI->M_Customer->can_feedback($_SESSION['uid'], $menu_id);
+
+    return $can_feedback;
 }
