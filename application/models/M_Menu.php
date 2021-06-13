@@ -169,4 +169,32 @@ class M_Menu extends CI_Model {
         $this->reset_connection();
         return true;
     }
+
+    public function get_rating_point($id) {
+        $defaultRatings = 0;
+        $this->init_connection();
+        $this->db->select('AVG(rating) AS avg');
+        $this->db->where(['menu' => $id]);
+        $query = $this->db->get($this->db->dbprefix('menuratings'));
+        $this->db->flush_cache();
+        if ($query->num_rows() == 0) {
+            $this->reset_connection();
+            return $defaultRatings;
+        }
+        $this->reset_connection();
+        return $query->row()->avg ? $query->row()->avg : $defaultRatings;
+    }
+
+    public function get_feedbacks($id, $page=1, $per_page=5) {
+        $this->init_connection();
+        $this->db->limit($per_page, ($page-1) * $per_page);
+        $result = $this->db->get_where($this->db->dbprefix('menuratings'), ["menu" => $id]);
+        $this->db->flush_cache();
+        if ($result->num_rows() == 0) {
+            $this->reset_connection();
+            return [];
+        }
+        $this->reset_connection();
+        return $result->result();
+    }
 }

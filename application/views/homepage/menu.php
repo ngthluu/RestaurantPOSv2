@@ -10,17 +10,18 @@
             <h1 class="page-title t-white font-weight-bold mt-3">
                 <?= $menu->name ?>
             </h1>
-            <p class="price"><?= number_format($menu->price) ?>đ</p>
             <div class="rating mt-3">
-                <span class="fas fa-star checked"></span>
-                <span class="fas fa-star checked"></span>
-                <span class="fas fa-star checked"></span>
-                <span class="fas fa-star"></span>
-                <span class="fas fa-star"></span>
+                <?php $menu_rating_point = $this->M_Menu->get_rating_point($menu->id);?>
+                <span class="fas fa-star <?= $menu_rating_point >= 1 ? "checked" : "" ?>"></span>
+                <span class="fas fa-star <?= $menu_rating_point >= 2 ? "checked" : "" ?>"></span>
+                <span class="fas fa-star <?= $menu_rating_point >= 3 ? "checked" : "" ?>"></span>
+                <span class="fas fa-star <?= $menu_rating_point >= 4 ? "checked" : "" ?>"></span>
+                <span class="fas fa-star <?= $menu_rating_point >= 5 ? "checked" : "" ?>"></span>
             </div>
+            <p class="price mt-3"><?= number_format($menu->price) ?>đ</p>
         </div>
         <p class="mt-5"><?= $menu->description ?></p>
-        <?php $this->load->view('homepage/menu_comments') ?>
+        <?php $this->load->view('homepage/menu_comments', ["menu_id" => $menu->id]) ?>
     </div>
 </main>
 

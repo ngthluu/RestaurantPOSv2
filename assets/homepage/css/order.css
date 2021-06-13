@@ -77,3 +77,13 @@
 	height: 100%;
 	background-color: white;
 }
+
+.menu-list .rating span {
+	color: white;
+	font-size: 16px;
+}
+
+.menu-list .rating .checked {
+	color: #FF6477;
+}
+

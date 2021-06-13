@@ -21,7 +21,15 @@
                         <a href="<?= site_url("menu/view/".$menu->id) ?>">
                             <h3><?= $menu->name ?></h3>
                         </a>
-                        <p class="price"><?= number_format($menu->price) ?>đ</p>
+                        <div class="rating">
+                            <?php $menu_rating_point = $this->M_Menu->get_rating_point($menu->id);?>
+                            <span class="fas fa-star <?= $menu_rating_point >= 1 ? "checked" : "" ?>"></span>
+                            <span class="fas fa-star <?= $menu_rating_point >= 2 ? "checked" : "" ?>"></span>
+                            <span class="fas fa-star <?= $menu_rating_point >= 3 ? "checked" : "" ?>"></span>
+                            <span class="fas fa-star <?= $menu_rating_point >= 4 ? "checked" : "" ?>"></span>
+                            <span class="fas fa-star <?= $menu_rating_point >= 5 ? "checked" : "" ?>"></span>
+                        </div>
+                        <p class="price mt-2"><?= number_format($menu->price) ?>đ</p>
                     </div>
                     <p><?= word_limiter($menu->description, 50) ?></p>
                     <div class="d-flex justify-content-end">
