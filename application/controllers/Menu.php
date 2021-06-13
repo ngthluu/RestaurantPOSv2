@@ -55,6 +55,7 @@ class Menu extends SITE_Controllers {
             return;
         }
         $feedbacks = $this->M_Menu->get_feedbacks($menu_id);
+        $feedbacks_count = $this->M_Menu->get_feedbacks_count($menu_id);
         if (empty($feedbacks)) {
             echo json_encode(['status' => 'empty']);
             return;
@@ -72,6 +73,6 @@ class Menu extends SITE_Controllers {
             ];
         }
 
-        echo json_encode(['status' => 'fetch', 'data' => $data]);
+        echo json_encode(['status' => 'fetch', 'data' => $data, 'total_items' => $feedbacks_count]);
     }
 }

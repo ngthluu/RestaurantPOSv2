@@ -22,12 +22,16 @@
                             <h3><?= $menu->name ?></h3>
                         </a>
                         <div class="rating">
-                            <?php $menu_rating_point = $this->M_Menu->get_rating_point($menu->id);?>
+                            <?php 
+                            $menu_rating_point = $this->M_Menu->get_rating_point($menu->id);
+                            $menu_rating_count = $this->M_Menu->get_feedbacks_count($menu->id);
+                            ?>
                             <span class="fas fa-star <?= $menu_rating_point >= 1 ? "checked" : "" ?>"></span>
                             <span class="fas fa-star <?= $menu_rating_point >= 2 ? "checked" : "" ?>"></span>
                             <span class="fas fa-star <?= $menu_rating_point >= 3 ? "checked" : "" ?>"></span>
                             <span class="fas fa-star <?= $menu_rating_point >= 4 ? "checked" : "" ?>"></span>
                             <span class="fas fa-star <?= $menu_rating_point >= 5 ? "checked" : "" ?>"></span>
+                            <span class="ml-2">(<?= round($menu_rating_point, 2) ?>/5 - <?= $menu_rating_count ?> feedbacks)</span>
                         </div>
                         <p class="price mt-2"><?= number_format($menu->price) ?>đ</p>
                     </div>

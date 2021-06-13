@@ -1,7 +1,7 @@
 <div class="comments t-white">
     <div class="row">
         <div class="col-md-8 mt-5">
-            <h3>Customers feedbacks</h3>
+            <h3>Customers feedbacks (<span id='commentTotals'></span>)</h3>
             <div id='commentContent'></div>
         </div>
         <?php if (is_logged_in()) { ?>
@@ -105,8 +105,10 @@ function fetchCommentsData() {
                 html += renderHTMLElement(customer.image, customer.name, rating, comment);
             }
             $('#commentContent').html(html);
+            $('#commentTotals').html(response.total_items);
         } else {
             $('#commentContent').html(`<div>Feedbacks are empty</div>`);
+            $('#commentTotals').html(response.total_items);
         }
     }, 'json');
 }

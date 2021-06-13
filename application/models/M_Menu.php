@@ -208,6 +208,19 @@ class M_Menu extends CI_Model {
         return $result->result();
     }
 
+    public function get_feedbacks_count($id) {
+        $this->init_connection();
+
+        $this->db->from($this->db->dbprefix("menuratings"));
+        $this->db->where(["menu" => $id]);
+        
+        $result = $this->db->get();
+        $this->db->flush_cache();
+        $this->reset_connection();
+
+        return $result->num_rows();
+    }
+
     public function save_feedback($menu_id) {
         $this->init_connection();
 
