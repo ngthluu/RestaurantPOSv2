@@ -29,6 +29,11 @@ class Menu extends SITE_Controllers {
             return;
         }
 
+        if (!can_feedback($menu_id)) {
+            echo json_encode(['status' => 'error']);
+            return;
+        }
+
         // Save data to database
         $status = $this->M_Menu->save_feedback($menu_id);
 

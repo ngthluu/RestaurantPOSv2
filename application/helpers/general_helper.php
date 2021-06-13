@@ -156,3 +156,8 @@ function paginationConfigs($page, $per_page, $total, $url) {
     
     return $config;
 }
+
+function can_feedback($menu_id) {
+    $CI = &get_instance();
+    return true;
+}

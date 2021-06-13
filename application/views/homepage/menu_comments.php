@@ -4,21 +4,24 @@
             <h3>Customers feedbacks (<span id='commentTotals'></span>)</h3>
             <div id='commentContent' class='mt-4'></div>
         </div>
-        <?php if (is_logged_in()) { ?>
+        <?php if (can_feedback($menu_id)) { ?>
         <div class="col-md-4 mt-5">
         <?= form_open("#", ["id" => "form-info"]); ?>
             <h3>Your feedback</h3>
             <input type="text" class="d-none" name="customer" value="<?= $_SESSION["uid"]; ?>">
             <div id="commentMessage" class="alert alert-danger d-none"></div>
+            <?php 
+            $comment_content = $this->M_Menu->get_feedback_content($menu_id, $_SESSION["uid"]);
+            ?>
             <select id="commentRating" name="rating" class="form-control">
-                <option disabled selected value="-1">Your rating here</option>
-                <option value="1">1 star</option>
-                <option value="2">2 star</option>
-                <option value="3">3 star</option>
-                <option value="4">4 star</option>
-                <option value="5">5 star</option>
+                <option disabled <?= !$comment_content ? "selected" : "" ?> value="-1">Your rating here</option>
+                <option value="1" <?= $comment_content && $comment_content->rating == 1 ? "selected" : ""; ?>>1 star</option>
+                <option value="2" <?= $comment_content && $comment_content->rating == 2 ? "selected" : ""; ?>>2 star</option>
+                <option value="3" <?= $comment_content && $comment_content->rating == 3 ? "selected" : ""; ?>>3 star</option>
+                <option value="4" <?= $comment_content && $comment_content->rating == 4 ? "selected" : ""; ?>>4 star</option>
+                <option value="5" <?= $comment_content && $comment_content->rating == 5 ? "selected" : ""; ?>>5 star</option>
             </select>
-            <textarea class="form-control mt-3" id="commentComment" name="comment" rows="5" placeholder="Your feedback here"></textarea>
+            <textarea class="form-control mt-3" id="commentComment" name="comment" rows="5" placeholder="Your feedback here"><?= $comment_content ? $comment_content->comment : "" ?></textarea>
             <button type="submit" class="btn btn-danger mt-3">Submit</button>
         <?= form_close() ?>
         </div>
@@ -26,6 +29,7 @@
     </div>
 </div>
 
+<?php if (can_feedback($menu_id)) { ?>
 <script>
 document.addEventListener("DOMContentLoaded", function (event) {
     $("#form-info").submit(function (e){
@@ -61,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 });
 </script>
+<?php } ?>
 
 <script>
 
