@@ -1,0 +1,68 @@
+.menu-view {
+	padding: 20px;
+}
+
+.menu-view h3 {
+	font-size: 24px;
+	color: white;
+	font-weight: 700;
+}
+
+.menu-view .price {
+	font-size: 18px;
+	color: #FCF9B8;
+	margin-bottom: 10px;
+	font-weight: 700;
+}
+
+.menu-view p {
+	padding: 0;
+	color: white;
+	line-height: 24px;
+	font-size: 16px;
+	margin-bottom: 15px;
+}
+
+.menu-view input {
+	border-radius: 8px;
+	border: none;
+	width: 50px;
+}
+
+.menu-view input[type='number'] {
+    -moz-appearance:textfield;
+}
+.menu-view input::-webkit-outer-spin-button,
+.menu-view input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.menu-view button i {
+	font-size: 18px;
+}
+
+@-webkit-keyframes animate-loading {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes animate-loading {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.checkoutinfo-box {
+	padding: 20px;
+	margin: 10px;
+	border-radius: 19px;
+	height: 100%;
+	background-color: white;
+}
