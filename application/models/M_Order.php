@@ -154,23 +154,27 @@ class M_Order extends CI_Model {
         return true;
     }
 
-    private function get_count() {
+    private function generate_code() {
+        
         $this->init_connection();
-        $result = $this->db->get_where($this->table);
+        
+        $order_code = "ORDER".date("dmy").$_SESSION["uid"];
+        $order_code_like_count = $this->db->like('order_code', $order_code, 'after')->get($this->table);
         $this->db->flush_cache();
-        $result = $result->num_rows();
+        $order_code_like_count = $order_code_like_count->num_rows();
+        $order_code .= sprintf('%03d', $order_code_like_count + 1);
+
         $this->reset_connection();
-        return $result;
+        
+        return $order_code;
     }
 
     public function save() {
 
         $this->init_connection();
 
-        $order_code = "ORDER".date("dmy").sprintf('%03d', $this->get_count() + 1);
-
         $new_data = [
-            "order_code"    => $order_code,
+            "order_code"    => $this->generate_code(),
             "customer"      => $_SESSION["uid"],
             "branch"        => $_SESSION["cart"]->branch,
             "table"         => $_SESSION["cart"]->table,

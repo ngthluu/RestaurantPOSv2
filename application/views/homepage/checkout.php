@@ -39,9 +39,9 @@
                         <div class="d-flex justify-content-between">
                             <p class="price align-self-center item-total"><?= number_format($menu->price * $menuQuantity) ?>đ</p>
                             <div class="d-flex justify-content-end">
-                                <button class="btn-minus btn btn-danger mr-2"><i class="bi bi-dash"></i></button>
-                                <button class="btn-plus btn btn-danger mr-2"><i class="bi bi-plus"></i></button>
-                                <button class="btn-remove btn btn-danger"><i class="bi bi-trash"></i></button>
+                                <button type="button" class="btn-minus btn btn-danger mr-2"><i class="bi bi-dash"></i></button>
+                                <button type="button" class="btn-plus btn btn-danger mr-2"><i class="bi bi-plus"></i></button>
+                                <button type="button" class="btn-remove btn btn-danger"><i class="bi bi-trash"></i></button>
                             </div>
                         </div>
                     </div>
